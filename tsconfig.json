@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"removeComments": false,
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"allowSyntheticDefaultImports": true,
+		"strictNullChecks": true,
+		"noUnusedLocals": true,
+		"noImplicitThis": true,
+		"noImplicitAny": true,
+		"moduleResolution": "node",
+		"noEmitOnError": true,
+		"module": "es6",
+		"target": "es6",
+		"jsx": "react"
+	},
+
+	"formatCodeOptions": {
+		"indentSize": 4,
+		"tabSize": 4
+	}
+}

@@ -1,0 +1,22 @@
+html, body {
+	font-size: var(--font-size-base);
+	line-height: var(--font-line-height);
+	-webkit-tap-highlight-color: transparent;
+	font-family: var(--font-family-sans-serif);
+}
+
+body {
+	background: var(--body-background-color);
+	color: var(--text-color);
+}
+
+a {
+	color: var(--primary-color);
+	outline: none;
+  	text-decoration: none;
+
+	&:active {
+		color: var(--primary-dark-color);
+		text-decoration: underline;
+	}
+}

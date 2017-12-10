@@ -1,0 +1,60 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: inherit;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1.1rem;
+}
+
+p {
+	font-size: var(--font-size-base);
+	margin: 0 var(--element-padding);
+}
+
+// Semantic text elements
+a,
+ins,
+u {
+    text-decoration-skip: ink edges;
+}
+
+abbr[title] {
+    border-bottom: var(--border-base-width) dotted;
+    cursor: help;
+    text-decoration: none;
+}
+
+blockquote {
+    border-left: calc(var(--border-base-width) * 3) solid var(--border-base-color);
+    padding: 8px 16px;
+    cite {
+        //TODO: Set this color
+        color: #e9e9e9;
+    }
+}

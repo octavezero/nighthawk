@@ -1,0 +1,36 @@
+/*
+Base Textbox Class. Every Other input derives from it.
+*/
+
+.textbox {
+    background: var(--body-background-color);
+    background-image: none;
+    border: var(--border-base-width) var(--border-base-style) var(--border-base-color);
+    border-radius: var(--border-base-radius);
+    color: var(--text-color);
+    font-size: var(--font-size-base);
+    line-height: var(--font-line-height);
+	height: calc(var(--element-height) - calc(var(--border-base-width) * 2));
+	display: flex;
+	
+	margin: 0px var(--element-margin);
+
+    width: 100%;
+    outline: none;
+    padding: 0px calc(var(--element-padding)*2);
+
+    &:focus {
+        border-color: var(--primary-base-color);
+        //@include control-shadow(var(--primary-light-color));
+    }
+
+    &::placeholder {
+        color: var(--border-base-color);
+    } // Textarea
+    &.textarea {
+        height: auto;
+    } // File Input
+    &[type="file"] {
+        height: auto;
+    }
+}
