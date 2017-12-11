@@ -1,6 +1,10 @@
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, NativeImage, nativeImage } from 'electron';
 import * as Positioner from 'electron-positioner';
 import TrayManager from './tray';
+
+import * as winIcon from '../../static/logo/logo.ico';
+import * as macIcon from '../../static/logo/logo.icns';
+import * as defaultIcon from '../../static/logo/logo.png';
 
 export default class WindowManager {
 	window: Electron.BrowserWindow;
@@ -13,9 +17,24 @@ export default class WindowManager {
 		this.positioner = new Positioner(this.window);
 	}
 
+	returnIcon(): NativeImage {
+		if (process.platform == 'win32') {
+			return nativeImage.createFromPath(winIcon);
+		} else if (process.platform == 'darwin') {
+			return nativeImage.createFromPath(macIcon);
+		} else {
+			return nativeImage.createFromPath(defaultIcon);
+		}
+	}
+
 	createMainWindow() {
 		// Construct new BrowserWindow
-		let win: BrowserWindow = new BrowserWindow({ minHeight: 671, minWidth: 1192, height: 671, width: 1192, show: false, frame: false });
+		let win: BrowserWindow = new BrowserWindow({
+			minHeight: 671,	minWidth: 1192,
+			height: 671, width: 1192,
+			icon: this.returnIcon(),
+			show: false, frame: false
+		});
 
 		// Set url for `win`
 		// points to `webpack-dev-server` in development

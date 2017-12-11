@@ -35,7 +35,7 @@ let main = {
 				loader: "source-map-loader"
 			},
 			{
-				test: /\.(jpg|png|svg|ico)$/,
+				test: /\.(jpg|png|svg|ico|icns)$/,
 				loader: 'file-loader',
 				options: {
 					name: '[path][name].[ext]',
@@ -93,7 +93,7 @@ let renderer = {
 				loader: "source-map-loader"
 			},
 			{
-				test: /\.(jpg|png|svg|ico)$/,
+				test: /\.(jpg|png|svg|ico|icns)$/,
 				loader: 'file-loader',
 				options: {
 					name: '[path][name].[ext]',
