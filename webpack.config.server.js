@@ -7,7 +7,8 @@ const exp = require('./webpack.config.base');
 
 module.exports = merge({
 	entry: [
-		"react-hot-loader/patch",
+		//Temporarily Disabled due to a nasty arrow function bug. Will be enabled once it is fixed in the next version.
+		//"react-hot-loader/patch",
 
 		'webpack-dev-server/client?http://localhost:3000',
 		// bundle the client for webpack-dev-server
