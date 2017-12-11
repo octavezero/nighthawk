@@ -1,0 +1,36 @@
+.player {
+	display: grid;
+	grid-template-columns: 95px auto;
+	grid-template-rows: 50px 50px;
+	grid-template-areas: "player-art player-details" "player-art player-controls"; 
+
+	box-shadow: 0 2px 5px rgba(0,0,0,0.16);
+}
+
+.player-art {
+	grid-area: player-art;
+	background-color: var(--primary-color); 
+
+	.album-art {
+		margin-top: 5px;
+	}
+}
+
+.player-details {
+	grid-area: player-details;
+	padding-left: 25px;
+	background-color: var(--primary-color);
+	color: var(--primary-text-color);
+	display: flex;
+	justify-content: flex-start;
+	align-items: baseline;
+
+	.text-element {
+		margin: 15px 10px 0px;
+	}
+}
+
+.player-controls {
+	grid-area: player-controls;
+	background-color: var(--grey-light-color);
+}

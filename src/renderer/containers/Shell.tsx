@@ -1,3 +1,4 @@
+import Player from './Player';
 import * as React from 'react';
 
 import Titlebar from './Titlebar';
@@ -23,6 +24,7 @@ export default class Shell extends React.Component<ShellProps, ShellState> {
 		return (
 			<>
 				<Titlebar />
+				<Player />
 			</>
 		);
 	}
