@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ButtonGroup } from '../common/ButtonGroup';
 import { Button } from '../common/Button';
 import Slider from '../common/Slider';
+import { Icon } from '../common/Icon';
 
 export interface PlayerControlsProps {
 }
@@ -22,13 +23,13 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 			<div className='player-controls'>
 				<ButtonGroup>
 					<Button type='default' icon={true}>
-						<i className='mdi mdi-24px mdi-skip-previous'></i>
+						<Icon size='24' icon='skip-previous' />
 					</Button>
 					<Button type='default' icon={true}>
-						<i className='mdi mdi-24px mdi-play'></i>
+						<Icon size='24' icon='play' />
 					</Button>
 					<Button type='default' icon={true}>
-						<i className='mdi mdi-24px mdi-skip-next'></i>
+						<Icon size='24' icon='skip-next' />
 					</Button>
 				</ButtonGroup>
 				<div className='seekbar'>
@@ -36,15 +37,15 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 				</div>
 				<ButtonGroup>
 					<Button type='default' icon={true}>
-						<i className='mdi mdi-21px mdi-shuffle'></i>
+						<Icon size='21' icon='shuffle' />
 					</Button>
 					<Button type='default' icon={true}>
-						<i className='mdi mdi-21px mdi-repeat'></i>
+						<Icon size='21' icon='repeat' />
 					</Button>
 				</ButtonGroup>
 				<div className='volume'>
 					<Button type='default' icon={true}>
-						<i className='mdi mdi-21px mdi-volume-high'></i>
+						<Icon size='21' icon='volume-high' />
 					</Button>
 					<Slider />
 				</div>

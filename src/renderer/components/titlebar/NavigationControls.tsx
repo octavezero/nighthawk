@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ButtonGroup } from '../common/ButtonGroup';
 import { Button } from '../common/Button';
+import { Icon } from '../common/Icon';
 
 export interface NavigationControlsProps {
 }
@@ -14,10 +15,10 @@ export default class NavigationControls extends React.Component<NavigationContro
 		return (
 			<ButtonGroup>
 				<Button type='primary' icon={true}>
-					<i className='mdi mdi-18px mdi-arrow-left'></i>
+					<Icon size='18' icon='arrow-left' />
 				</Button>
 				<Button type='primary' icon={true}>
-					<i className='mdi mdi-18px mdi-arrow-right'></i>
+					<Icon size='18' icon='arrow-right' />
 				</Button>
 			</ButtonGroup>
 		);
