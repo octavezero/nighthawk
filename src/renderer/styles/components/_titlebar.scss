@@ -9,4 +9,13 @@
 
 	display: flex;
 	justify-content: space-between;
+
+	.btn-menu {
+		width: 85px;
+		font-size: calc(var(--font-size-lg));
+
+		.mdi {
+			margin-right: 5px;
+		}
+	}
 }

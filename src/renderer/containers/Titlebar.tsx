@@ -1,7 +1,8 @@
+import { Button } from '../components/common/Button';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
-import NavigationControls from '../components/titlebar/NavigationControls';
 import WindowControls from '../components/titlebar/WindowControls';
+import { Icon } from '../components/common/Icon';
 
 export interface TitleBarProps {
 }
@@ -28,7 +29,9 @@ export default class Titlebar extends React.Component<TitleBarProps, TitleBarSta
 	render() {
 		return (
 			<div className='titlebar'>
-				<NavigationControls />
+				<Button type='primary' className='btn-menu'>
+					<Icon size='24' icon='menu' /> Menu
+				</Button>
 				<WindowControls handleQuit={this.handleQuit} handleMinimize={this.handleMinimize}/>
 			</div>
 		);
