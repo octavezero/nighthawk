@@ -1,13 +1,14 @@
-import { Button } from '../components/common/Button';
 import * as React from 'react';
 import { ipcRenderer } from 'electron';
 import WindowControls from '../components/titlebar/WindowControls';
-import { Icon } from '../components/common/Icon';
+import Settings from './Settings';
+import MenuBar from '../components/titlebar/MenuBar';
 
 export interface TitleBarProps {
 }
 
 export interface TitleBarState {
+	showSettings: boolean;
 }
 
 export default class Titlebar extends React.Component<TitleBarProps, TitleBarState> {
@@ -15,6 +16,7 @@ export default class Titlebar extends React.Component<TitleBarProps, TitleBarSta
 		super(props);
 
 		this.state = {
+			showSettings: false
 		};
 	}
 
@@ -26,12 +28,15 @@ export default class Titlebar extends React.Component<TitleBarProps, TitleBarSta
 		ipcRenderer.send('window-minimize');
 	}
 
+	showSettingsDialog = () => {
+		this.setState({ showSettings: true });
+	}
+
 	render() {
 		return (
 			<div className='titlebar'>
-				<Button type='primary' className='btn-menu'>
-					<Icon size='24' icon='menu' /> Menu
-				</Button>
+				<MenuBar showSettingsDialog={this.showSettingsDialog}/>
+				<Settings isActive={this.state.showSettings} />
 				<WindowControls handleQuit={this.handleQuit} handleMinimize={this.handleMinimize}/>
 			</div>
 		);

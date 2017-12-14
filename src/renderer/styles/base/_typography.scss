@@ -5,7 +5,8 @@ h4,
 h5,
 h6 {
     color: inherit;
-    font-weight: 500;
+	font-weight: 500;
+	margin: var(--element-padding);
 }
 
 h1 {

@@ -2,6 +2,9 @@
 Base Button Style. This is the default button style. All other buttons extend this base style.
 */
 .btn {
+	//Font Family not inherited from parents. Hack.
+	font-family: inherit;
+	line-height: inherit;
     border: var(--border-base-width) var(--border-base-style) transparent;
     outline: none;
     display: inline-flex;

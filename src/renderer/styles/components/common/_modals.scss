@@ -1,0 +1,70 @@
+// Modals
+.modal {
+	align-items: center;
+	bottom: 0;
+	display: none;
+	justify-content: center;
+	left: 0;
+	opacity: 0;
+	overflow: hidden;
+	padding: var(--element-padding);
+	position: fixed;
+	right: 0;
+	top: 0;
+
+	&.active {
+		display: flex;
+		opacity: 1;
+		z-index: 999;
+
+		.modal-overlay {
+			background: var(--overlay-color);
+			bottom: 0;
+			cursor: default;
+			display: block;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		.modal-container {
+			max-width: 50vw;
+			width: 100%;
+			z-index: 999;
+		}
+	}
+}
+
+.modal-container {
+	background-color: var(--body-background-color);
+	color: var(--text-color);
+	border-radius: var(--border-base-radius);
+	display: flex;
+	flex-direction: column;
+
+	box-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+
+	.modal-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		padding: calc(var(--element-padding)*3) calc(var(--element-padding)*2);
+
+		h5 {
+			font-weight: 600;
+		}
+	}
+
+	.modal-body {
+		max-height: 50vh;
+		overflow-y: auto;
+		padding: 0px;
+	}
+
+	.modal-footer {
+		display: flex;
+		justify-content: flex-end;
+		padding: calc(var(--element-padding)*3) calc(var(--element-padding)*2);
+	}
+}

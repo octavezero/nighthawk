@@ -3,6 +3,9 @@ Base Textbox Class. Every Other input derives from it.
 */
 
 .textbox {
+	//Font Family not inherited from parents. Hack.
+	font-family: inherit;
+	line-height: inherit;
     background: var(--body-background-color);
     background-image: none;
     border: var(--border-base-width) var(--border-base-style) var(--border-base-color);
@@ -13,14 +16,15 @@ Base Textbox Class. Every Other input derives from it.
 	height: calc(var(--element-height) - calc(var(--border-base-width) * 2));
 	display: flex;
 	
-	margin: 0px var(--element-margin);
+	margin: var(--element-margin) 0px;
 
-    width: 100%;
+	width: 100%;
+	box-sizing: border-box;
     outline: none;
-    padding: 0px calc(var(--element-padding)*2);
+    padding: 0px calc(var(--element-padding));
 
     &:focus {
-        border-color: var(--primary-base-color);
+        border-color: var(--primary-color);
         //@include control-shadow(var(--primary-light-color));
     }
 

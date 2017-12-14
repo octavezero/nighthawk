@@ -23,13 +23,13 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 			<div className='player-controls'>
 				<ButtonGroup>
 					<Button type='default' icon={true}>
-						<Icon size='24' icon='skip-previous' />
+						<Icon size='21' icon='skip-previous' />
 					</Button>
 					<Button type='default' icon={true}>
-						<Icon size='24' icon='play' />
+						<Icon size='21' icon='play' />
 					</Button>
 					<Button type='default' icon={true}>
-						<Icon size='24' icon='skip-next' />
+						<Icon size='21' icon='skip-next' />
 					</Button>
 				</ButtonGroup>
 				<div className='seekbar'>
