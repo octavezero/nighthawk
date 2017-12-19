@@ -3,7 +3,15 @@ import { Textbox } from '../common/Textbox';
 import { Button } from '../common/Button';
 import { ButtonGroup } from '../common/ButtonGroup';
 
-export interface LibrarySettingsProps {}
+import * as SettingsActions from '../../actions/SettingsActions';
+
+import { remote } from 'electron';
+import { LibrarySettingsModel } from '../../models/LibrarySettingsModel';
+const { dialog } = remote;
+
+export interface LibrarySettingsProps {
+	library: LibrarySettingsModel;
+}
 
 export interface LibrarySettingsState {}
 
@@ -14,14 +22,18 @@ export default class LibrarySettings extends React.Component<LibrarySettingsProp
 		this.state = {};
 	}
 
+	handlePathSelect = () => {
+		let path = dialog.showOpenDialog({title: 'Select Music Library Folder', properties: ['openDirectory'] });
+		SettingsActions.saveLibrarySettings({ path: path[0] });
+	}
+
 	render() {
 		return (
 			<div className='library-settings'>
 				<label>Library Path</label>
-				<Textbox></Textbox>
+				<Textbox onClick={this.handlePathSelect} value={this.props.library.path} readOnly={true}></Textbox>
 				<ButtonGroup className='library-settings-group'>
-					<Button type='primary'>Save and Refresh Library</Button>
-					<Button type='default'>Discard Changes</Button>
+					<Button type='primary'>Refresh Library Now</Button>
 				</ButtonGroup>
 			</div>
 		);

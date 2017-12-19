@@ -1,5 +1,6 @@
 import Player from './Player';
 import * as React from 'react';
+import * as AppActions from '../actions/AppActions';
 
 import Titlebar from './Titlebar';
 
@@ -18,6 +19,11 @@ export default class Shell extends React.Component<ShellProps, ShellState> {
 
 		this.state = {
 		};
+	}
+
+	componentDidMount() {
+		// All the states that require database or IO are initialized here
+		AppActions.init();
 	}
 
 	render() {

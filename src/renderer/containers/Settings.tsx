@@ -1,7 +1,9 @@
+import { LibrarySettingsModel } from '../models/LibrarySettingsModel';
 import * as React from 'react';
 import { Modal } from '../components/common/Modal';
 import { TabBar } from '../components/common/TabBar';
 import LibrarySettings from '../components/settings/LibrarySettings';
+import { backendDispatcher } from '../dispatchers/backendDispatcher';
 
 enum TabItemsOrder {
 	Library,
@@ -14,6 +16,7 @@ export interface SettingsProps {
 
 export interface SettingsState {
 	activeTabIndex: TabItemsOrder;
+	library: LibrarySettingsModel;
 }
 
 export default class Settings extends React.Component<SettingsProps, SettingsState> {
@@ -21,7 +24,9 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 		super(props);
 
 		this.state = {
-			activeTabIndex: TabItemsOrder.Library
+			activeTabIndex: TabItemsOrder.Library,
+			//Stuff blank Data. Will be initialized with correct data when mounted.
+			library: { path: '' }
 		};
 	}
 
@@ -29,20 +34,35 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 		this.setState({ activeTabIndex: index });
 	}
 
+	updateLibrarySettings = (library: LibrarySettingsModel) => {
+		this.setState({library: library});
+	}
+
+	initSettings = (settings: any[]) => {
+		//to be changed as per new tables
+		this.setState({library: settings[0]});
+	}
+
 	renderActiveTabItem() {
 		switch (this.state.activeTabIndex) {
 			case TabItemsOrder.Library: {
-				return (
-					<LibrarySettings />
-				);
+				return <LibrarySettings library={this.state.library} />;
 			}
 
 			case TabItemsOrder.System: {
-				return (
-					<div />
-				);
+				return <div />;
 			}
 		}
+	}
+
+	componentDidMount() {
+		backendDispatcher.addListener('UPDATE_SETTINGS_LIBRARY', this.updateLibrarySettings);
+		backendDispatcher.addListener('INIT_SETTINGS', this.initSettings);
+	}
+
+	componentWillUnmount() {
+		backendDispatcher.removeListener('UPDATE_SETTINGS_LIBRARY', this.updateLibrarySettings);
+		backendDispatcher.addListener('INIT_SETTINGS', this.initSettings);
 	}
 
 	render() {

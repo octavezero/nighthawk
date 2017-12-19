@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "dexie": "^2.0.1",
     "electron-positioner": "^3.0.0",
     "mdi": "^2.0.46",
     "react": "^16.2.0",
