@@ -10,13 +10,13 @@ export default class IpcManager {
 	}
 
 	activeAppEvents() {
-		ipcMain.on('app-quit', () => {
+		ipcMain.on('APP_QUIT', () => {
 			app.quit();
 		});
 	}
 
 	activateWindowEvents() {
-		ipcMain.on('window-minimize', () => {
+		ipcMain.on('WINDOW_MINIMIZE', () => {
 			this.windowManager.hideWindow();
 		});
 	}

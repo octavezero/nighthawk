@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { ipcRenderer } from 'electron';
 import WindowControls from '../components/titlebar/WindowControls';
 import Settings from './Settings';
 import MenuBar from '../components/titlebar/MenuBar';
+
+import * as AppActions from '../actions/AppActions';
 
 export interface TitleBarProps {
 }
@@ -21,11 +22,11 @@ export default class Titlebar extends React.Component<TitleBarProps, TitleBarSta
 	}
 
 	handleQuit = () => {
-		ipcRenderer.send('app-quit');
+		AppActions.quitApp();
 	}
 
 	handleMinimize = () => {
-		ipcRenderer.send('window-minimize');
+		AppActions.minimizeWindow();
 	}
 
 	showSettingsDialog = () => {
