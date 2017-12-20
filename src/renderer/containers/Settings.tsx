@@ -62,7 +62,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 
 	componentWillUnmount() {
 		backendDispatcher.removeListener('UPDATE_SETTINGS_LIBRARY', this.updateLibrarySettings);
-		backendDispatcher.addListener('INIT_SETTINGS', this.initSettings);
+		backendDispatcher.removeListener('INIT_SETTINGS', this.initSettings);
 	}
 
 	render() {
