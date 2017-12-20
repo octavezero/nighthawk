@@ -28,3 +28,10 @@ export const refreshLibrarySettings = () => {
 		backendDispatcher.emit('UPDATE_SETTINGS_LIBRARY', settings);
 	});
 };
+
+export const getLibrarySetting = async (key: string) => {
+	let settings = await db.library.where('id').equals(1).first();
+
+	//To bypass the strictNullCheck because the db will always contain a non null key
+	return settings == undefined ? '' : settings[key];
+};

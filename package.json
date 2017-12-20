@@ -19,6 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/classnames": "^2.2.3",
+    "@types/fs-extra": "^5.0.0",
     "@types/react": "^16.0.28",
     "@types/react-dom": "^16.0.3",
     "@types/react-hot-loader": "^3.0.5",
@@ -45,7 +46,9 @@
     "classnames": "^2.2.5",
     "dexie": "^2.0.1",
     "electron-positioner": "^3.0.0",
+    "fs-extra": "^5.0.0",
     "mdi": "^2.0.46",
+    "music-metadata": "^0.8.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
