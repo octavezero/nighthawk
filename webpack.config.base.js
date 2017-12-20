@@ -21,6 +21,10 @@ let main = {
 		__filename: false
 	},
 
+	plugins: [
+		new webpack.IgnorePlugin(/vertx/)
+	],
+
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
 		extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".json"]
@@ -82,6 +86,7 @@ let renderer = {
 			chunksSortMode: 'dependency',
 			template: path.resolve(__dirname, './src/renderer/index.html')
 		}),
+		new webpack.IgnorePlugin(/vertx/)
 	],
 
 	module: {
