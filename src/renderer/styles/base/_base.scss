@@ -3,6 +3,11 @@ html, body {
 	line-height: var(--font-line-height);
 	-webkit-tap-highlight-color: transparent;
 	font-family: var(--font-family-sans-serif);
+
+	height: 100vh;
+	max-height: 100vh;
+	
+	overflow: hidden;
 }
 
 body {

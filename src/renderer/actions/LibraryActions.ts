@@ -5,8 +5,17 @@ import * as path from 'path';
 import * as SettingsAction from './SettingsActions';
 import TrackModel from '../models/TrackModel';
 import TracksDatabase from '../models/TracksDatabase';
+import { backendDispatcher } from '../dispatchers/backendDispatcher';
 
 const db: TracksDatabase = new TracksDatabase('tracks');
+
+export const init = () => {
+	db.tracks.toArray().then( tracks => {
+		backendDispatcher.emit('INIT_LIBRARY', tracks);
+	}).catch(error => {
+		console.log(error);
+	});
+};
 
 export const refreshLibrary = async () => {
 	// Grab the library Path
@@ -24,6 +33,7 @@ export const refreshLibrary = async () => {
 	let tracks: TrackModel[] = await Promise.all(files.map(async (value, index) => {
 		let fullpath = path.join(libpath, value);
 		let data: mm.IAudioMetadata = await mm.parseFile(fullpath, { skipCovers: true });
+		data.format.duration = data.format.duration !== undefined ? Math.floor(data.format.duration) : undefined;
 		return { id: index, source: fullpath, common: data.common, format: data.format};
 	}));
 
@@ -36,4 +46,6 @@ export const refreshLibrary = async () => {
 			db.tracks.add(tracks[i]);
 		}
 	});
+
+	backendDispatcher.emit('REFRESH_LIBRARY', tracks);
 };

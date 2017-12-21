@@ -3,6 +3,7 @@ import * as React from 'react';
 import * as AppActions from '../actions/AppActions';
 
 import Titlebar from './Titlebar';
+import Library from './Library';
 
 //imports stylesheet
 import '../styles/app.scss';
@@ -31,6 +32,7 @@ export default class Shell extends React.Component<ShellProps, ShellState> {
 			<>
 				<Titlebar />
 				<Player />
+				<Library />
 			</>
 		);
 	}

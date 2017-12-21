@@ -4,6 +4,7 @@ import { Button } from '../common/Button';
 import { ButtonGroup } from '../common/ButtonGroup';
 
 import * as SettingsActions from '../../actions/SettingsActions';
+import * as LibraryActions from '../../actions/LibraryActions';
 
 import { remote } from 'electron';
 import { LibrarySettingsModel } from '../../models/LibrarySettingsModel';
@@ -27,13 +28,17 @@ export default class LibrarySettings extends React.Component<LibrarySettingsProp
 		SettingsActions.saveLibrarySettings({ path: path[0] });
 	}
 
+	handleRefreshLibraryNow = () => {
+		LibraryActions.refreshLibrary();
+	}
+
 	render() {
 		return (
 			<div className='library-settings'>
 				<label>Library Path</label>
 				<Textbox onClick={this.handlePathSelect} value={this.props.library.path} readOnly={true}></Textbox>
 				<ButtonGroup className='library-settings-group'>
-					<Button type='primary'>Refresh Library Now</Button>
+					<Button type='primary' onClick={this.handleRefreshLibraryNow}>Refresh Library Now</Button>
 				</ButtonGroup>
 			</div>
 		);

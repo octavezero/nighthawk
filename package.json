@@ -23,6 +23,7 @@
     "@types/react": "^16.0.28",
     "@types/react-dom": "^16.0.3",
     "@types/react-hot-loader": "^3.0.5",
+    "@types/react-virtualized": "^9.7.9",
     "@types/webpack-env": "^1.13.3",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
@@ -50,6 +51,7 @@
     "mdi": "^2.0.46",
     "music-metadata": "^0.8.7",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-virtualized": "^9.14.1"
   }
 }

@@ -5,6 +5,8 @@
 	grid-template-areas: "player-art player-details" "player-art player-controls"; 
 
 	box-shadow: 0 2px 5px rgba(0,0,0,0.16);
+
+	z-index: 9;
 }
 
 .player-art {
