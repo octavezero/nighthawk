@@ -7,9 +7,15 @@ export interface SliderProps {
 	value?: number;
 	step?: number;
 	position?: string;
+	readonly onChange: (value: number) => void;
 }
 
-class Slider extends React.Component<SliderProps, any> {
+interface SliderState {
+	value: number;
+	displayValue: number;
+}
+
+class Slider extends React.Component<SliderProps, SliderState> {
 	public static defaultProps: Partial<SliderProps> = {
 		step: 1,
 		min: 0,
@@ -22,7 +28,7 @@ class Slider extends React.Component<SliderProps, any> {
 		super(props);
 
 		this.state = {
-			value: this.props.value,
+			value: this.props.value!,
 			displayValue: this.roundValue(((this.props.value! - this.props.min!) / (this.props.max! - this.props.min!)) * 100)
 		};
 	}
@@ -39,12 +45,20 @@ class Slider extends React.Component<SliderProps, any> {
 	handleTrackClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		let val = (e.nativeEvent.offsetX / e.currentTarget.clientWidth) * 100;
 
-		this.setState({ displayValue: this.roundValue(val) });
-		this.setState({ value: this.roundActualValue(val) });
+		//this.setState({ displayValue: this.roundValue(val) });
+		//this.setState({ value: this.roundActualValue(val) });
+		this.props.onChange(this.roundActualValue(val));
 	}
 
 	handleThumbClick = (e: any) => {
 		e.stopPropagation();
+	}
+
+	componentWillReceiveProps(nextProps: SliderProps) {
+		this.setState({
+			value: nextProps.value!,
+			displayValue: this.roundValue(((nextProps.value! - nextProps.min!) / (nextProps.max! - nextProps.min!)) * 100)
+		});
 	}
 
 	render() {

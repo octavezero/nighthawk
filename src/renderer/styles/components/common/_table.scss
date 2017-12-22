@@ -37,6 +37,11 @@
 		border-top-width: var(--border-base-width);
 		background-color: var(--grey-light-color);
 	}
+
+	&:active {
+		background-color: var(--primary-color);
+		color: var(--primary-text-color);
+	}
 }
 
 .ReactVirtualized__Table__headerTruncatedText {
