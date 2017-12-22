@@ -33,7 +33,9 @@ export default class WindowManager {
 			minHeight: 671,	minWidth: 1192,
 			height: 671, width: 1192,
 			icon: this.returnIcon(),
-			show: false, frame: false
+			show: false, frame: false,
+			// This disables webSecurity during Development Mode. Prevents Audio src errors. Refer Electron Docs for more.
+			webPreferences: { webSecurity: this.isDevelopment === true ? false : true }
 		});
 
 		// Set url for `win`
