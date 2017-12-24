@@ -48,6 +48,7 @@
     "dexie": "^2.0.1",
     "electron-positioner": "^3.0.0",
     "fs-extra": "^5.0.0",
+    "immutable": "^4.0.0-rc.9",
     "mdi": "^2.0.46",
     "music-metadata": "^0.8.7",
     "react": "^16.2.0",

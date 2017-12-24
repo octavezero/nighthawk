@@ -2,12 +2,13 @@ import * as React from 'react';
 import TrackModel from '../models/TrackModel';
 import { backendDispatcher } from '../dispatchers/backendDispatcher';
 import Songs from '../components/library/Songs';
+import { List } from 'immutable';
 
 export interface LibraryProps {
 }
 
 export interface LibraryState {
-	tracks: TrackModel[];
+	tracks: List<TrackModel>;
 }
 
 export default class Library extends React.Component<LibraryProps, LibraryState> {
@@ -15,15 +16,15 @@ export default class Library extends React.Component<LibraryProps, LibraryState>
 		super(props);
 
 		this.state = {
-			tracks: []
+			tracks: List()
 		};
 	}
 
-	initLibrary = (tracks: TrackModel[]) => {
+	initLibrary = (tracks: List<TrackModel>) => {
 		this.setState({ tracks: tracks });
 	}
 
-	refreshLibrary = (tracks: TrackModel[]) => {
+	refreshLibrary = (tracks: List<TrackModel>) => {
 		this.setState({ tracks: tracks });
 	}
 
@@ -37,18 +38,10 @@ export default class Library extends React.Component<LibraryProps, LibraryState>
 		backendDispatcher.removeListener('REFRESH_LIBRARY', this.refreshLibrary);
 	}
 
-	renderSongs = () => {
-		if (Array.isArray(this.state.tracks) && this.state.tracks.length) {
-			return <Songs tracks={this.state.tracks}/>;
-		} else {
-			return <div></div>;
-		}
-	}
-
 	render() {
 		return (
 			<div className='library'>
-				{ this.renderSongs() }
+				<Songs tracks={this.state.tracks}/>
 			</div>
 		);
 	}

@@ -1,6 +1,7 @@
 import * as fs from 'fs-extra';
 import * as mm from 'music-metadata';
 import * as path from 'path';
+import { List } from 'immutable';
 
 import * as SettingsAction from './SettingsActions';
 import TrackModel from '../models/TrackModel';
@@ -11,7 +12,7 @@ const db: TracksDatabase = new TracksDatabase('tracks');
 
 export const init = () => {
 	db.tracks.toArray().then( tracks => {
-		backendDispatcher.emit('INIT_LIBRARY', tracks);
+		backendDispatcher.emit('INIT_LIBRARY', List(tracks));
 	}).catch(error => {
 		console.log(error);
 	});
@@ -47,5 +48,7 @@ export const refreshLibrary = async () => {
 		}
 	});
 
-	backendDispatcher.emit('REFRESH_LIBRARY', tracks);
+	let tracksList = List(tracks);
+
+	backendDispatcher.emit('REFRESH_LIBRARY', tracksList);
 };

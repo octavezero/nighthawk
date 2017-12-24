@@ -6,13 +6,14 @@ import { Table, Column, RowMouseEventHandlerParams } from 'react-virtualized/dis
 
 import * as TimeUtils from '../../utilities/TimeUtils';
 import { playerDispatcher } from '../../dispatchers/playerDispatcher';
+import { List } from 'immutable';
 
 export interface SongsProps {
-	tracks: TrackModel[];
+	tracks: List<TrackModel>;
 }
 
 interface SongsState {
-
+	tracks: List<TrackModel>;
 }
 
 export default class Songs extends React.Component<SongsProps, SongsState> {
@@ -20,16 +21,21 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 		super(props);
 
 		this.state = {
+			tracks: props.tracks
 		};
 	}
 
 	rowGetter = ({ index }: {index: number}) => {
-		return this.props.tracks[index];
+		return this.state.tracks.get(index);
 	}
 
 	refreshQueue = (info: RowMouseEventHandlerParams) => {
 		//Uses es6 Destructing Assignment
-		playerDispatcher.emit('REFRESH_QUEUE', [...this.props.tracks], info.index);
+		playerDispatcher.emit('REFRESH_QUEUE', this.state.tracks, info.index);
+	}
+
+	componentWillReceiveProps(nextProps: SongsProps) {
+		this.setState({ tracks: nextProps.tracks });
 	}
 
 	render() {
@@ -39,8 +45,8 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 					<Table
 						headerHeight={40}
 						height={height}
-						rowCount={this.props.tracks.length}
-						rowGetter={({ index }: {index: number}) => this.props.tracks[index]}
+						rowCount={this.state.tracks.count()}
+						rowGetter={this.rowGetter}
 						rowHeight={40}
 						width={width}
 						onRowDoubleClick={this.refreshQueue}

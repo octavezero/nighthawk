@@ -3,12 +3,13 @@ import SongDetails from '../components/player/SongDetails';
 import * as React from 'react';
 import TrackModel from '../models/TrackModel';
 import { playerDispatcher } from '../dispatchers/playerDispatcher';
+import { List } from 'immutable';
 
 export interface PlayerProps {
 }
 
 export interface PlayerState {
-	queue: TrackModel[];
+	queue: List<TrackModel>;
 	queueCursor: number;
 	currentTrack: TrackModel | undefined;
 }
@@ -26,7 +27,7 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		super(props);
 
 		this.state = {
-			queue: [],
+			queue: List(),
 			queueCursor: -2,
 			currentTrack: undefined
 		};
@@ -35,9 +36,9 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 	/*
 		The Queue Control Functions
 	*/
-	refreshQueue = (queue: TrackModel[], playIndex: number) => {
+	refreshQueue = (queue: List<TrackModel>, playIndex: number = 0) => {
 		//TODO: Implement Current Track Logic.
-		this.setState({ queue: queue, queueCursor: playIndex, currentTrack: queue[playIndex] });
+		this.setState({ queue: queue, queueCursor: playIndex, currentTrack: queue.get(playIndex) });
 	}
 
 	nextTrack = () => {
@@ -46,11 +47,11 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		}
 
 		let cursor: number = this.state.queueCursor + 1;
-		if (cursor === this.state.queue.length) {
+		if (cursor === this.state.queue.count()) {
 			//start queue from beginning
 			cursor = 0;
 		}
-		this.setState({ currentTrack: this.state.queue[cursor], queueCursor: cursor });
+		this.setState({ currentTrack: this.state.queue.get(cursor), queueCursor: cursor });
 	}
 
 	prevTrack = () => {
@@ -61,9 +62,9 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		let cursor: number = this.state.queueCursor - 1;
 		if (cursor === -1) {
 			//start queue from end
-			cursor = this.state.queue.length - 1;
+			cursor = this.state.queue.count() - 1;
 		}
-		this.setState({ currentTrack: this.state.queue[cursor], queueCursor: cursor });
+		this.setState({ currentTrack: this.state.queue.get(cursor), queueCursor: cursor });
 	}
 
 	/*
