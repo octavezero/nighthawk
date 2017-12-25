@@ -63,19 +63,17 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 	*/
 	handleSkipPrevious = () => {
 		if (this.state.repeatMode === 'repeat-once') {
-			PlayerControls.audio.load();
-			this.playAudio();
+			this.replayAudio();
 			return;
 		}
 
-		//TODO: Apply Threshold Logic here
-		this.props.prevTrack();
+		//Sets audio duration threshhold. If current duration is less than 15 sec, repeat song.
+		this.state.currentSongDuration < 15 ? this.props.prevTrack() : this.replayAudio();
 	}
 
 	handleSkipNext = () => {
 		if (this.state.repeatMode === 'repeat-once') {
-			PlayerControls.audio.load();
-			this.playAudio();
+			this.replayAudio();
 			return;
 		}
 
@@ -120,6 +118,11 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 		this.setState({isMuted: false, muteButtonIcon: 'volume-high'});
 	}
 
+	replayAudio = () => {
+		PlayerControls.audio.load();
+		this.playAudio();
+	}
+
 	playAudio = () => {
 		PlayerControls.audio.play();
 		this.setState({isPlaying: true, playButtonIcon: 'pause'});
@@ -146,10 +149,9 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 			return;
 		}
 
-		// TODO: Perform replacement of track here.
+		// Track Replaced here with new track
 		PlayerControls.audio.src = nextProps.currentTrack.source;
-		PlayerControls.audio.load();
-		this.playAudio();
+		this.replayAudio();
 	}
 
 	componentDidMount() {

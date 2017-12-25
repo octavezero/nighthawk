@@ -27,9 +27,11 @@ export default class SongDetails extends React.Component<SongDetailsProps, any> 
 					<img className='album-art' src={this.props.albumart} />
 				</div>
 				<div className='player-details'>
-					<h3 className='text-element'>{this.props.title}</h3>
-					<h5 className='text-element'>{this.props.album}</h5>
+					<h4 className='text-element'>{this.props.title}</h4>
+					<h6 className='text-element'> by </h6>
 					<h5 className='text-element'>{this.props.artist}</h5>
+					<h6 className='text-element'> on </h6>
+					<h5 className='text-element'>{this.props.album}</h5>
 				</div>
 			</>
 		);

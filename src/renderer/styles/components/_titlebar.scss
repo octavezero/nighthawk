@@ -8,4 +8,8 @@
 
 	display: flex;
 	justify-content: space-between;
+
+	.menu-header-btn {
+		min-width: 80px;
+	}
 }

@@ -8,7 +8,7 @@ export default class MenuBar extends React.Component<MenuBarProps, any> {
 	render() {
 		return (
 			<Menu>
-				<MenuHeader>
+				<MenuHeader headerClass='menu-header-btn'>
 					<MenuItem onClick={this.props.showSettingsDialog}>Preferences</MenuItem>
 				</MenuHeader>
 			</Menu>

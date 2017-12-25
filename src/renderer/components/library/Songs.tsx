@@ -88,7 +88,7 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 						height={height}
 						rowCount={this.state.tracks.count()}
 						rowGetter={this.rowGetter}
-						rowHeight={40}
+						rowHeight={32}
 						width={width}
 						onRowDoubleClick={this.refreshQueue}
 						sort={this.handleTableSort}
@@ -99,24 +99,24 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 							label='Name'
 							cellDataGetter={({ rowData }: {rowData: TrackModel}) => rowData.common.title}
 							dataKey='title'
-							width={400} />
+							width={width / 3} />
 						<Column
 							label='Artist'
 							cellDataGetter={({ rowData }: {rowData: TrackModel}) => rowData.common.artist}
 							dataKey='artist'
-							width={250} />
+							width={width / 4} />
 						<Column
 							label='Album'
 							cellDataGetter={({ rowData }: {rowData: TrackModel}) => rowData.common.album}
 							dataKey='album'
-							width={300} />
+							width={width / 4} />
 						<Column
 							label='Duration'
 							// tslint:disable-next-line:max-line-length
 							cellDataGetter={({ rowData }: {rowData: TrackModel}) => TimeUtils.parseToMinutes(rowData.format.duration !== undefined ? rowData.format.duration : 0)}
 							dataKey='duration'
 							disableSort={true}
-							width={100} />
+							width={width / 8} />
 					</Table>
 				)}
 			</AutoSizer>

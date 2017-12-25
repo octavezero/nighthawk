@@ -13,7 +13,9 @@ export class Menu extends React.Component<MenuProps, any> {
 	}
 }
 
-export interface MenuHeaderProps {}
+export interface MenuHeaderProps {
+	headerClass?: string;
+}
 
 export interface MenuHeaderState {
 	classes: string;
@@ -39,7 +41,7 @@ export class MenuHeader extends React.Component<MenuHeaderProps, MenuHeaderState
 	render() {
 		return (
 			<div className={ this.state.classes }>
-				<Button type='primary' icon={ false } onClick={this.showMenu}>Menu</Button>
+				<Button type='primary' icon={ false } className={this.props.headerClass} onClick={this.showMenu}>Menu</Button>
 				<div className='menu-header-overlay' onClick={this.hideMenu}></div>
 				<div className='menu-dropdown'>
 					{

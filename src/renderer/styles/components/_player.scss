@@ -1,7 +1,7 @@
 .player {
 	display: grid;
-	grid-template-columns: 85px auto;
-	grid-template-rows: 45px 45px;
+	grid-template-columns: 80px auto;
+	grid-template-rows: 45px 40px;
 	grid-template-areas: "player-art player-details" "player-art player-controls"; 
 
 	box-shadow: 0 2px 5px rgba(0,0,0,0.16);
@@ -20,7 +20,7 @@
 
 .player-details {
 	grid-area: player-details;
-	padding-left: 25px;
+	padding-left: 15px;
 	background-color: var(--primary-color);
 	color: var(--primary-text-color);
 	display: flex;
@@ -28,7 +28,7 @@
 	align-items: baseline;
 
 	.text-element {
-		margin: 10px 10px 0px;
+		margin: 10px 5px 0px;
 	}
 }
 
@@ -56,7 +56,7 @@
 	}
 
 	.btn-icon {
-		padding: var(--element-padding);
+		padding: 0px var(--element-padding);
 		min-width: var(--element-height);
 	}
 
