@@ -3,6 +3,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const exp = require('./webpack.config.base');
 
 let prodMain = merge({
@@ -17,6 +18,18 @@ let prodMain = merge({
 			},
 		]
 	},
+
+	plugins: [
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify('production')
+		}),
+		new UglifyJsPlugin({
+			sourceMap: true,
+			uglifyOptions: {
+				ecma: 6
+			}
+		})
+	],
 }, exp[0]);
 
 
@@ -39,6 +52,18 @@ let prodRenderer = merge({
 			}
 		]
 	},
+
+	plugins: [
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify('production')
+		}),
+		new UglifyJsPlugin({
+			sourceMap: true,
+			uglifyOptions: {
+				ecma: 6
+			}
+		})
+	],
 }, exp[1]);
 
 module.exports = [prodMain, prodRenderer];
