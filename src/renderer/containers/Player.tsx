@@ -44,7 +44,8 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 	refreshQueue = (queue: List<TrackModel>, playIndex: number = 0) => {
 		//TODO: Implement Current Track Logic.
 		if (this.state.isShuffleEnabled) {
-			this.shuffleQueue(queue, playIndex);
+			console.log('initiated');
+			this.shuffleQueue(queue, playIndex, true);
 		} else {
 			this.setState({ queue: queue, queueCursor: playIndex, currentTrack: queue.get(playIndex) });
 		}
@@ -77,14 +78,18 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		this.setState({ currentTrack: this.state.queue.get(cursor), queueCursor: cursor });
 	}
 
-	shuffleQueue = (queue: List<TrackModel>, playIndex: number = 0) => {
+	shuffleQueue = (queue: List<TrackModel>, playIndex: number = 0, initial: boolean = false) => {
 		//Shuffles Code here. Use Fisher-Yates Shuffle Algorithm.
-		let trackid = this.state.currentTrack!.id;
+		let trackid = initial ? queue.get(playIndex)!.id : this.state.currentTrack!.id;
 
-		queue = QueueUtils.shuffleList(queue);
-		let newIndex = queue.findIndex(i => i.id === trackid);
+		let shuffledQueue = QueueUtils.shuffleList(queue);
+		let newIndex = shuffledQueue.findIndex(i => i.id === trackid);
 
-		this.setState({ queue: queue, queueCursor: newIndex });
+		if (initial) {
+			this.setState({ queue: shuffledQueue, queueCursor: newIndex, currentTrack: shuffledQueue.get(newIndex) });
+		} else {
+			this.setState({ queue: shuffledQueue, queueCursor: newIndex });
+		}
 	}
 
 	toggleShuffleState = () => {
