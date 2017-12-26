@@ -4,8 +4,11 @@ import { Button } from '../common/Button';
 import Slider from '../common/Slider';
 import { Icon } from '../common/Icon';
 import TrackModel from '../../models/TrackModel';
+import * as mm from 'music-metadata';
 
 import * as TimeUtils from '../../utilities/TimeUtils';
+
+import * as defaultAlbumArt from '../../../../static/vectors/defaultAlbumArt.svg';
 
 export interface PlayerControlsProps {
 	readonly nextTrack: () => void;
@@ -15,6 +18,7 @@ export interface PlayerControlsProps {
 }
 
 export interface PlayerControlsState {
+	albumart: string;
 	isPlaying: boolean;
 	playButtonIcon: string;
 	currentSongDuration: number;
@@ -39,6 +43,7 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 		super(props);
 
 		this.state = {
+			albumart: defaultAlbumArt,
 			isPlaying: false,
 			playButtonIcon: 'play',
 			currentSongDuration: 0,
@@ -151,6 +156,15 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 	/*
 		The React Lifecycle Functions
 	*/
+	fetchAlbumArt = async (path: string) => {
+		let model: mm.IAudioMetadata = await mm.parseFile(path);
+		let img: mm.IPicture[] | undefined = model.common.picture;
+		if (img != undefined) {
+			let imgURL = window.URL.createObjectURL(new Blob([img[0].data], { type: 'image/' + img[0].format }));
+			this.setState({albumart: imgURL});
+		}
+	}
+
 	componentWillReceiveProps(nextProps: PlayerControlsProps) {
 		if (nextProps.currentTrack == undefined) {
 			this.pauseAudio();
@@ -164,6 +178,9 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 		// Track Replaced here with new track
 		PlayerControls.audio.src = nextProps.currentTrack.source;
 		this.replayAudio();
+
+		//AlbumArt is caught here
+		this.fetchAlbumArt(nextProps.currentTrack.source);
 	}
 
 	componentDidMount() {
@@ -191,6 +208,10 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 		}
 
 		return (
+			<>
+			<div className='player-art'>
+				<img className='album-art' src={this.state.albumart} />
+			</div>
 			<div className='player-controls'>
 				<ButtonGroup>
 					<Button type='default' icon={true} onClick={this.handleSkipPrevious}>
@@ -229,6 +250,7 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 					<Slider min={0} max={10} value={this.state.currentVolume} onChange={this.handleVolumeSliderChange}/>
 				</div>
 			</div>
+			</>
 		);
 	}
 }

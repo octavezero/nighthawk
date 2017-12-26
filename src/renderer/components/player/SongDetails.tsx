@@ -1,9 +1,6 @@
 import * as React from 'react';
 
-import * as defaultAlbumArt from '../../../../static/vectors/defaultAlbumArt.svg';
-
 export interface SongDetailsProps {
-	albumart?: string;
 	title?: string;
 	artist?: string;
 	album?: string;
@@ -11,7 +8,6 @@ export interface SongDetailsProps {
 
 export default class SongDetails extends React.Component<SongDetailsProps, any> {
 	public static defaultProps: Partial<SongDetailsProps> = {
-		albumart: defaultAlbumArt,
 		title: 'Untitled Song',
 		artist: 'Unknown Artist',
 		album: 'Untitled Album'
@@ -23,9 +19,6 @@ export default class SongDetails extends React.Component<SongDetailsProps, any> 
 	render() {
 		return (
 			<>
-				<div className='player-art'>
-					<img className='album-art' src={this.props.albumart} />
-				</div>
 				<div className='player-details'>
 					<h4 className='text-element'>{this.props.title}</h4>
 					<h6 className='text-element'> by </h6>
