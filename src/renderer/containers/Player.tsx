@@ -93,6 +93,10 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 	}
 
 	toggleShuffleState = () => {
+		if (this.state.currentTrack === undefined) {
+			this.setState({isShuffleEnabled: !this.state.isShuffleEnabled});
+			return;
+		}
 		if (this.state.isShuffleEnabled) {
 			let trackid = this.state.currentTrack!.id;
 			let newIndex = this.state.originalQueue.findIndex(i => i.id === trackid);
