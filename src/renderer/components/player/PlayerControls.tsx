@@ -10,6 +10,7 @@ import * as TimeUtils from '../../utilities/TimeUtils';
 export interface PlayerControlsProps {
 	readonly nextTrack: () => void;
 	readonly prevTrack: () => void;
+	readonly toggleShuffleState: () => void;
 	currentTrack: TrackModel | undefined;
 }
 
@@ -21,6 +22,7 @@ export interface PlayerControlsState {
 	muteButtonIcon: string;
 	currentVolume: number;
 	repeatMode: 'repeat' | 'repeat-once';
+	shuffleMode: 'shuffle' | 'shuffle-disabled';
 }
 
 /**
@@ -43,7 +45,8 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 			isMuted: false,
 			muteButtonIcon: 'volume-high',
 			currentVolume: 10,
-			repeatMode: 'repeat'
+			repeatMode: 'repeat',
+			shuffleMode: 'shuffle-disabled'
 		};
 	}
 
@@ -134,18 +137,27 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 	}
 
 	/*
-		Seek and Repeat Handler Functions
+		Shuffle and Repeat Handler Functions
 	*/
 	toggleRepeatMode = () => {
 		this.setState({ repeatMode: this.state.repeatMode === 'repeat' ? 'repeat-once' : 'repeat' });
+	}
+
+	toggleShuffleMode = () => {
+		this.setState({ shuffleMode: this.state.shuffleMode === 'shuffle' ? 'shuffle-disabled' : 'shuffle' });
+		this.props.toggleShuffleState();
 	}
 
 	/*
 		The React Lifecycle Functions
 	*/
 	componentWillReceiveProps(nextProps: PlayerControlsProps) {
-		if (Object.is(this.props.currentTrack, nextProps.currentTrack) || nextProps.currentTrack == undefined) {
+		if (nextProps.currentTrack == undefined) {
 			this.pauseAudio();
+			return;
+		}
+
+		if (this.props.currentTrack !== undefined && this.props.currentTrack.id === nextProps.currentTrack.id) {
 			return;
 		}
 
@@ -202,8 +214,8 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 				</div>
 
 				<ButtonGroup>
-					<Button type='default' icon={true}>
-						<Icon size='21' icon='shuffle' />
+					<Button type='default' icon={true} onClick={this.toggleShuffleMode}>
+						<Icon size='21' icon={this.state.shuffleMode} />
 					</Button>
 					<Button type='default' icon={true} onClick={this.toggleRepeatMode}>
 						<Icon size='21' icon={ this.state.repeatMode } />

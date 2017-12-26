@@ -4,14 +4,17 @@ import * as React from 'react';
 import TrackModel from '../models/TrackModel';
 import { playerDispatcher } from '../dispatchers/playerDispatcher';
 import { List } from 'immutable';
+import * as QueueUtils from '../utilities/QueueUtils';
 
 export interface PlayerProps {
 }
 
 export interface PlayerState {
+	originalQueue: List<TrackModel>;
 	queue: List<TrackModel>;
 	queueCursor: number;
 	currentTrack: TrackModel | undefined;
+	isShuffleEnabled: boolean;
 }
 
 /**
@@ -27,9 +30,11 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		super(props);
 
 		this.state = {
+			originalQueue: List(),
 			queue: List(),
 			queueCursor: -2,
-			currentTrack: undefined
+			currentTrack: undefined,
+			isShuffleEnabled: false
 		};
 	}
 
@@ -38,7 +43,12 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 	*/
 	refreshQueue = (queue: List<TrackModel>, playIndex: number = 0) => {
 		//TODO: Implement Current Track Logic.
-		this.setState({ queue: queue, queueCursor: playIndex, currentTrack: queue.get(playIndex) });
+		if (this.state.isShuffleEnabled) {
+			this.shuffleQueue(queue, playIndex);
+		} else {
+			this.setState({ queue: queue, queueCursor: playIndex, currentTrack: queue.get(playIndex) });
+		}
+		this.setState({ originalQueue: queue });
 	}
 
 	nextTrack = () => {
@@ -65,6 +75,27 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 			cursor = this.state.queue.count() - 1;
 		}
 		this.setState({ currentTrack: this.state.queue.get(cursor), queueCursor: cursor });
+	}
+
+	shuffleQueue = (queue: List<TrackModel>, playIndex: number = 0) => {
+		//Shuffles Code here. Use Fisher-Yates Shuffle Algorithm.
+		let trackid = this.state.currentTrack!.id;
+
+		queue = QueueUtils.shuffleList(queue);
+		let newIndex = queue.findIndex(i => i.id === trackid);
+
+		this.setState({ queue: queue, queueCursor: newIndex });
+	}
+
+	toggleShuffleState = () => {
+		if (this.state.isShuffleEnabled) {
+			let trackid = this.state.currentTrack!.id;
+			let newIndex = this.state.originalQueue.findIndex(i => i.id === trackid);
+			this.setState({isShuffleEnabled: false, queue: this.state.originalQueue, queueCursor: newIndex });
+		} else {
+			this.shuffleQueue(this.state.queue, this.state.queueCursor);
+			this.setState({isShuffleEnabled: true});
+		}
 	}
 
 	/*
@@ -97,6 +128,7 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 					currentTrack={this.state.currentTrack !== undefined ? this.state.currentTrack : undefined}
 					nextTrack={this.nextTrack}
 					prevTrack={this.prevTrack}
+					toggleShuffleState={this.toggleShuffleState}
 				/>
 			</div>
 		);
