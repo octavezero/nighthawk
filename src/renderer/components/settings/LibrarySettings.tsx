@@ -25,7 +25,9 @@ export default class LibrarySettings extends React.Component<LibrarySettingsProp
 
 	handlePathSelect = () => {
 		let path = dialog.showOpenDialog({title: 'Select Music Library Folder', properties: ['openDirectory'] });
-		SettingsActions.saveLibrarySettings({ path: path[0] });
+		if ( path[0] !== undefined ) {
+			SettingsActions.saveLibrarySettings({ path: path[0] });
+		}
 	}
 
 	handleRefreshLibraryNow = () => {
