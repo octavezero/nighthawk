@@ -99,24 +99,24 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 							label='Name'
 							cellDataGetter={({ rowData }: {rowData: TrackModel}) => rowData.common.title}
 							dataKey='title'
-							width={width / 3} />
+							width={( width - 20 ) * (31 / 100)} />
 						<Column
 							label='Artist'
 							cellDataGetter={({ rowData }: {rowData: TrackModel}) => rowData.common.artist}
 							dataKey='artist'
-							width={width / 4} />
+							width={( width - 20 ) * (31 / 100)} />
 						<Column
 							label='Album'
 							cellDataGetter={({ rowData }: {rowData: TrackModel}) => rowData.common.album}
 							dataKey='album'
-							width={width / 4} />
+							width={( width - 20 ) * (31 / 100)} />
 						<Column
 							label='Duration'
 							// tslint:disable-next-line:max-line-length
 							cellDataGetter={({ rowData }: {rowData: TrackModel}) => TimeUtils.parseToMinutes(rowData.format.duration !== undefined ? rowData.format.duration : 0)}
 							dataKey='duration'
 							disableSort={true}
-							width={width / 8} />
+							width={( width - 20 ) * (7 / 100)} />
 					</Table>
 				)}
 			</AutoSizer>

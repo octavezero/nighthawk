@@ -68,6 +68,12 @@
 	white-space: nowrap;
 }
 
+// For Proper Scrollbar positining.
+.ReactVirtualized__Table__headerColumn:last-of-type,
+.ReactVirtualized__Table__rowColumn:last-of-type {
+	margin-right: 16px;
+}
+
 .ReactVirtualized__Table__headerColumn:first-of-type,
 .ReactVirtualized__Table__rowColumn:first-of-type {
 	margin-left: 10px;
