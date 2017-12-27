@@ -55,6 +55,10 @@ export default class WindowManager {
 			//window = null
 		});
 
+		win.on('blur', () => {
+			this.hideWindow();
+		});
+
 		win.webContents.on('devtools-opened', () => {
 			win.focus();
 			setImmediate(() => {
