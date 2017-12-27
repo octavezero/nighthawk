@@ -1,5 +1,6 @@
 import { Tray, nativeImage, Menu, BrowserWindow, MenuItem, app } from 'electron';
 import * as os from 'os';
+import * as path from 'path';
 
 import * as macImg from '../../static/tray/macTemplate.png';
 import * as linuxImg from '../../static/tray/macTemplate@2x.png';
@@ -19,14 +20,14 @@ export default class TrayManager {
 		let tempTray: Tray;
 
 		if (os.platform() === 'darwin') {
-			let image: nativeImage = nativeImage.createFromPath(macImg);
+			let image: nativeImage = nativeImage.createFromPath(path.join(__dirname, macImg));
 			image.setTemplateImage(true);
 			tempTray = new Tray(image);
 		} else if (os.platform() === 'win32') {
-			let image: nativeImage = nativeImage.createFromPath(winImg);
+			let image: nativeImage = nativeImage.createFromPath(path.join(__dirname, winImg));
 			tempTray = new Tray(image);
 		} else {
-			let image: nativeImage = nativeImage.createFromPath(linuxImg);
+			let image: nativeImage = nativeImage.createFromPath(path.join(__dirname, linuxImg));
 			tempTray = new Tray(image);
 		}
 
