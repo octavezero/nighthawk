@@ -35,6 +35,10 @@ export default class TrayManager {
 			{ label: 'Show Player', type: 'normal', click: this.handleShowPlayer },
 			{ label: 'Hide Player', type: 'normal', click: this.handleHidePlayer },
 			{ type: 'separator' },
+			{ label: 'Play/Pause', type: 'normal', click: this.handlePlayPause },
+			{ label: 'Prev Track', type: 'normal', click: this.handlePrevTrack },
+			{ label: 'Next Track', type: 'normal', click: this.handleNextTrack },
+			{ type: 'separator' },
 			{ label: 'Quit Nighthawk', type: 'normal', click: this.onQuit }
 		]);
 
@@ -52,6 +56,18 @@ export default class TrayManager {
 
 	onQuit = (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {
 		app.quit();
+	}
+
+	handlePlayPause = () => {
+		this.windowManager.window.webContents.send('PLAYER_CONTROLS_TOGGLE_PLAY');
+	}
+
+	handlePrevTrack = () => {
+		this.windowManager.window.webContents.send('PLAYER_CONTROLS_PREV_TRACK');
+	}
+
+	handleNextTrack = () => {
+		this.windowManager.window.webContents.send('PLAYER_CONTROLS_NEXT_TRACK');
 	}
 
 	handleShowPlayer = (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {

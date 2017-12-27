@@ -5,6 +5,7 @@ import Slider from '../common/Slider';
 import { Icon } from '../common/Icon';
 import TrackModel from '../../models/TrackModel';
 import * as mm from 'music-metadata';
+import { ipcRenderer } from 'electron';
 
 import * as TimeUtils from '../../utilities/TimeUtils';
 
@@ -186,6 +187,10 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 	componentDidMount() {
 		PlayerControls.audio.addEventListener('timeupdate', this.onPlayerTimeUpdate);
 		PlayerControls.audio.addEventListener('ended', this.onPlayerEnded);
+
+		ipcRenderer.on('PLAYER_CONTROLS_TOGGLE_PLAY', this.handleTogglePlay);
+		ipcRenderer.on('PLAYER_CONTROLS_PREV_TRACK', this.handleSkipPrevious);
+		ipcRenderer.on('PLAYER_CONTROLS_NEXT_TRACK', this.handleSkipNext);
 	}
 
 	componentWillUnmount() {
@@ -193,6 +198,10 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 
 		PlayerControls.audio.removeEventListener('timeupdate', this.onPlayerTimeUpdate);
 		PlayerControls.audio.removeEventListener('ended', this.onPlayerEnded);
+
+		ipcRenderer.removeListener('PLAYER_CONTROLS_TOGGLE_PLAY', this.handleTogglePlay);
+		ipcRenderer.removeListener('PLAYER_CONTROLS_PREV_TRACK', this.handleSkipPrevious);
+		ipcRenderer.removeListener('PLAYER_CONTROLS_NEXT_TRACK', this.handleSkipNext);
 	}
 
 	render() {
