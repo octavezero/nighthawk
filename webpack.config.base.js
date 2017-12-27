@@ -8,7 +8,7 @@ let main = {
 	],
 
 	output: {
-		path: path.join(__dirname, 'dist'),
+		path: path.join(__dirname, 'out'),
 		filename: 'main.js',
 	},
 
@@ -62,7 +62,7 @@ let renderer = {
 	],
 
 	output: {
-		path: path.join(__dirname, 'dist'),
+		path: path.join(__dirname, 'out'),
 		filename: 'renderer.js',
 	},
 

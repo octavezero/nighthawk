@@ -11,21 +11,74 @@
     "url": "https://github.com/quantummkv/nighthawk/issues"
   },
   "description": "A Stealthy, Simple Music Player that stays out of your way",
-  "main": "src/main/index.ts",
+  "main": "./out/main.js",
   "scripts": {
-    "start": "electron ./dist/main.js",
-    "devstart": "cross-env ELECTRON_DEV=dev electron ./dist/main.js",
+    "start": "electron ./out/main.js",
+    "devstart": "cross-env ELECTRON_DEV=dev electron ./out/main.js",
     "dev": "webpack --config ./webpack.config.dev.js",
-    "build": "webpack --config ./webpack.config.prod.js",
+	"build": "webpack --config ./webpack.config.prod.js",
+	"dist": "build",
     "server": "yarn run dev && webpack-dev-server --config ./webpack.config.server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "Music",
-	"Player",
+    "music",
+    "player",
 	"electron",
+	"tray",
+	"desktop",
 	""
   ],
+  "build": {
+	"appId": "com.quantummkv.nighthawk",
+	"productName": "Nighthawk",
+    "files": [
+		"out/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.music",
+      "target": [
+        "dmg"
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+	},
+	"nsis": {
+	  "oneClick": false,
+	  "allowToChangeInstallationDirectory": true,
+	  "deleteAppDataOnUninstall": true
+	},
+    "linux": {
+      "category": "AudioVideo",
+      "target": [
+        "deb"
+	  ],
+      "executableName": "nighthawk"
+    },
+    "win": {
+	  "target": [
+		{
+		  "target": "nsis",
+		  "arch": [
+			"x64",
+			"ia32"
+		  ]
+		}
+	  ]
+    }
+  },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
     "@types/fs-extra": "^5.0.0",
@@ -37,6 +90,7 @@
     "cross-env": "^5.1.3",
     "css-loader": "^0.28.7",
     "electron": "^1.7.9",
+    "electron-builder": "^19.49.2",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",

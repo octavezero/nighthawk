@@ -6,6 +6,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # The folder where webpack outputs files
+out
+
+# The folder where electron-builder outputs files
 dist
 
 # Runtime data
