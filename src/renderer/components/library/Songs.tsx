@@ -7,6 +7,7 @@ import { Table, Column, RowMouseEventHandlerParams } from 'react-virtualized/dis
 import * as TimeUtils from '../../utilities/TimeUtils';
 import { playerDispatcher } from '../../dispatchers/playerDispatcher';
 import { List } from 'immutable';
+import EmptyState from './EmptyState';
 
 export interface SongsProps {
 	tracks: List<TrackModel>;
@@ -27,6 +28,10 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 			sortBy: 'title',
 			sortDirection: 'ASC'
 		};
+	}
+
+	noRowsRenderer = () => {
+		return <EmptyState />;
 	}
 
 	rowGetter = ({ index }: {index: number}) => {
@@ -90,6 +95,7 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 						rowGetter={this.rowGetter}
 						rowHeight={32}
 						width={width}
+						noRowsRenderer={this.noRowsRenderer}
 						onRowDoubleClick={this.refreshQueue}
 						sort={this.handleTableSort}
 						sortBy={this.state.sortBy}

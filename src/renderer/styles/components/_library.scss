@@ -2,3 +2,29 @@
 	display: block;
 	flex: 1 1 auto;
 }
+
+.empty-state {
+	margin: var(--element-margin);
+	background: var(--grey-light-color);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	height: 100%;
+
+	.empty-state-icon {
+		margin-bottom: var(--element-margin);
+
+		min-width: 242px;
+		min-height: 192px;
+	}
+
+	.empty-state-title {
+		margin: var(--element-margin) auto;
+	}
+
+	.empty-state-subtitle {
+		margin: var(--element-margin) auto calc(var(--element-margin) * 4);
+	}
+}
