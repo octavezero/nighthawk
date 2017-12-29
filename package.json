@@ -17,7 +17,7 @@
     "devstart": "cross-env ELECTRON_DEV=dev electron ./out/main.js",
     "dev": "webpack --config ./webpack.config.dev.js",
     "build": "rimraf out && webpack --config ./webpack.config.prod.js",
-    "dist:wl": "yarn build && build -wl",
+    "dist:docker": "yarn build && build -wl",
     "dist:windows": "yarn build && build -w",
     "dist:linux": "yarn build && build -l",
     "dist:darwin": "yarn build && build -m -c.mac.identity=null",
