@@ -30,8 +30,8 @@ export default class WindowManager {
 	createMainWindow() {
 		// Construct new BrowserWindow
 		let win: BrowserWindow = new BrowserWindow({
-			minHeight: 671,	minWidth: 1192,
-			height: 671, width: 1192,
+			minHeight: 558,	minWidth: 992,
+			height: 558, width: 992,
 			icon: this.returnIcon(),
 			show: false, frame: false,
 			// This disables webSecurity during Development Mode. Prevents Audio src errors. Refer Electron Docs for more.
