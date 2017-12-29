@@ -10,6 +10,8 @@ matrix:
 
     - os: linux
       services: docker
+      sudo: required
+      dist: trusty
       language: generic
 
 cache:
