@@ -3,7 +3,8 @@ import * as os from 'os';
 import * as path from 'path';
 
 import * as macImg from '../../static/tray/macTemplate.png';
-import * as linuxImg from '../../static/tray/macTemplate@2x.png';
+import * as macRetinaImg from '../../static/tray/macTemplate@2x.png';
+import * as linuxImg from '../../static/tray/linux.png';
 import * as winImg from '../../static/tray/windows.ico';
 import WindowManager from './window';
 
@@ -20,7 +21,8 @@ export default class TrayManager {
 		let tempTray: Tray;
 
 		if (os.platform() === 'darwin') {
-			let image: nativeImage = nativeImage.createFromPath(path.join(__dirname, macImg));
+			//Weird and Horrific Hack to get the mac retina images loaded by webpack without triggering typescript not used errors.
+			let image: nativeImage = nativeImage.createFromPath( true ? path.join(__dirname, macImg) : path.join(__dirname, macRetinaImg));
 			image.setTemplateImage(true);
 			tempTray = new Tray(image);
 		} else if (os.platform() === 'win32') {
