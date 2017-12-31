@@ -1,4 +1,4 @@
-import { BrowserWindow, NativeImage, nativeImage } from 'electron';
+import { BrowserWindow, NativeImage, nativeImage, ipcMain } from 'electron';
 import * as Positioner from 'electron-positioner';
 import TrayManager from './tray';
 
@@ -11,10 +11,18 @@ export default class WindowManager {
 	trayManager: TrayManager;
 	positioner: any;
 	isDevelopment = process.env.ELECTRON_DEV == 'dev';
+	isPinned: boolean;
 
 	constructor() {
+		this.isPinned = false;
 		this.window = this.createMainWindow();
 		this.positioner = new Positioner(this.window);
+
+		ipcMain.on('SET_PINNED_STATE', (event: any, arg: boolean) => {
+			//Sends the window level below the dialog and prevents it from loosing focus. Use this only when showing a dialog.
+			this.window.setAlwaysOnTop(!arg);
+			this.isPinned = arg;
+		});
 	}
 
 	returnIcon(): NativeImage {
@@ -56,7 +64,9 @@ export default class WindowManager {
 		});
 
 		win.on('blur', () => {
-			this.hideWindow();
+			if (this.isPinned != true) {
+				this.hideWindow();
+			}
 		});
 
 		win.webContents.on('devtools-opened', () => {
@@ -65,6 +75,8 @@ export default class WindowManager {
 				win.focus();
 			});
 		});
+
+		win.setAlwaysOnTop(true);
 
 		return win;
 	}

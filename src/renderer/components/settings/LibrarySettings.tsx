@@ -6,7 +6,7 @@ import { ButtonGroup } from '../common/ButtonGroup';
 import * as SettingsActions from '../../actions/SettingsActions';
 import * as LibraryActions from '../../actions/LibraryActions';
 
-import { remote } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 import { LibrarySettingsModel } from '../../models/LibrarySettingsModel';
 const { dialog } = remote;
 
@@ -24,8 +24,11 @@ export default class LibrarySettings extends React.Component<LibrarySettingsProp
 	}
 
 	handlePathSelect = () => {
+		ipcRenderer.send('SET_PINNED_STATE', true);
 		let path = dialog.showOpenDialog({title: 'Select Music Library Folder', properties: ['openDirectory'] });
-		if ( path[0] !== undefined ) {
+		ipcRenderer.send('SET_PINNED_STATE', false);
+
+		if ( path !== undefined ) {
 			SettingsActions.saveLibrarySettings({ path: path[0] });
 		}
 	}

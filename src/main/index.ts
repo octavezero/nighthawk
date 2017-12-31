@@ -28,6 +28,11 @@ app.on('ready', () => {
 
 	windowManager = new WindowManager();
 
+	//Hide from dock.
+	if (app.dock) {
+		app.dock.hide();
+	}
+
 	windowManager.attachTray(trayManager);
 	trayManager.attachWindow(windowManager);
 
