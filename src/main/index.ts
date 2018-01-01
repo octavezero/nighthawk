@@ -1,4 +1,4 @@
-import { app } from 'electron';
+import { app, globalShortcut } from 'electron';
 
 import TrayManager from './tray';
 import WindowManager from './window';
@@ -39,4 +39,28 @@ app.on('ready', () => {
 	let ipcManager: IpcManager = new IpcManager(windowManager);
 	ipcManager.activeAppEvents();
 	ipcManager.activateWindowEvents();
+
+	registerMediaKeys();
 });
+
+app.on('will-quit', () => {
+	//Unregister media key shortcuts.
+	globalShortcut.unregisterAll();
+});
+
+/*
+	Global Shortcut Keys are defined here.
+*/
+let registerMediaKeys = () => {
+	globalShortcut.register('MediaNextTrack', () => {
+		windowManager.window.webContents.send('PLAYER_CONTROLS_NEXT_TRACK');
+	});
+
+	globalShortcut.register('MediaPreviousTrack', () => {
+		windowManager.window.webContents.send('PLAYER_CONTROLS_PREV_TRACK');
+	});
+
+	globalShortcut.register('MediaPlayPause', () => {
+		windowManager.window.webContents.send('PLAYER_CONTROLS_TOGGLE_PLAY');
+	});
+};
