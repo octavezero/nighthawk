@@ -44,7 +44,6 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 	refreshQueue = (queue: List<TrackModel>, playIndex: number = 0) => {
 		//TODO: Implement Current Track Logic.
 		if (this.state.isShuffleEnabled) {
-			console.log('initiated');
 			this.shuffleQueue(queue, playIndex, true);
 		} else {
 			this.setState({ queue: queue, queueCursor: playIndex, currentTrack: queue.get(playIndex) });

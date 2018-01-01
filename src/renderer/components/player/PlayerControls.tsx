@@ -163,6 +163,8 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 		if (img != undefined) {
 			let imgURL = window.URL.createObjectURL(new Blob([img[0].data], { type: 'image/' + img[0].format }));
 			this.setState({albumart: imgURL});
+		} else {
+			this.setState({albumart: defaultAlbumArt});
 		}
 	}
 
