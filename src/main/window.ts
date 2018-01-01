@@ -1,5 +1,6 @@
 import { BrowserWindow, NativeImage, nativeImage, ipcMain } from 'electron';
 import * as Positioner from 'electron-positioner';
+import windowStateKeeper from 'electron-window-state';
 import TrayManager from './tray';
 
 import * as winIcon from '../../static/logo/logo.ico';
@@ -37,9 +38,12 @@ export default class WindowManager {
 
 	createMainWindow() {
 		// Construct new BrowserWindow
+
+		let mainWindowState = windowStateKeeper({defaultWidth: 992, defaultHeight: 558});
+
 		let win: BrowserWindow = new BrowserWindow({
 			minHeight: 558,	minWidth: 992,
-			height: 558, width: 992,
+			height: mainWindowState.height, width: mainWindowState.width,
 			icon: this.returnIcon(),
 			show: false, frame: false,
 			// This disables webSecurity during Development Mode. Prevents Audio src errors. Refer Electron Docs for more.
@@ -77,6 +81,8 @@ export default class WindowManager {
 		});
 
 		win.setAlwaysOnTop(true);
+
+		mainWindowState.manage(win);
 
 		return win;
 	}
