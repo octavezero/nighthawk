@@ -89,11 +89,11 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 			<AutoSizer>
 				{({ height, width }) => (
 					<Table
-						headerHeight={40}
+						headerHeight={34}
 						height={height}
 						rowCount={this.state.tracks.count()}
 						rowGetter={this.rowGetter}
-						rowHeight={32}
+						rowHeight={30}
 						width={width}
 						noRowsRenderer={this.noRowsRenderer}
 						onRowDoubleClick={this.refreshQueue}

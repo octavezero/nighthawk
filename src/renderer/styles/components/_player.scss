@@ -1,7 +1,9 @@
+$imgsize: 75px;
+
 .player {
 	display: grid;
-	grid-template-columns: 80px auto;
-	grid-template-rows: 45px 40px;
+	grid-template-columns: $imgsize auto;
+	grid-template-rows: 40px 40px;
 	grid-template-areas: "player-art player-details" "player-art player-controls"; 
 
 	box-shadow: 0 2px 5px rgba(0,0,0,0.16);
@@ -16,8 +18,10 @@
 	.album-art {
 		margin-top: 5px;
 		
-		max-width: 80px;
-		max-height: 80px;
+		height: $imgsize;
+		width: $imgsize;
+		max-width: $imgsize;
+		max-height: $imgsize;
 	}
 }
 

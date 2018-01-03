@@ -1,5 +1,5 @@
 .titlebar {
-	$height: 32px;
+	$height: 30px;
 	height: $height;
 	min-height: $height;
 	max-height: $height;
@@ -10,6 +10,6 @@
 	justify-content: space-between;
 
 	.menu-header-btn {
-		min-width: 80px;
+		min-width: 75px;
 	}
 }
