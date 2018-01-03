@@ -4,6 +4,8 @@ import * as classNames from 'classnames';
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
 	type: 'default' | 'primary' | 'link';
 	icon?: boolean;
+	tooltip?: string;
+	tooltipPosition?: string;
 }
 
 export class Button extends React.Component<ButtonProps, any> {
@@ -12,6 +14,8 @@ export class Button extends React.Component<ButtonProps, any> {
 			type,
 			className,
 			icon,
+			tooltip,
+			tooltipPosition,
 			...others
 		  } = this.props;
 
@@ -23,8 +27,14 @@ export class Button extends React.Component<ButtonProps, any> {
 		);
 
 		return (
-			<button	className={buildClassNames} onClick={this.props.onClick} {...others}>
-				{this.props.children}
+			<button
+				className={buildClassNames}
+				aria-label={tooltip}
+				data-tooltip-position={tooltipPosition}
+				role='tooltip'
+				onClick={this.props.onClick}
+				{...others}>
+					{this.props.children}
 			</button>
 		);
 	}

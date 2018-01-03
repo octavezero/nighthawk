@@ -8,6 +8,8 @@ export interface SliderProps {
 	step?: number;
 	position?: string;
 	readonly onChange: (value: number) => void;
+	tooltip?: string;
+	tooltipPosition?: string;
 }
 
 interface SliderState {
@@ -65,7 +67,13 @@ class Slider extends React.Component<SliderProps, SliderState> {
 		return (
 			<div className='slider' onClick={this.handleTrackClick} >
 				<div className='slider-fill' style={{ width: this.state.displayValue + '%' }}>
-					<Button type='default' className='slider-thumb' onClick={this.handleThumbClick}></Button>
+					<Button
+						type='default'
+						tooltip={this.props.tooltip}
+						tooltipPosition={this.props.tooltipPosition}
+						className='slider-thumb'
+						onClick={this.handleThumbClick}
+					/>
 				</div>
 			</div>
 		);

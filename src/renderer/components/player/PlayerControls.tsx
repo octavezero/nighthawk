@@ -225,13 +225,13 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 			</div>
 			<div className='player-controls'>
 				<ButtonGroup>
-					<Button type='default' icon={true} onClick={this.handleSkipPrevious}>
+					<Button type='default' tooltip='Go to Previous Song' tooltipPosition='bottom' icon={true} onClick={this.handleSkipPrevious}>
 						<Icon size='21' icon='skip-previous' />
 					</Button>
-					<Button type='default' icon={true} onClick={this.handleTogglePlay}>
+					<Button type='default' tooltip='Play/Pause Current Song' tooltipPosition='bottom' icon={true} onClick={this.handleTogglePlay}>
 						<Icon size='21' icon={this.state.playButtonIcon} />
 					</Button>
-					<Button type='default' icon={true} onClick={this.handleSkipNext}>
+					<Button type='default' tooltip='Go to Next Song' tooltipPosition='bottom' icon={true} onClick={this.handleSkipNext}>
 						<Icon size='21' icon='skip-next' />
 					</Button>
 				</ButtonGroup>
@@ -239,6 +239,8 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 				<div className='seekbar'>
 					<span>{TimeUtils.parseToMinutes(this.state.currentSongDuration)}</span>
 					<Slider
+						tooltip={TimeUtils.parseToMinutes(this.state.currentSongDuration)}
+						tooltipPosition='bottom'
 						min={0} max={duration} value={this.state.currentSongDuration}
 						onChange={this.handlePlayerSliderChange}
 					/>
@@ -246,19 +248,22 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 				</div>
 
 				<ButtonGroup>
-					<Button type='default' icon={true} onClick={this.toggleShuffleMode}>
+					<Button type='default' tooltip='Toggle Shuffle Mode' tooltipPosition='bottom' icon={true} onClick={this.toggleShuffleMode}>
 						<Icon size='21' icon={this.state.shuffleMode} />
 					</Button>
-					<Button type='default' icon={true} onClick={this.toggleRepeatMode}>
+					<Button type='default' tooltip='Toggle Repeat Current Song' tooltipPosition='bottom' icon={true} onClick={this.toggleRepeatMode}>
 						<Icon size='21' icon={ this.state.repeatMode } />
 					</Button>
 				</ButtonGroup>
 
 				<div className='volume'>
-					<Button type='default' icon={true} onClick={this.handleToggleMute}>
+					<Button type='default' tooltip='Mute/Unmute Volume' tooltipPosition='bottom' icon={true} onClick={this.handleToggleMute}>
 						<Icon size='21' icon={this.state.muteButtonIcon} />
 					</Button>
-					<Slider min={0} max={10} value={this.state.currentVolume} onChange={this.handleVolumeSliderChange}/>
+					<Slider
+						tooltip={this.state.currentVolume.toString()}
+						tooltipPosition='bottom'
+						min={0} max={10} value={this.state.currentVolume} onChange={this.handleVolumeSliderChange}/>
 				</div>
 			</div>
 			</>
