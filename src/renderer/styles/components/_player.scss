@@ -2,9 +2,9 @@ $imgsize: 75px;
 
 .player {
 	display: grid;
-	grid-template-columns: $imgsize auto;
+	grid-template-columns: $imgsize auto 250px;
 	grid-template-rows: 40px 40px;
-	grid-template-areas: "player-art player-details" "player-art player-controls"; 
+	grid-template-areas: "player-art player-details search" "player-art player-controls player-controls"; 
 
 	box-shadow: 0 2px 5px rgba(0,0,0,0.16);
 
@@ -33,9 +33,16 @@ $imgsize: 75px;
 	display: flex;
 	justify-content: flex-start;
 	align-items: baseline;
+	min-width: 0;
 
 	.text-element {
 		margin: 10px 5px 0px;
+
+		&.flow {
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
 	}
 }
 
@@ -69,5 +76,27 @@ $imgsize: 75px;
 
 	.btn-group {
 		margin: 0 20px;
+	}
+}
+
+.search {
+	display: flex;
+	align-items: center;
+
+	background: var(--primary-color);
+
+	padding: 0px calc(var(--padding-margin)*3);
+
+	flex: 1 1 auto;
+
+	.textbox {
+		border-color: var(--primary-dark-color);
+
+		background-color: var(--primary-dark-color);
+		color: var(--primary-text-color);
+		
+		&::placeholder {
+			color: var(--grey-color);
+		}
 	}
 }

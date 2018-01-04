@@ -5,6 +5,7 @@ import TrackModel from '../models/TrackModel';
 import { playerDispatcher } from '../dispatchers/playerDispatcher';
 import { List } from 'immutable';
 import * as QueueUtils from '../utilities/QueueUtils';
+import Search from '../components/player/Search';
 
 export interface PlayerProps {
 }
@@ -132,6 +133,7 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		return (
 			<div className='player'>
 				{details}
+				<Search />
 				<PlayerControls
 					currentTrack={this.state.currentTrack !== undefined ? this.state.currentTrack : undefined}
 					nextTrack={this.nextTrack}

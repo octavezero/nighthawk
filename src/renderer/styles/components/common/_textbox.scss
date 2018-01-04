@@ -13,7 +13,7 @@ Base Textbox Class. Every Other input derives from it.
     color: var(--text-color);
     font-size: var(--font-size-base);
     line-height: var(--font-line-height);
-	height: calc(var(--element-height) - calc(var(--border-base-width) * 2));
+	height: var(--element-height);
 	display: flex;
 	
 	margin: var(--element-margin) 0px;
@@ -29,7 +29,7 @@ Base Textbox Class. Every Other input derives from it.
     }
 
     &::placeholder {
-        color: var(--border-base-color);
+        color: var(--grey-dark-color);
     } // Textarea
     &.textarea {
         height: auto;
