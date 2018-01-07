@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Modal } from '../components/common/Modal';
 import { TabBar } from '../components/common/TabBar';
 import LibrarySettings from '../components/settings/LibrarySettings';
-import { backendDispatcher } from '../dispatchers/backendDispatcher';
+import * as SettingsActions from '../actions/SettingsActions';
 
 enum TabItemsOrder {
 	Library,
@@ -22,47 +22,36 @@ export interface SettingsState {
 export default class Settings extends React.Component<SettingsProps, SettingsState> {
 	constructor(props: SettingsProps) {
 		super(props);
+		let settings = SettingsActions.refreshSettings();
 
 		this.state = {
 			activeTabIndex: TabItemsOrder.Library,
-			//Stuff blank Data. Will be initialized with correct data when mounted.
-			library: { path: '' }
+			//TODO: Add more settings here as they are added
+			//Stuff blank Data. Will be initialized with correct data when shown.
+			library: settings[0]
 		};
+	}
+
+	reloadSettings = () => {
+		let settings = SettingsActions.refreshSettings();
+		//TODO: Add more settings here as they are added
+		this.setState({library: settings[0]});
 	}
 
 	handleTabClick = (index: number) => {
 		this.setState({ activeTabIndex: index });
 	}
 
-	updateLibrarySettings = (library: LibrarySettingsModel) => {
-		this.setState({library: library});
-	}
-
-	initSettings = (settings: any[]) => {
-		//to be changed as per new tables
-		this.setState({library: settings[0]});
-	}
-
 	renderActiveTabItem() {
 		switch (this.state.activeTabIndex) {
 			case TabItemsOrder.Library: {
-				return <LibrarySettings library={this.state.library} />;
+				return <LibrarySettings library={this.state.library} reloadSettings={this.reloadSettings} />;
 			}
 
 			case TabItemsOrder.System: {
 				return <div />;
 			}
 		}
-	}
-
-	componentDidMount() {
-		backendDispatcher.addListener('UPDATE_SETTINGS_LIBRARY', this.updateLibrarySettings);
-		backendDispatcher.addListener('INIT_SETTINGS', this.initSettings);
-	}
-
-	componentWillUnmount() {
-		backendDispatcher.removeListener('UPDATE_SETTINGS_LIBRARY', this.updateLibrarySettings);
-		backendDispatcher.removeListener('INIT_SETTINGS', this.initSettings);
 	}
 
 	render() {

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Textbox } from '../common/Textbox';
 import { Button } from '../common/Button';
 import { ButtonGroup } from '../common/ButtonGroup';
 
@@ -8,9 +7,11 @@ import * as LibraryActions from '../../actions/LibraryActions';
 
 import { remote, ipcRenderer } from 'electron';
 import { LibrarySettingsModel } from '../../models/LibrarySettingsModel';
+import { Textbox } from '../common/Textbox';
 const { dialog } = remote;
 
 export interface LibrarySettingsProps {
+	readonly reloadSettings: () => void;
 	library: LibrarySettingsModel;
 }
 
@@ -30,6 +31,7 @@ export default class LibrarySettings extends React.Component<LibrarySettingsProp
 
 		if ( path !== undefined ) {
 			SettingsActions.saveLibrarySettings({ path: path[0] });
+			this.props.reloadSettings();
 		}
 	}
 

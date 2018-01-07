@@ -1,37 +1,22 @@
-import SettingsDatabase from '../models/SettingsDatabase';
 import { LibrarySettingsModel } from '../models/LibrarySettingsModel';
-import { backendDispatcher } from '../dispatchers/backendDispatcher';
+import Store from 'electron-store';
 
-const db: SettingsDatabase = new SettingsDatabase('settings');
+const settingsDatabase = new Store();
 
-export const saveLibrarySettings = async (settings: LibrarySettingsModel) => {
-	db.library.update(1, settings).then((updated) => {
-		if (updated) {
-			refreshLibrarySettings();
-		}
-	});
+export const saveLibrarySettings = (settings: LibrarySettingsModel) => {
+	settingsDatabase.set('librarySettings', settings);
 };
 
-export const init = () => {
-	//As More Settings Tables are added, add them here to resolve
-	Promise.all([
-		db.library.where('id').equals(1).first()
-	]).then( settings => {
-		backendDispatcher.emit('INIT_SETTINGS', settings);
-	}).catch(error => {
-		console.log(error);
-	});
+export const getLibrarySettings = (): LibrarySettingsModel => {
+	return settingsDatabase.get('librarySettings');
 };
 
-export const refreshLibrarySettings = () => {
-	db.library.where('id').equals(1).first().then( settings => {
-		backendDispatcher.emit('UPDATE_SETTINGS_LIBRARY', settings);
-	});
+export const refreshSettings = () => {
+	return [
+		settingsDatabase.get('librarySettings')
+	];
 };
 
-export const getLibrarySetting = async (key: string) => {
-	let settings = await db.library.where('id').equals(1).first();
-
-	//To bypass the strictNullCheck because the db will always contain a non null key
-	return settings == undefined ? '' : settings[key];
+export const getSettingByKey = (key: string) => {
+	return settingsDatabase.get(key);
 };

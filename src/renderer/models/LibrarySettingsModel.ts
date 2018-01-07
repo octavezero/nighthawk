@@ -1,4 +1,5 @@
 export interface LibrarySettingsModel {
-	id?: number;
-	path: string;
+	path?: string;
+	sortBy?: string;
+	sortDirection?: string;
 }

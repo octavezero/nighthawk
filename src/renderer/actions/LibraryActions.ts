@@ -20,7 +20,9 @@ export const init = () => {
 
 export const refreshLibrary = async () => {
 	// Grab the library Path
-	let libpath: string = await SettingsAction.getLibrarySetting('path');
+	let libpath: string = await SettingsAction.getSettingByKey('librarySettings.path');
+
+	if (libpath == undefined) { return; }
 
 	let files: string[] = await fs.readdir(libpath);
 
