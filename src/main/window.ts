@@ -1,7 +1,7 @@
-import { BrowserWindow, NativeImage, nativeImage, ipcMain } from 'electron';
+import { BrowserWindow, NativeImage, nativeImage, ipcMain, screen} from 'electron';
 import * as Positioner from 'electron-positioner';
-import windowStateKeeper from 'electron-window-state';
 import TrayManager from './tray';
+import Store from 'electron-store';
 
 import * as winIcon from '../../static/logo/logo.ico';
 import * as macIcon from '../../static/logo/logo.icns';
@@ -13,9 +13,11 @@ export default class WindowManager {
 	positioner: any;
 	isDevelopment = process.env.ELECTRON_DEV == 'dev';
 	isPinned: boolean;
+	store: Store;
 
 	constructor() {
 		this.isPinned = false;
+		this.store = new Store({ name: 'window-state' });
 		this.window = this.createMainWindow();
 		this.positioner = new Positioner(this.window);
 
@@ -39,7 +41,7 @@ export default class WindowManager {
 	createMainWindow() {
 		// Construct new BrowserWindow
 
-		let mainWindowState = windowStateKeeper({defaultWidth: 992, defaultHeight: 558});
+		let mainWindowState = this.manageWindowState({width: 992, height: 558});
 
 		let win: BrowserWindow = new BrowserWindow({
 			minHeight: 558,	minWidth: 992,
@@ -82,9 +84,42 @@ export default class WindowManager {
 
 		win.setAlwaysOnTop(true);
 
-		mainWindowState.manage(win);
+		mainWindowState.trackResize(win);
 
 		return win;
+	}
+
+	manageWindowState(defaults: WindowState) {
+		// Grab initial bounds here
+		let state: WindowState = this.store.store;
+
+		if (state.displayBounds != undefined) {
+			let bounds = screen.getDisplayMatching({ x: state.x!, y: state.y!, width: state.width!, height: state.height! }).bounds;
+
+			if (bounds.height < state.displayBounds.height! || bounds.width < state.width!) {
+				state.height = defaults.height;
+				state.width = defaults.width;
+			} else {
+				state.height = state.height == undefined ? defaults.height : state.height;
+				state.width = state.width == undefined ? defaults.width : state.width;
+			}
+		}
+
+		const trackResize = (win: BrowserWindow) => {
+			let stateChangeTimer: NodeJS.Timer;
+			win.on('resize', () => {
+				clearTimeout(stateChangeTimer);
+				stateChangeTimer = setTimeout(() => {
+					this.store.store = Object.assign({}, win.getBounds(), {displayBounds : screen.getDisplayMatching(win.getBounds()).bounds} );
+				}, 100); //debounce the function for 100ms
+			});
+		};
+
+		return ({
+			width: state.width,
+			height: state.height,
+			trackResize: trackResize
+		});
 	}
 
 	attachTray(tray: TrayManager) {
@@ -107,4 +142,13 @@ export default class WindowManager {
 		this.window.show();
 	}
 
+}
+
+interface WindowState {
+	x?: number;
+	y?: number;
+	width?: number;
+	height?: number;
+
+	displayBounds?: Electron.Rectangle;
 }
