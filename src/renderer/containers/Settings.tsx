@@ -28,7 +28,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 			activeTabIndex: TabItemsOrder.Library,
 			//TODO: Add more settings here as they are added
 			//Stuff blank Data. Will be initialized with correct data when shown.
-			library: settings[0]
+			library: settings[0] == undefined ? { path: '' } : settings[0]
 		};
 	}
 

@@ -27,8 +27,8 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 
 		this.state = {
 			tracks: this.sortList(props.tracks, 'title', 'ASC'),
-			sortBy: settings.sortBy == undefined ? 'title' : settings.sortBy,
-			sortDirection: settings.sortDirection == undefined ? 'ASC' : settings.sortDirection
+			sortBy: settings == undefined || settings.sortBy == undefined ? 'title' : settings.sortBy,
+			sortDirection: settings == undefined || settings.sortDirection == undefined ? 'ASC' : settings.sortDirection
 		};
 	}
 
