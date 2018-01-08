@@ -103,6 +103,9 @@ export default class WindowManager {
 				state.height = state.height == undefined ? defaults.height : state.height;
 				state.width = state.width == undefined ? defaults.width : state.width;
 			}
+		} else {
+			state.height = state.height == undefined ? defaults.height : state.height;
+			state.width = state.width == undefined ? defaults.width : state.width;
 		}
 
 		const trackResize = (win: BrowserWindow) => {
