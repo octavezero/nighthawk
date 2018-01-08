@@ -6,6 +6,7 @@ import { Icon } from '../common/Icon';
 import TrackModel from '../../models/TrackModel';
 import * as mm from 'music-metadata';
 import { ipcRenderer } from 'electron';
+import * as SettingsActions from '../../actions/SettingsActions';
 
 import * as TimeUtils from '../../utilities/TimeUtils';
 
@@ -42,6 +43,7 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 
 	constructor(props: PlayerControlsProps) {
 		super(props);
+		let settings = SettingsActions.getPlayerSettings();
 
 		this.state = {
 			albumart: defaultAlbumArt,
@@ -50,10 +52,14 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 			currentSongDuration: 0,
 			isMuted: false,
 			muteButtonIcon: 'volume-high',
-			currentVolume: 10,
-			repeatMode: 'repeat',
-			shuffleMode: 'shuffle-disabled'
+			currentVolume: settings == undefined || settings.volume == undefined ? 10 : settings.volume,
+			repeatMode: settings == undefined || settings.repeatMode == undefined ? 'repeat' : settings.repeatMode,
+			shuffleMode: settings == undefined || settings.shuffleMode == undefined ? 'shuffle-disabled' : settings.shuffleMode
 		};
+
+		if (settings != undefined && settings.shuffleMode != undefined && settings.shuffleMode == 'shuffle') { props.toggleShuffleState(); }
+
+		PlayerControls.audio.volume = ( settings == undefined || settings.volume == undefined ? 10 : settings.volume) / 10;
 	}
 
 	/*
@@ -103,6 +109,7 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 		Volume State handling Functions
 	*/
 	handleVolumeSliderChange = (value: number) => {
+		SettingsActions.savePlayerSettings({ volume: value });
 		PlayerControls.audio.volume = (value / 10);
 		this.setState({currentVolume: value});
 	}
@@ -146,10 +153,12 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 		Shuffle and Repeat Handler Functions
 	*/
 	toggleRepeatMode = () => {
+		SettingsActions.savePlayerSettings({ repeatMode: this.state.repeatMode === 'repeat' ? 'repeat-once' : 'repeat' });
 		this.setState({ repeatMode: this.state.repeatMode === 'repeat' ? 'repeat-once' : 'repeat' });
 	}
 
 	toggleShuffleMode = () => {
+		SettingsActions.savePlayerSettings({ shuffleMode: this.state.shuffleMode === 'shuffle' ? 'shuffle-disabled' : 'shuffle' });
 		this.setState({ shuffleMode: this.state.shuffleMode === 'shuffle' ? 'shuffle-disabled' : 'shuffle' });
 		this.props.toggleShuffleState();
 	}
