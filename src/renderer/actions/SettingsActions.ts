@@ -3,8 +3,10 @@ import Store from 'electron-store';
 
 const settingsDatabase = new Store();
 
-export const saveLibrarySettings = (settings: LibrarySettingsModel) => {
-	settingsDatabase.set('librarySettings', settings);
+export const saveLibrarySettings = async (settings: LibrarySettingsModel) => {
+	Object.keys(settings).map(key => {
+		settingsDatabase.set('librarySettings.' + key, settings[key]);
+	});
 };
 
 export const getLibrarySettings = (): LibrarySettingsModel => {

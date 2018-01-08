@@ -1,5 +1,6 @@
 import * as React from 'react';
 import TrackModel from '../../models/TrackModel';
+import * as SettingsActions from '../../actions/SettingsActions';
 
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { Table, Column, RowMouseEventHandlerParams } from 'react-virtualized/dist/commonjs/Table';
@@ -22,11 +23,12 @@ interface SongsState {
 export default class Songs extends React.Component<SongsProps, SongsState> {
 	constructor(props: SongsProps) {
 		super(props);
+		let settings = SettingsActions.getLibrarySettings();
 
 		this.state = {
 			tracks: this.sortList(props.tracks, 'title', 'ASC'),
-			sortBy: 'title',
-			sortDirection: 'ASC'
+			sortBy: settings.sortBy == undefined ? 'title' : settings.sortBy,
+			sortDirection: settings.sortDirection == undefined ? 'ASC' : settings.sortDirection
 		};
 	}
 
@@ -45,6 +47,7 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 			sortBy: sortBy,
 			sortDirection: sortDirection
 		});
+		SettingsActions.saveLibrarySettings({ sortBy: sortBy, sortDirection: sortDirection });
 	}
 
 	sortList = (tracks: List<TrackModel>, sortBy: string, sortDirection: 'ASC'|'DESC') => {
