@@ -19,6 +19,7 @@ export const init = () => {
 };
 
 export const refreshLibrary = async () => {
+	backendDispatcher.emit('STATUSBAR_SHOW_REFRESH');
 	// Grab the library Path
 	let libpath: string = await SettingsAction.getSettingByKey('librarySettings.path');
 
@@ -53,4 +54,5 @@ export const refreshLibrary = async () => {
 	let tracksList = List(tracks);
 
 	backendDispatcher.emit('REFRESH_LIBRARY', tracksList);
+	backendDispatcher.emit('STATUSBAR_HIDE_REFRESH');
 };

@@ -4,6 +4,7 @@ import { backendDispatcher } from '../dispatchers/backendDispatcher';
 import Songs from '../components/library/Songs';
 import { List } from 'immutable';
 import { playerDispatcher } from '../dispatchers/playerDispatcher';
+import Statusbar from './Statusbar';
 
 export interface LibraryProps {
 }
@@ -67,9 +68,12 @@ export default class Library extends React.Component<LibraryProps, LibraryState>
 
 	render() {
 		return (
-			<div className='library'>
-				<Songs tracks={this.state.tracks}/>
-			</div>
+			<>
+				<div className='library'>
+					<Songs tracks={this.state.tracks}/>
+				</div>
+				<Statusbar trackCount={this.state.originalTracks.count()}/>
+			</>
 		);
 	}
 }
