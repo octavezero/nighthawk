@@ -1,0 +1,72 @@
+// Popovers
+.popover {
+	display: inline-flex;
+	position: relative;
+
+	.popover-container {
+		left: 50%;
+		opacity: 0;
+		padding: var(--element-padding);
+		position: absolute;
+		top: 0;
+		transform: translate(-50%, -50%) scale(0);
+		transition: transform 0.2s ease;
+		z-index: 999;
+	}
+
+	*:focus + .popover-container {
+		display: flex;
+		opacity: 1;
+		transform: translate(-50%, -100%) scale(1);
+	}
+
+	&.popover-right {
+		.popover-container {
+			left: 100%;
+			top: 50%;
+		}
+
+		:focus + .popover-container {
+			transform: translate(0, -50%) scale(1);
+		}
+	}
+
+	&.popover-bottom {
+		.popover-container {
+			left: 50%;
+			top: 100%;
+		}
+
+		:focus + .popover-container {
+			transform: translate(-50%, 0) scale(1);
+		}
+	}
+
+	&.popover-left {
+		.popover-container {
+			left: 0;
+			top: 50%;
+		}
+
+		:focus + .popover-container, {
+			transform: translate(-100%, -50%) scale(1);
+		}
+	}
+
+	.popover-body {
+		background-color: var(--body-background-color);
+		border-color: var(--grey-dark-color);
+		border-width: var(--border-base-width);
+		border-style: var(--border-base-style);
+		color: var(--text-color);
+		border-radius: var(--border-base-radius);
+
+		min-width: 25vw;
+		min-height: 25vh;
+
+		max-width: 50vw;
+		max-height: 50vh;
+
+		box-shadow: 0 3px 14px rgba(0, 0, 0, 0.25);
+	}
+}
