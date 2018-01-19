@@ -53,6 +53,22 @@ Base Button Style. This is the default button style. All other buttons extend th
         &:active {
             background: var(--primary-light-color);
         }
+	}
+	
+	/*
+	The Ghost button style.
+	*/
+    &.btn-ghost {
+        background: transparent;
+
+        &:focus, &:hover {
+            background: var(--grey-color);
+        }
+
+        &:active {
+			background: var(--primary-color);
+			color: var(--primary-text-color);
+        }
     }
 
 	/*

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
-	type: 'default' | 'primary' | 'link';
+	type: 'default' | 'primary' | 'link' | 'ghost';
 	icon?: boolean;
 	tooltip?: string;
 	tooltipPosition?: string;
