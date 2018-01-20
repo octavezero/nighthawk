@@ -96,11 +96,13 @@ $imgsize: 75px;
 	}
 
 	.queue-header {
-		height: var(--element-height);
+		height: calc(var(--element-height) + 4px);
 		background: var(--grey-light-color);
 		border-bottom: var(--border-base-width) var(--border-base-style) var(--grey-color);
 
 		padding: 0px var(--element-padding);
+
+		overflow: hidden;
 
 		display: flex;
 		justify-content: space-between;
@@ -114,33 +116,39 @@ $imgsize: 75px;
 
 		.queue-row {
 			display: flex;
-			flex-direction: column;
 
 			justify-content: center;
 
-			&.current {
-				background-color: var(--primary-color);
-				color: var(--primary-text-color);
+			.details {
+				flex: 1 1 auto;
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+
+				&.current {
+					background-color: var(--primary-color);
+					color: var(--primary-text-color);
+
+					&:hover {
+						background-color: var(--primary-color);
+						color: var(--primary-text-color);
+					}
+				}
+								
+				h6 {
+					margin-top: 0;
+					margin-bottom: 0;
+				}
 
 				&:hover {
+					border-top-width: var(--border-base-width);
+					background-color: var(--grey-light-color);
+				}
+		
+				&:active {
 					background-color: var(--primary-color);
 					color: var(--primary-text-color);
 				}
-			}
-
-			h6 {
-				margin-top: 0;
-				margin-bottom: 0;
-			}
-
-			&:hover {
-				border-top-width: var(--border-base-width);
-				background-color: var(--grey-light-color);
-			}
-		
-			&:active {
-				background-color: var(--primary-color);
-				color: var(--primary-text-color);
 			}
 		}
 	}

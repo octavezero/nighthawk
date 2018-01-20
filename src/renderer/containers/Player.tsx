@@ -53,6 +53,25 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		this.setState({ originalQueue: queue });
 	}
 
+	deleteFromQueue = (index: number) => {
+		//TODO: write code that removes song from original list also
+		if (index == this.state.queueCursor) {
+			this.nextTrack();
+			this.setState({queue: this.state.queue.remove(index), queueCursor: index});
+		} else {
+			this.setState({queue: this.state.queue.remove(index)});
+		}
+	}
+
+	clearQueue = () => {
+		this.setState({
+			queue: this.state.originalQueue.clear(),
+			originalQueue: this.state.originalQueue.clear(),
+			queueCursor: -2,
+			currentTrack: undefined
+		});
+	}
+
 	nextTrack = () => {
 		if (this.state.currentTrack == undefined) {
 			return;
@@ -134,7 +153,7 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		return (
 			<div className='player'>
 				{details}
-				<QueueManager queue={this.state.queue} index={this.state.queueCursor}/>
+				<QueueManager queue={this.state.queue} index={this.state.queueCursor} clearQueue={this.clearQueue} deleteFromQueue={this.deleteFromQueue}/>
 				<Search />
 				<PlayerControls
 					currentTrack={this.state.currentTrack !== undefined ? this.state.currentTrack : undefined}
