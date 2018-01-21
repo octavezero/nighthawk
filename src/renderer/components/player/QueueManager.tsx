@@ -10,6 +10,7 @@ export interface QueueManagerProps {
 	queue: List<TrackModel>;
 	index: number;
 	readonly deleteFromQueue: (index: number) => void;
+	readonly seekToIndex: (index: number) => void;
 	readonly clearQueue: () => void;
 }
 
@@ -23,12 +24,16 @@ export default class QueueManager extends React.Component<QueueManagerProps, any
 		this.props.deleteFromQueue(index);
 	}
 
+	handleDoubleRowClick = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+		this.props.seekToIndex(index);
+	}
+
 	rowRenderer = ({ key, index, isScrolling, isVisible, style}: {key: string, index: number, isScrolling: boolean, isVisible: boolean, style: any}) => {
 		let track: TrackModel = this.props.queue.get(index)!;
 		let current: boolean = index == this.props.index;
 		return (
 			<div key={key} style={style} className='queue-row'>
-				<div className={ current ? 'details current' : 'details' }>
+				<div className={ current ? 'details current' : 'details' } onDoubleClick={(e: any) => { this.handleDoubleRowClick(e, index); }}>
 					<h6>{track.common.title}</h6>
 					<p>{track.common.artist} - {track.common.album}</p>
 				</div>

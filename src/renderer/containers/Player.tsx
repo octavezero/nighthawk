@@ -98,6 +98,10 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		this.setState({ currentTrack: this.state.queue.get(cursor), queueCursor: cursor });
 	}
 
+	seekToIndex = (index: number) => {
+		this.setState({ currentTrack: this.state.queue.get(index), queueCursor: index });
+	}
+
 	shuffleQueue = (queue: List<TrackModel>, playIndex: number = 0, initial: boolean = false) => {
 		//Shuffles Code here. Use Fisher-Yates Shuffle Algorithm.
 		let trackid = initial ? queue.get(playIndex)!.id : this.state.currentTrack!.id;
@@ -153,7 +157,12 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 		return (
 			<div className='player'>
 				{details}
-				<QueueManager queue={this.state.queue} index={this.state.queueCursor} clearQueue={this.clearQueue} deleteFromQueue={this.deleteFromQueue}/>
+				<QueueManager
+					queue={this.state.queue} index={this.state.queueCursor}
+					clearQueue={this.clearQueue}
+					deleteFromQueue={this.deleteFromQueue}
+					seekToIndex={this.seekToIndex}
+				/>
 				<Search />
 				<PlayerControls
 					currentTrack={this.state.currentTrack !== undefined ? this.state.currentTrack : undefined}
