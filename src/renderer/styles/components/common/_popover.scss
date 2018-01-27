@@ -16,14 +16,15 @@
 	}
 
 	.popover-container {
-		left: 50%;
+		left: 49.9%;
 		opacity: 0;
 		padding: var(--element-padding);
 		position: absolute;
 		top: 0;
 		//TODO: This is a hack to work around a chromium problem. Will be fixed in the next electron build.
-		//transform: translate(-50%, -50%) scale(0);
-		transition: transform 0.2s ease;
+		//  Remove translateZ then. Also remove the 0.1% hack then
+		transform: translateZ(0) translate(-50.1%, -50.1%) scale(0);
+		transition: all 0.2s ease;
 		z-index: 999;
 	}
 
@@ -36,39 +37,39 @@
 		.popover-container {
 			display: flex;
 			opacity: 1;
-			//transform: translate(-50%, -100%) scale(1);
+			transform: translate(-50.1%, -100%) scale(1);
 		}
 	
 		&.popover-right {
 			.popover-container {
 				left: 100%;
-				top: 50%;
+				top: 49.9%;
 			}
 	
 			.popover-container {
-				//transform: translate(0, -50%) scale(1);
+				transform: translate(0, -50.1%) scale(1);
 			}
 		}
 	
 		&.popover-bottom {
 			.popover-container {
-				left: 50%;
+				left: 49.9%;
 				top: 100%;
 			}
 	
 			.popover-container {
-				//transform: translate(-50%, 0) scale(1);
+				transform: translate(-50.1%, 0) scale(1);
 			}
 		}
 	
 		&.popover-left {
 			.popover-container {
 				left: 0;
-				top: 50%;
+				top: 49.9%;
 			}
 	
 			.popover-container, {
-				//transform: translate(-100%, -50%) scale(1);
+				transform: translate(-100%, -50.1%) scale(1);
 			}
 		}
 	}
