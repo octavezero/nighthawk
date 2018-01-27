@@ -9,6 +9,16 @@ import * as TimeUtils from '../../utilities/TimeUtils';
 import { playerDispatcher } from '../../dispatchers/playerDispatcher';
 import { List } from 'immutable';
 import EmptyState from './EmptyState';
+import { ContextMenu, ContextMenuItem } from '../common/ContextMenu';
+
+/**
+ * The Enum that describes the cases for the context menu click
+ * @enum {number}
+ */
+enum ContextCases {
+	ExistingQueue = 0,
+	NewQueue
+}
 
 export interface SongsProps {
 	tracks: List<TrackModel>;
@@ -18,6 +28,7 @@ interface SongsState {
 	tracks: List<TrackModel>;
 	sortBy: string;
 	sortDirection: 'ASC' | 'DESC';
+	contextParams: {x: number, y: number, trackData?: TrackModel};
 }
 
 export default class Songs extends React.Component<SongsProps, SongsState> {
@@ -28,8 +39,24 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 		this.state = {
 			tracks: this.sortList(props.tracks, 'title', 'ASC'),
 			sortBy: settings == undefined || settings.sortBy == undefined ? 'title' : settings.sortBy,
-			sortDirection: settings == undefined || settings.sortDirection == undefined ? 'ASC' : settings.sortDirection
+			sortDirection: settings == undefined || settings.sortDirection == undefined ? 'ASC' : settings.sortDirection,
+			contextParams: {x: 0, y: 0}
 		};
+	}
+
+	handleContextMenuItemClick = (e: React.MouseEvent<HTMLDivElement>, option: ContextCases) => {
+		switch (option) {
+			case ContextCases.ExistingQueue:
+				playerDispatcher.emit('ADD_EXISTING_QUEUE', this.state.contextParams.trackData);
+				break;
+			case ContextCases.NewQueue:
+				playerDispatcher.emit('ADD_NEW_QUEUE', this.state.contextParams.trackData);
+				break;
+		}
+	}
+
+	handleRowRightClick = (params: { event: React.MouseEvent<any>, index: number, rowData: TrackModel }) => {
+		this.setState({contextParams: {x: params.event.clientX, y: params.event.clientY, trackData: params.rowData}});
 	}
 
 	noRowsRenderer = () => {
@@ -89,6 +116,11 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 
 	render() {
 		return (
+			<>
+			<ContextMenu x={this.state.contextParams.x} y={this.state.contextParams.y}>
+				<ContextMenuItem onClick={ e => this.handleContextMenuItemClick(e, ContextCases.ExistingQueue)}>Add Track to Existing Queue</ContextMenuItem>
+				<ContextMenuItem onClick={ e => this.handleContextMenuItemClick(e, ContextCases.NewQueue)}>Add Track to New Queue</ContextMenuItem>
+			</ContextMenu>
 			<AutoSizer>
 				{({ height, width }) => (
 					<Table
@@ -103,6 +135,7 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 						sort={this.handleTableSort}
 						sortBy={this.state.sortBy}
 						sortDirection={this.state.sortDirection}
+						onRowRightClick={this.handleRowRightClick}
 					>
 						<Column
 							label='Name'
@@ -129,6 +162,7 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
 					</Table>
 				)}
 			</AutoSizer>
+			</>
 		);
 	}
 }

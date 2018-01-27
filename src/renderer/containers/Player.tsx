@@ -41,6 +41,23 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 	}
 
 	/*
+		The Queue Context Menu Functions
+	*/
+	addToExistingQueue = (track: TrackModel) => {
+		if (this.state.originalQueue.contains(track) == false) {
+			this.refreshQueue(this.state.originalQueue.concat(track));
+		}
+	}
+
+	addToNewQueue = (track: TrackModel) => {
+		let queue = this.state.queue.withMutations((mutator => {
+			mutator.clear();
+			mutator.concat(track);
+		}));
+		this.refreshQueue(queue, 0);
+	}
+
+	/*
 		The Queue Control Functions
 	*/
 	refreshQueue = (queue: List<TrackModel>, playIndex: number = 0) => {
@@ -136,10 +153,14 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 	*/
 	componentDidMount() {
 		playerDispatcher.addListener('REFRESH_QUEUE', this.refreshQueue);
+		playerDispatcher.addListener('ADD_EXISTING_QUEUE', this.addToExistingQueue);
+		playerDispatcher.addListener('ADD_NEW_QUEUE', this.addToNewQueue);
 	}
 
 	componentWillUnmount() {
 		playerDispatcher.removeListener('REFRESH_QUEUE', this.refreshQueue);
+		playerDispatcher.removeListener('ADD_EXISTING_QUEUE', this.addToExistingQueue);
+		playerDispatcher.removeListener('ADD_NEW_QUEUE', this.addToNewQueue);
 	}
 
 	render() {
