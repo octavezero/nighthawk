@@ -54,7 +54,7 @@ export default class QueueManager extends React.Component<QueueManagerProps, any
 		return (
 			<div className='queue'>
 				<Popover position='bottom' button={
-						<Button type='primary' icon={true}>
+						<Button type='primary' tooltip='View and Manage Queue' tooltipPosition='left' icon={true}>
 							<Icon size='21' icon='filter-variant' />
 						</Button>
 					}>
