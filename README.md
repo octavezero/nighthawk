@@ -27,6 +27,7 @@
 - Works completely in the tray. Hides automatically when it looses focus.
 - Does not appear in the taskbar and window lists when hidden.
 - Supports keyboard media keys to control the player.
+- A powerful queue manager to manage your playing queue.
 - Highly Efficient.
 - More Features to come soon.
 
