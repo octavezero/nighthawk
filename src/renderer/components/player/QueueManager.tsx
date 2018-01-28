@@ -59,7 +59,7 @@ export default class QueueManager extends React.Component<QueueManagerProps, any
 						</Button>
 					}>
 						<div className='queue-header'>
-							<h6>Currently Playing {this.props.index}/{this.props.queue.size}</h6>
+							<h6>Currently Playing {this.props.index + 1}/{this.props.queue.size}</h6>
 							<Button type='default' onClick={this.props.clearQueue}><Icon size='24' icon='notification-clear-all' /> Clear Queue</Button>
 						</div>
 						<div className='queue-body'>

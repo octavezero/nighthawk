@@ -17,6 +17,7 @@ export interface PlayerState {
 	queueCursor: number;
 	currentTrack: TrackModel | undefined;
 	isShuffleEnabled: boolean;
+	isSingleTrack: boolean;
 }
 
 /**
@@ -36,7 +37,8 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 			queue: List(),
 			queueCursor: -2,
 			currentTrack: undefined,
-			isShuffleEnabled: false
+			isShuffleEnabled: false,
+			isSingleTrack: false
 		};
 	}
 
@@ -99,7 +101,7 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 			//start queue from beginning
 			cursor = 0;
 		}
-		this.setState({ currentTrack: this.state.queue.get(cursor), queueCursor: cursor });
+		this.setState({ currentTrack: this.state.queue.get(cursor), queueCursor: cursor, isSingleTrack: this.state.queue.count() == 1 });
 	}
 
 	prevTrack = () => {
@@ -190,6 +192,7 @@ export default class Player extends React.Component<PlayerProps, PlayerState> {
 					nextTrack={this.nextTrack}
 					prevTrack={this.prevTrack}
 					toggleShuffleState={this.toggleShuffleState}
+					isSingleTrack={this.state.isSingleTrack}
 				/>
 			</div>
 		);

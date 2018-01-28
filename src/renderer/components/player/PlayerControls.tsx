@@ -17,6 +17,7 @@ export interface PlayerControlsProps {
 	readonly prevTrack: () => void;
 	readonly toggleShuffleState: () => void;
 	currentTrack: TrackModel | undefined;
+	isSingleTrack: boolean;
 }
 
 export interface PlayerControlsState {
@@ -183,7 +184,7 @@ export default class PlayerControls extends React.Component<PlayerControlsProps,
 			return;
 		}
 
-		if (this.props.currentTrack !== undefined && this.props.currentTrack.id === nextProps.currentTrack.id) {
+		if (this.props.currentTrack !== undefined && this.props.currentTrack.id === nextProps.currentTrack.id && !nextProps.isSingleTrack) {
 			return;
 		}
 
