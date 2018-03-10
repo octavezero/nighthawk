@@ -1,2 +1,0 @@
-# Explicitly declare text files you want to always be lf.
-.travis.yml text eol=lf
