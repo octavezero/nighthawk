@@ -1,7 +1,5 @@
 <h1 align="center">
 	<br>
-	<img src="https://raw.githubusercontent.com/quantumkv/nighthawk/master/build/icons/512x512.png" alt="Nighthawy" width="200">
-	<br>
 	Nighthawk
 	<br>
 </h1>
