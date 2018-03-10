@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "sourceMap": true,
+        "target": "es6"
+    },
+    "formatCodeOptions": {
+        "indentSize": 4,
+        "tabSize": 4
+    },
+    "exclude": ["node_modules"]
+}

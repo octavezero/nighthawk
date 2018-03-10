@@ -1,0 +1,48 @@
+{
+  "name": "nighthawk",
+  "version": "0.4.0",
+  "author": "Tarak Sharma <tarak.scope@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quantumkv/nighthawk"
+  },
+  "bugs": {
+    "url": "https://github.com/quantumkv/nighthawk/issues"
+  },
+  "description": "A Stealthy,Cross-Platform, Simple Music Player that stays out of your way",
+  "main": "./dist/main.bundle.js",
+  "scripts": {
+    "start": "electron ./dist/main.bundle.js",
+    "development": "webpack --watch --config ./webpack.dev.js --progress --colors",
+    "production": "webpack --config ./webpack.prod.js --progress --colors"
+  },
+  "keywords": [
+    "music",
+    "player",
+    "electron",
+    "tray",
+    "desktop",
+    "background"
+  ],
+  "devDependencies": {
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
+    "css-loader": "^0.28.10",
+    "electron": "2.0.0-beta.3",
+    "html-webpack-plugin": "^3.0.6",
+    "prettier": "1.11.1",
+    "style-loader": "^0.20.3",
+    "ts-loader": "^4.0.1",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.7.0",
+    "tslint-config-prettier": "^1.9.0",
+    "typescript": "^2.7.2",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11"
+  },
+  "dependencies": {
+    "react": "^16.3.0-alpha.1",
+    "react-dom": "^16.3.0-alpha.1"
+  }
+}
