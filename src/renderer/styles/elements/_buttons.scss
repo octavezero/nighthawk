@@ -1,0 +1,120 @@
+/*
+Base Button Style. This is the default button style. All other buttons extend this base style.
+*/
+.btn {
+    //Font Family not inherited from parents. Hack.
+    font-family: inherit;
+    line-height: inherit;
+    border: var(--border-width) var(--border-style) transparent;
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: var(--spacing-vertical) var(--spacing-horizontal);
+    margin: 0px;
+    cursor: pointer;
+    min-height: var(--element-height);
+    min-width: 50px;
+    border-radius: var(--border-radius);
+
+    &[disabled],
+    &:disabled {
+        cursor: default;
+        opacity: var(--element-disabled-opacity);
+        pointer-events: none;
+    }
+
+    /*
+	The default colored button style.
+	*/
+    &.btn-default {
+        background: transparent;
+        color: var(--text-color);
+
+        &:focus,
+        &:hover {
+            border-color: var(--accent-light-color);
+            color: var(--accent-light-color);
+        }
+
+        &:active {
+            border-color: var(--accent-dark-color);
+            color: var(--accent-dark-color);
+        }
+    }
+
+    /*
+	The primary/solid button style.
+	*/
+    &.btn-primary {
+        border-color: var(--accent-base-color);
+        background: var(--accent-base-color);
+        color: var(--accent-base-color);
+
+        &:focus,
+        &:hover {
+            border-color: var(--accent-light-color);
+            background: var(--accent-light-color);
+            color: var(--accent-light-color);
+        }
+
+        &:active {
+            border-color: var(--accent-dark-color);
+            background: var(--accent-dark-color);
+            color: var(--accent-dark-color);
+        }
+    }
+
+    /*
+	The transparent/link button style
+	*/
+    &.btn-link {
+        background: transparent;
+        border-color: transparent;
+        cursor: pointer;
+
+        &:focus,
+        &:hover {
+            color: var(--accent-base-color);
+        }
+
+        &:active {
+            color: var(--accent-dark-color);
+        }
+    }
+
+    /*
+	The style for the icon button.
+	*/
+    &.btn-icon {
+        padding: 0px var(--spacing-horizontal);
+    }
+
+    /*
+	The style for the block/full-width button
+	*/
+    &.btn-block {
+        display: flex;
+    }
+}
+
+/*
+Button Groups. Uses Flexbox
+*/
+.btn-group {
+    display: inline-flex;
+    flex-wrap: nowrap;
+
+    .btn {
+        flex: 1 0 auto;
+        margin: 0px;
+    }
+
+    &.btn-group-block {
+        display: flex;
+
+        .btn {
+            flex: 1 0 0;
+        }
+    }
+}

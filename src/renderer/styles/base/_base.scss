@@ -1,0 +1,33 @@
+html,
+body {
+    height: 100vh;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+}
+
+body {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.shell {
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    border: var(--border-width) var(--border-style) var(--border-color);
+}
+
+a {
+    color: var(--accent-base-color);
+    outline: none;
+    text-decoration: none;
+
+    &:active {
+        color: var(--paccent-dark-color);
+        text-decoration: underline;
+    }
+}

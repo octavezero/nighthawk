@@ -1,10 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-class Hello extends React.Component<any, any> {
-    render() {
-        return <h1>React Works!. Go forth and develop.</h1>;
-    }
-}
+import ShellContainer from './containers/ShellContainer';
 
-ReactDOM.render(<Hello />, document.getElementById('app'));
+ReactDOM.render(<ShellContainer />, document.getElementById('app'));

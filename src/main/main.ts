@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
+import * as os from 'os';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -7,8 +8,12 @@ let mainWindow: Electron.BrowserWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        height: 600,
-        width: 800,
+        frame: os.platform() === 'darwin' ? true : false,
+        titleBarStyle: 'hiddenInset',
+        minHeight: 558,
+        minWidth: 992,
+        height: 558,
+        width: 992,
     });
 
     // and load the index.html of the app.
@@ -56,3 +61,21 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.on('WINDOW_QUIT', () => {
+    app.quit();
+});
+
+ipcMain.on('WINDOW_MINIMIZE', () => {
+    if (mainWindow) {
+        mainWindow.minimize();
+    }
+});
+
+ipcMain.on('WINDOW_MAXIMIZE', () => {
+    if (mainWindow) {
+        mainWindow.isMaximized()
+            ? mainWindow.unmaximize()
+            : mainWindow.maximize();
+    }
+});

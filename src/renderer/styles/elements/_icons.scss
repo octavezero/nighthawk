@@ -1,0 +1,19 @@
+/*
+Import the sass files from mdi package
+*/
+@import '~mdi/css/materialdesignicons.css';
+
+.mdi-14px.mdi-set,
+.mdi-14px.mdi:before {
+    font-size: 14px;
+}
+
+.mdi-16px.mdi-set,
+.mdi-16px.mdi:before {
+    font-size: 16px;
+}
+
+.mdi-21px.mdi-set,
+.mdi-21px.mdi:before {
+    font-size: 21px;
+}

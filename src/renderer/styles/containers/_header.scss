@@ -1,0 +1,66 @@
+.header {
+    display: flex;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-app-region: drag;
+
+    border-bottom: var(--border-width) var(--border-style) var(--border-color);
+
+    .content {
+        flex: 1;
+        display: flex;
+
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-app-region: drag;
+    }
+
+    .window-controls {
+        display: inline-flex;
+        min-width: 150px;
+
+        &.macos {
+            order: -1;
+        }
+
+        .minimize,
+        .resize,
+        .close {
+            border-radius: 0px;
+            -webkit-app-region: no-drag;
+            -webkit-transition: background-color 0.2s;
+            transition: background-color 0.2s;
+
+            &:focus,
+            &:hover {
+                & svg > rect,
+                & svg > path,
+                & svg > polygon {
+                    fill: var(--accent-base-color);
+                }
+            }
+
+            &:active {
+                & svg > rect,
+                & svg > path,
+                & svg > polygon {
+                    fill: var(--accent-dark-color);
+                }
+            }
+        }
+
+        .minimize svg,
+        .resize svg,
+        .close svg {
+            width: 10px;
+            height: 10px;
+            shape-rendering: crispEdges;
+        }
+
+        .minimize svg > rect,
+        .resize svg > path,
+        .close svg > polygon {
+            fill: var(--text-body-color);
+        }
+    }
+}

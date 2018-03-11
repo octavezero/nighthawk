@@ -1,0 +1,41 @@
+:root {
+    /*
+        Color Variables
+    */
+    --background-color: #fafafa;
+    --text-body-color: fade(#000, 65%);
+    --text-heading-color: fade(#000, 85%);
+    --text-secondary-color: fade(#000, 45%);
+
+    --accent-base-color: #1890ff;
+    --accent-light-color: #40a9ff;
+    --accent-dark-color: #096dd9;
+
+    /*
+        Font variables
+    */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    --font-size: 12px;
+    --line-height: 1.5;
+
+    /*
+        Border Variables
+    */
+    --border-color: #d2d2d2;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-radius: 2px;
+
+    /*
+        Spacing and Size Variables
+    */
+    --element-height: 32px;
+    --spacing-vertical: 8px;
+    --spacing-horizontal: 12px;
+
+    /*
+        Misc variables
+    */
+    --element-disabled-opacity: 0.6;
+}
