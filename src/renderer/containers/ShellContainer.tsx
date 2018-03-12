@@ -1,6 +1,9 @@
 import * as React from 'react';
-import HeaderContainer from './HeaderContainer';
+
 import '../styles/app.scss';
+
+import HeaderContainer from './HeaderContainer';
+import PlayerContainer from './PlayerContainer';
 
 export interface ShellContainerProps {}
 
@@ -22,6 +25,7 @@ export default class ShellContainer extends React.Component<
         return (
             <>
                 <HeaderContainer />
+                <PlayerContainer />
             </>
         );
     }

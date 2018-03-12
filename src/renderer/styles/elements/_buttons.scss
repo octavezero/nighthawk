@@ -87,7 +87,8 @@ Base Button Style. This is the default button style. All other buttons extend th
 	The style for the icon button.
 	*/
     &.btn-icon {
-        padding: 0px var(--spacing-horizontal);
+        min-width: var(--element-height);
+        padding: 0px;
     }
 
     /*

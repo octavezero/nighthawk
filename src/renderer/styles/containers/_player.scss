@@ -1,0 +1,47 @@
+.player {
+    border-bottom: var(--border-width) var(--border-style) var(--border-color);
+    padding: 4px;
+
+    display: grid;
+    grid-template-rows: 42px 32px;
+    grid-template-columns: 75px auto;
+    grid-template-areas: 'image details' 'image controls';
+
+    .image {
+        grid-area: image;
+    }
+
+    .details {
+        grid-area: details;
+        display: flex;
+        align-items: baseline;
+
+        * {
+            font-weight: 400;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    .controls {
+        grid-area: controls;
+        display: flex;
+        justify-content: space-between;
+
+        .seekbar {
+            display: flex;
+            flex: 1;
+            align-items: center;
+
+            span {
+                margin: 0 var(--spacing-horizontal);
+            }
+        }
+
+        .volume {
+            display: flex;
+            align-items: center;
+            min-width: 200px;
+        }
+    }
+}

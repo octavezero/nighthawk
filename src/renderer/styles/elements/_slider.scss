@@ -1,0 +1,39 @@
+.slider {
+    background: var(--border-color);
+    display: flex;
+    flex-wrap: nowrap;
+    height: 4px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    width: 100%;
+    margin: var(--sapcing-vertical) var(--spacing-horizontal);
+
+    .slider-fill {
+        background: var(--accent-base-color);
+        color: var(--text-accent-color);
+        height: 100%;
+        width: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .slider-thumb {
+            background: var(--background-color);
+            border: calc(var(--border-width) * 4) var(--border-style)
+                var(--accent-base-color); //pointer-events: none;
+            /*
+			Min and max must be same for width and height respectively.
+			Otherwise size issues occur if slider value is less than half of width
+			*/
+            min-height: 16px;
+            min-width: 16px;
+            max-height: 16px;
+            max-width: 16px;
+            margin-right: -8px; //Must always be half of width
+            border-radius: 50%;
+            padding: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+                0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+    }
+}
