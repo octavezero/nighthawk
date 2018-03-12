@@ -5,7 +5,7 @@ export interface HeaderContainerProps {}
 
 export interface HeaderContainerState {}
 
-export default class Header extends React.Component<
+export default class HeaderContainer extends React.Component<
     HeaderContainerProps,
     HeaderContainerState
 > {

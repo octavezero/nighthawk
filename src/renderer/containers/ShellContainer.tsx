@@ -6,7 +6,7 @@ export interface ShellContainerProps {}
 
 export interface ShellContainerState {}
 
-export default class Shell extends React.Component<
+export default class ShellContainer extends React.Component<
     ShellContainerProps,
     ShellContainerState
 > {

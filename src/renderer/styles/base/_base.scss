@@ -1,24 +1,17 @@
 html,
 body {
-    height: 100vh;
     font-family: var(--font-family);
     font-size: var(--font-size);
     line-height: var(--line-height);
 }
 
-body {
-    height: 100vh;
-    max-height: 100vh;
-    overflow: hidden;
-}
-
 .shell {
-    height: 100vh;
-    max-height: 100vh;
+    height: calc(100vh - 2px);
+    max-height: calc(100vh - 2px);
     display: flex;
     flex-direction: column;
 
-    border: var(--border-width) var(--border-style) var(--border-color);
+    border: var(--border-width) var(--border-style) var(--accent-base-color);
 }
 
 a {
