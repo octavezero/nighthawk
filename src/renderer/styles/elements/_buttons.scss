@@ -49,19 +49,19 @@ Base Button Style. This is the default button style. All other buttons extend th
     &.btn-primary {
         border-color: var(--accent-base-color);
         background: var(--accent-base-color);
-        color: var(--accent-base-color);
+        color: var(--text-accent-color);
 
         &:focus,
         &:hover {
             border-color: var(--accent-light-color);
             background: var(--accent-light-color);
-            color: var(--accent-light-color);
+            color: var(--text-accent-color);
         }
 
         &:active {
             border-color: var(--accent-dark-color);
             background: var(--accent-dark-color);
-            color: var(--accent-dark-color);
+            color: var(--text-accent-color);
         }
     }
 

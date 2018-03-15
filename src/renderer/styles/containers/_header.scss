@@ -1,13 +1,13 @@
 .header {
     display: flex;
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-app-region: drag;
 
     .content {
-        flex: 1;
         display: flex;
+        padding: 0px var(--spacing-horizontal);
+    }
 
+    .drag {
+        flex: 1;
         -webkit-user-select: none;
         user-select: none;
         -webkit-app-region: drag;

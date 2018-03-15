@@ -1,5 +1,6 @@
 import * as React from 'react';
 import WindowControls from '../components/header/WindowControls';
+import HeaderActions from '../components/header/HeaderActions';
 
 export interface HeaderContainerProps {}
 
@@ -20,7 +21,10 @@ export default class HeaderContainer extends React.Component<
     render() {
         return (
             <div className="header">
-                <div className="content" />
+                <div className="drag" />
+                <div className="content">
+                    <HeaderActions />
+                </div>
                 <WindowControls />
             </div>
         );

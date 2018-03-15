@@ -1,0 +1,58 @@
+// Modals
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-container {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+
+    width: 50vw;
+    height: 50vh;
+
+    max-width: 50vw;
+    max-height: 75vh;
+
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: var(--spacing-vertical) var(--spacing-horizontal);
+
+        h5 {
+            font-weight: 600;
+        }
+    }
+
+    .modal-body {
+        max-height: 50vh;
+        overflow-y: auto;
+        padding: 0px;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: var(--spacing-vertical) var(--spacing-horizontal);
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: var(--spacing-vertical) var(--spacing-horizontal);
+    }
+}
