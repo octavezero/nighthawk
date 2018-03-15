@@ -4,6 +4,7 @@ import '../styles/app.scss';
 
 import HeaderContainer from './HeaderContainer';
 import PlayerContainer from './PlayerContainer';
+import LibraryContainer from './LibraryContainer';
 
 export interface ShellContainerProps {}
 
@@ -26,6 +27,7 @@ export default class ShellContainer extends React.Component<
             <>
                 <HeaderContainer />
                 <PlayerContainer />
+                <LibraryContainer />
             </>
         );
     }

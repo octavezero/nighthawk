@@ -3,15 +3,14 @@ body {
     font-family: var(--font-family);
     font-size: var(--font-size);
     line-height: var(--line-height);
+    background: var(--background-color);
 }
 
 .shell {
-    height: calc(100vh - 2px);
-    max-height: calc(100vh - 2px);
+    height: calc(100vh);
+    max-height: calc(100vh);
     display: flex;
     flex-direction: column;
-
-    border: var(--border-width) var(--border-style) var(--accent-base-color);
 }
 
 a {

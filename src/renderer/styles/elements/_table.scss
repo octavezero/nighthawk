@@ -1,0 +1,89 @@
+/*
+	Table default theme.
+	Specifies the theme for the React-Virtualized Table.
+	Forked From React-Virtualized Sources.
+*/
+
+.ReactVirtualized__Table {
+    background-color: #ffffff;
+}
+
+.ReactVirtualized__Table__Grid {
+    background-color: #ffffff;
+}
+
+.ReactVirtualized__Table__headerRow {
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-color: var(--background-color);
+    color: var(--text-body-color);
+
+    border-bottom: var(--border-width) var(--border-style) var(--border-color);
+}
+
+.ReactVirtualized__Table__row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    background: #ffffff;
+    color: var(--text-body-color);
+    border-top-width: 0;
+}
+
+.ReactVirtualized__Table__headerTruncatedText {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ReactVirtualized__Table__headerColumn {
+    border-right: var(--border-width) var(--border-style) var(--border-color);
+}
+
+.ReactVirtualized__Table__headerColumn,
+.ReactVirtualized__Table__rowColumn {
+    margin-right: 10px;
+    min-width: 0px;
+
+    display: inline-flex;
+    align-items: center;
+}
+
+.ReactVirtualized__Table__rowColumn {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// For Proper Scrollbar positining.
+.ReactVirtualized__Table__headerColumn:last-of-type,
+.ReactVirtualized__Table__rowColumn:last-of-type {
+    margin-right: 16px;
+}
+
+.ReactVirtualized__Table__headerColumn:first-of-type,
+.ReactVirtualized__Table__rowColumn:first-of-type {
+    margin-left: 10px;
+}
+
+.ReactVirtualized__Table__sortableHeaderColumn {
+    cursor: pointer;
+}
+
+.ReactVirtualized__Table__sortableHeaderIconContainer {
+    display: flex;
+    align-items: center;
+}
+
+.ReactVirtualized__Table__sortableHeaderIcon {
+    flex: 0 0 24px;
+    height: 1em;
+    width: 1em;
+    fill: currentColor;
+}
