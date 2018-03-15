@@ -10,6 +10,13 @@
 
     .image {
         grid-area: image;
+        justify-self: center;
+        align-self: center;
+
+        height: 70px;
+        width: 70px;
+        max-width: 70px;
+        max-height: 70px;
     }
 
     .details {

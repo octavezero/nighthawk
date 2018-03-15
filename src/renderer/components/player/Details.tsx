@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import * as defaultAlbumArt from '../../../../static/vectors/defaultAlbumArt.svg';
+
 export interface DetailsProps {}
 
 export default class Details extends React.Component<DetailsProps, any> {
@@ -10,7 +12,7 @@ export default class Details extends React.Component<DetailsProps, any> {
     render() {
         return (
             <>
-                <img className="image" />
+                <img className="image" src={defaultAlbumArt} />
                 <div className="details">
                     <h2>Title</h2>
                     <h5>on</h5>
