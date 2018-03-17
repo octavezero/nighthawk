@@ -1,21 +1,33 @@
 import * as React from 'react';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { Table, Column } from 'react-virtualized/dist/commonjs/Table';
+import AppStore from '../../stores/AppStore';
+import { TrackModel } from '../../database/TracksDatabase';
+import * as TimeUtils from '../../utilities/TimeUtils';
 
-export interface SongsProps {}
+export interface SongsProps {
+    store: AppStore;
+}
 
 export default class Songs extends React.Component<SongsProps, any> {
     constructor(props: SongsProps) {
         super(props);
     }
 
-    rowGetter = () => {};
+    rowGetter = ({ index }: { index: number }) => {
+        return this.props.store.state.library.get(index);
+    };
 
     noRowsRenderer = () => {
         return <div>Empty State</div>;
     };
 
+    componentDidMount() {
+        this.props.store.initLibrary();
+    }
+
     render() {
+        const { store } = this.props;
         return (
             <div className="songs">
                 <AutoSizer>
@@ -26,28 +38,54 @@ export default class Songs extends React.Component<SongsProps, any> {
                             noRowsRenderer={this.noRowsRenderer}
                             height={height}
                             rowHeight={26}
-                            rowCount={0}
+                            rowCount={store.state.library.count()}
                             width={width}>
                             <Column
                                 label="Name"
                                 dataKey="title"
                                 width={(width - 20) * (31 / 100)}
+                                cellDataGetter={({
+                                    rowData,
+                                }: {
+                                    rowData: TrackModel;
+                                }) => rowData.common.title}
                             />
                             <Column
                                 label="Artist"
                                 dataKey="artist"
                                 width={(width - 20) * (31 / 100)}
+                                cellDataGetter={({
+                                    rowData,
+                                }: {
+                                    rowData: TrackModel;
+                                }) => rowData.common.artist}
                             />
                             <Column
                                 label="Album"
                                 dataKey="album"
                                 width={(width - 20) * (31 / 100)}
+                                cellDataGetter={({
+                                    rowData,
+                                }: {
+                                    rowData: TrackModel;
+                                }) => rowData.common.album}
                             />
                             <Column
                                 label="Duration"
                                 dataKey="duration"
                                 disableSort={true}
                                 width={(width - 20) * (7 / 100)}
+                                cellDataGetter={({
+                                    rowData,
+                                }: {
+                                    rowData: TrackModel;
+                                }) =>
+                                    TimeUtils.parseToMinutes(
+                                        rowData.format.duration !== undefined
+                                            ? rowData.format.duration
+                                            : 0
+                                    )
+                                }
                             />
                         </Table>
                     )}

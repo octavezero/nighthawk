@@ -4,6 +4,8 @@ body {
     font-size: var(--font-size);
     line-height: var(--line-height);
     background: var(--background-color);
+
+    overflow: hidden;
 }
 
 .shell {

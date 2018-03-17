@@ -25,6 +25,10 @@ export default class LibrarySettings extends React.Component<
         });
     };
 
+    handleRefreshLibrary = () => {
+        this.props.store.refreshLibrary();
+    };
+
     render() {
         const { store } = this.props;
         return (
@@ -36,7 +40,9 @@ export default class LibrarySettings extends React.Component<
                     readOnly
                 />
                 <ButtonGroup className="library-settings-group">
-                    <Button type="primary">Refresh Library Now</Button>
+                    <Button onClick={this.handleRefreshLibrary} type="primary">
+                        Refresh Library Now
+                    </Button>
                 </ButtonGroup>
             </div>
         );

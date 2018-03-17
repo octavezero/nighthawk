@@ -3,7 +3,8 @@
     "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
     "jsRules": {},
     "rules": {
-        "indent": [true, "spaces", 4]
+        "indent": [true, "spaces", 4],
+        "no-increment-decrement": [0]
     },
     "rulesDirectory": []
 }

@@ -1,0 +1,32 @@
+@mixin thumb-border {
+    border: 3px solid rgba(0, 0, 0, 0);
+    border-left-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    background-color: var(--border-color);
+}
+
+::-webkit-scrollbar-track {
+    border: var(--border-width) var(--border-style) transparent;
+    background-color: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--accent-base-color);
+    @include thumb-border();
+
+    &:hover {
+        background: var(--accent-dark-color);
+        @include thumb-border();
+    }
+
+    &:active {
+        background: var(--accent-light-color);
+        @include thumb-border();
+    }
+}
