@@ -19,7 +19,7 @@
     flex-direction: column;
 
     width: 50vw;
-    height: 50vh;
+    height: auto;
 
     max-width: 50vw;
     max-height: 75vh;
@@ -38,6 +38,7 @@
     }
 
     .modal-body {
+        min-height: 15vh;
         max-height: 50vh;
         overflow-y: auto;
         padding: 0px;

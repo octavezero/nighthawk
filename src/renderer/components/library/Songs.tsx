@@ -37,7 +37,7 @@ export default class Songs extends React.Component<SongsProps, any> {
                             rowGetter={this.rowGetter}
                             noRowsRenderer={this.noRowsRenderer}
                             height={height}
-                            rowHeight={26}
+                            rowHeight={30}
                             rowCount={store.state.library.count()}
                             width={width}>
                             <Column

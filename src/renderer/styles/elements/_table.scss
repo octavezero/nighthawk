@@ -6,10 +6,22 @@
 
 .ReactVirtualized__Table {
     background-color: #ffffff;
+
+    &:focus {
+        outline: 0;
+        outline-color: transparent;
+        outline-style: none;
+    }
 }
 
 .ReactVirtualized__Table__Grid {
     background-color: #ffffff;
+
+    &:focus {
+        outline: 0;
+        outline-color: transparent;
+        outline-style: none;
+    }
 }
 
 .ReactVirtualized__Table__headerRow {
@@ -33,6 +45,18 @@
     background: #ffffff;
     color: var(--text-body-color);
     border-top-width: 0;
+
+    border-top: var(--border-width) var(--border-style) var(--border-color);
+
+    &:hover {
+        background-color: var(--border-color);
+    }
+
+    &:active,
+    &:focus {
+        background-color: var(--accent-base-color);
+        color: var(--text-accent-color);
+    }
 }
 
 .ReactVirtualized__Table__headerTruncatedText {
