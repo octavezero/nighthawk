@@ -14,8 +14,8 @@
   "main": "./dist/main.bundle.js",
   "scripts": {
     "start": "electron ./dist/main.bundle.js",
-    "development": "webpack --watch --config ./webpack.dev.js --progress --colors",
-    "production": "webpack --config ./webpack.prod.js --progress --colors"
+    "development": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
+    "production": "rimraf dist && webpack --config ./webpack.prod.js --progress --colors"
   },
   "keywords": [
     "music",
@@ -31,17 +31,18 @@
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
     "@types/react-modal": "^3.1.2",
-    "@types/react-virtualized": "^9.7.12",
+    "@types/react-virtualized": "^9.7.13",
     "@types/seamless-immutable": "^7.1.1",
-    "css-loader": "^0.28.10",
-    "electron": "2.0.0-beta.3",
+    "css-loader": "^0.28.11",
+    "electron": "2.0.0-beta.4",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.0.6",
     "node-sass": "^4.7.2",
     "prettier": "1.11.1",
+    "rimraf": "^2.6.2",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
-    "ts-loader": "^4.0.1",
+    "ts-loader": "^4.1.0",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.7.0",
     "tslint-config-prettier": "^1.9.0",
