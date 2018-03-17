@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { TabBar } from '../components/elements/TabBar';
 import Library from '../components/settings/Library';
+import { Subscribe } from 'unstated';
+import AppStore from '../stores/AppStore';
 
 enum TabItemsOrder {
     Library,
@@ -32,7 +34,11 @@ export default class SettingsContainer extends React.Component<
     renderActiveTabItem() {
         switch (this.state.activeTabIndex) {
             case TabItemsOrder.Library: {
-                return <Library />;
+                return (
+                    <Subscribe to={[AppStore]}>
+                        {store => <Library store={store as AppStore} />}
+                    </Subscribe>
+                );
             }
 
             case TabItemsOrder.System: {

@@ -1,7 +1,16 @@
 import { Container } from 'unstated';
+import { AppStoreModel } from './AppStoreModel';
 
-export interface AppState {}
+import * as SettingsActions from '../actions/SettingsActions';
 
-export class AppStore extends Container<AppState> {
-    state: AppState = {};
+export default class AppStore extends Container<AppStoreModel> {
+    state: AppStoreModel = {
+        settings: SettingsActions.getSettings(),
+    };
+
+    pathActions = (action: SettingsActions.SettingsActionType) => {
+        this.setState({
+            settings: SettingsActions.saveSettings(action, this.state),
+        });
+    };
 }
