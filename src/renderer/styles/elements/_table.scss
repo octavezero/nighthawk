@@ -44,9 +44,6 @@
 
     background: #ffffff;
     color: var(--text-body-color);
-    border-top-width: 0;
-
-    border-top: var(--border-width) var(--border-style) var(--border-color);
 
     &:hover {
         background-color: var(--border-color);
@@ -57,6 +54,14 @@
         background-color: var(--accent-base-color);
         color: var(--text-accent-color);
     }
+}
+
+.odd-row {
+    background: var(--background-color);
+}
+
+.even-row {
+    background: #ffffff;
 }
 
 .ReactVirtualized__Table__headerTruncatedText {

@@ -22,6 +22,10 @@ export default class Songs extends React.Component<SongsProps, any> {
         return <div>Empty State</div>;
     };
 
+    rowClassName = ({ index }: { index: number }) => {
+        return index % 2 === 0 ? 'even-row' : 'odd-row';
+    };
+
     componentDidMount() {
         this.props.store.initLibrary();
     }
@@ -37,8 +41,9 @@ export default class Songs extends React.Component<SongsProps, any> {
                             rowGetter={this.rowGetter}
                             noRowsRenderer={this.noRowsRenderer}
                             height={height}
-                            rowHeight={30}
+                            rowHeight={28}
                             rowCount={store.state.library.count()}
+                            rowClassName={this.rowClassName}
                             width={width}>
                             <Column
                                 label="Name"
