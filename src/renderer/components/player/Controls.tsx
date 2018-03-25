@@ -3,12 +3,81 @@ import { ButtonGroup } from '../elements/buttongroup';
 import { Button } from '../elements/button';
 import { Icon } from '../elements/Icon';
 import Slider from '../elements/Slider';
+import AppStore from '../../stores/AppStore';
+import Player from '../../libraries/Player';
+import { parseToMinutes } from '../../utilities/TimeUtils';
+import { PlayerActionEnum } from '../../actions/PlayerActions';
 
-export interface ControlsProps {}
+export interface ControlsProps {
+    store: AppStore;
+}
 
-export default class Controls extends React.Component<ControlsProps, any> {
+interface ControlsState {
+    duration: number;
+}
+
+export default class Controls extends React.Component<
+    ControlsProps,
+    ControlsState
+> {
     constructor(props: ControlsProps) {
         super(props);
+
+        this.state = {
+            duration: 0,
+        };
+    }
+
+    onPlayerTimeUpdate = () => {
+        this.setState({
+            duration: Math.floor(Player.getCurrentTime()),
+        });
+    };
+
+    onPlayerEnded = () => {
+        this.props.store.playerActions({
+            type: PlayerActionEnum.NEXT_SONG,
+        });
+    };
+
+    handleDurationChange = (value: number) => {
+        Player.setCurrentTime(value);
+    };
+
+    handleVolumeChange = (value: number) => {
+        Player.setVolume(value / 10);
+    };
+
+    handleNextTrack = () => {
+        this.props.store.playerActions({
+            type: PlayerActionEnum.NEXT_SONG,
+        });
+    };
+
+    handlePrevTrack = () => {
+        if (this.state.duration > 15) {
+            Player.replay();
+        } else {
+            this.props.store.playerActions({
+                type: PlayerActionEnum.PREV_SONG,
+            });
+        }
+    };
+
+    componentDidMount() {
+        Player.getInstance().addEventListener(
+            'timeupdate',
+            this.onPlayerTimeUpdate
+        );
+        Player.getInstance().addEventListener('ended', this.onPlayerEnded);
+    }
+
+    componentWillUnmount() {
+        Player.getInstance().removeEventListener(
+            'timeupdate',
+            this.onPlayerTimeUpdate
+        );
+        Player.getInstance().removeEventListener('ended', this.onPlayerEnded);
     }
 
     render() {
@@ -16,20 +85,47 @@ export default class Controls extends React.Component<ControlsProps, any> {
             <>
                 <div className="controls">
                     <ButtonGroup>
-                        <Button type="default" icon={true}>
+                        <Button
+                            type="default"
+                            icon={true}
+                            onClick={this.handlePrevTrack}>
                             <Icon size="21" icon="skip-previous" />
                         </Button>
-                        <Button type="default" icon={true}>
-                            <Icon size="21" icon="play" />
+                        <Button
+                            type="default"
+                            icon={true}
+                            onClick={e =>
+                                this.props.store.playerActions({
+                                    type: PlayerActionEnum.TOGGLE_PLAY_PAUSE,
+                                })
+                            }>
+                            <Icon
+                                size="21"
+                                icon={
+                                    this.props.store.state.player.playing
+                                        ? 'pause'
+                                        : 'play'
+                                }
+                            />
                         </Button>
-                        <Button type="default" icon={true}>
+                        <Button
+                            type="default"
+                            icon={true}
+                            onClick={this.handleNextTrack}>
                             <Icon size="21" icon="skip-next" />
                         </Button>
                     </ButtonGroup>
                     <div className="seekbar">
-                        <span>00:00</span>
-                        <Slider min={0} max={100} value={50} />
-                        <span>05:36</span>
+                        <span>{parseToMinutes(this.state.duration)}</span>
+                        <Slider
+                            min={0}
+                            max={Math.floor(Player.getDuration())}
+                            value={this.state.duration}
+                            onChange={this.handleDurationChange}
+                        />
+                        <span>
+                            {parseToMinutes(Math.floor(Player.getDuration()))}
+                        </span>
                     </div>
                     <ButtonGroup>
                         <Button type="default" icon={true}>
@@ -43,7 +139,12 @@ export default class Controls extends React.Component<ControlsProps, any> {
                         <Button type="default" icon={true}>
                             <Icon size="21" icon="volume-high" />
                         </Button>
-                        <Slider min={0} max={10} value={6} />
+                        <Slider
+                            min={0}
+                            max={10}
+                            value={Player.getVolume() * 10}
+                            onChange={this.handleVolumeChange}
+                        />
                     </div>
                 </div>
             </>

@@ -4,6 +4,13 @@ import { TrackModel } from '../database/TracksDatabase';
 export interface AppStoreModel {
     settings: SettingsStoreModel;
     library: List<TrackModel>;
+    player: Partial<PlayerStoreModel>;
+}
+
+export interface PlayerStoreModel {
+    queue: List<TrackModel>;
+    cursor: number;
+    playing: boolean;
 }
 
 export interface SettingsStoreModel {

@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
-import { Table, Column } from 'react-virtualized/dist/commonjs/Table';
+import {
+    Table,
+    Column,
+    RowMouseEventHandlerParams,
+} from 'react-virtualized/dist/commonjs/Table';
 import AppStore from '../../stores/AppStore';
 import { TrackModel } from '../../database/TracksDatabase';
 import * as TimeUtils from '../../utilities/TimeUtils';
@@ -30,6 +34,10 @@ export default class Songs extends React.Component<SongsProps, any> {
         this.props.store.initLibrary();
     }
 
+    onRowDoubleClick = (info: RowMouseEventHandlerParams) => {
+        this.props.store.createPlayerQueue(info.index);
+    };
+
     render() {
         const { store } = this.props;
         return (
@@ -44,6 +52,7 @@ export default class Songs extends React.Component<SongsProps, any> {
                             rowHeight={28}
                             rowCount={store.state.library.count()}
                             rowClassName={this.rowClassName}
+                            onRowDoubleClick={this.onRowDoubleClick}
                             width={width}>
                             <Column
                                 label="Name"
