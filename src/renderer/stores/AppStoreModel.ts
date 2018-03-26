@@ -9,6 +9,7 @@ export interface AppStoreModel {
 
 export interface PlayerStoreModel {
     queue: List<TrackModel>;
+    originalQueue: List<TrackModel>;
     cursor: number;
     playing: boolean;
 }
@@ -18,5 +19,9 @@ export interface SettingsStoreModel {
         path: string;
         sortBy: string;
         sortDirection: 'ASC' | 'DESC';
+    };
+    player?: {
+        shuffle: boolean;
+        repeat: boolean;
     };
 }

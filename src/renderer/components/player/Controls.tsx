@@ -7,6 +7,7 @@ import AppStore from '../../stores/AppStore';
 import Player from '../../libraries/Player';
 import { parseToMinutes } from '../../utilities/TimeUtils';
 import { PlayerActionEnum } from '../../actions/PlayerActions';
+import { SettingsActionEnum } from '../../actions/SettingsActions';
 
 export interface ControlsProps {
     store: AppStore;
@@ -62,6 +63,15 @@ export default class Controls extends React.Component<
                 type: PlayerActionEnum.PREV_SONG,
             });
         }
+    };
+
+    handleShuffle = () => {
+        this.props.store.settingsActions({
+            type: SettingsActionEnum.SET_SHUFFLE_MODE,
+        });
+        this.props.store.playerActions({
+            type: PlayerActionEnum.SHUFFLE_TOGGLE,
+        });
     };
 
     componentDidMount() {
@@ -131,8 +141,19 @@ export default class Controls extends React.Component<
                         <Button type="default" icon={true}>
                             <Icon size="21" icon="repeat" />
                         </Button>
-                        <Button type="default" icon={true}>
-                            <Icon size="21" icon="shuffle" />
+                        <Button
+                            type="default"
+                            icon={true}
+                            onClick={this.handleShuffle}>
+                            <Icon
+                                size="21"
+                                icon={
+                                    this.props.store.state.settings.player
+                                        .shuffle
+                                        ? 'shuffle'
+                                        : 'shuffle-disabled'
+                                }
+                            />
                         </Button>
                     </ButtonGroup>
                     <div className="volume">

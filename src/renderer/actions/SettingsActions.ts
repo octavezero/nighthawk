@@ -6,6 +6,7 @@ const { dialog } = remote;
 
 export enum SettingsActionEnum {
     SET_LIBRARY_PATH,
+    SET_SHUFFLE_MODE,
 }
 
 export interface SettingsActionType {
@@ -22,6 +23,10 @@ export function getSettings(): SettingsStoreModel {
                 sortBy: 'artist',
                 sortDirection: 'ASC',
             },
+            player: {
+                shuffle: false,
+                repeat: true,
+            },
         },
     });
     return seamlessImmutable<SettingsStoreModel>(store.store);
@@ -29,7 +34,7 @@ export function getSettings(): SettingsStoreModel {
 
 export function saveSettings(action: SettingsActionType, state: AppStoreModel) {
     const store = new electronStore<SettingsStoreModel>({ name: 'settings' });
-
+    let data: SettingsStoreModel;
     switch (action.type) {
         case SettingsActionEnum.SET_LIBRARY_PATH:
             const path = dialog.showOpenDialog({
@@ -37,9 +42,17 @@ export function saveSettings(action: SettingsActionType, state: AppStoreModel) {
                 properties: ['openDirectory'],
             });
             if (path === undefined) return state.settings;
-            const data = seamlessImmutable(state.settings).setIn(
+            data = seamlessImmutable(state.settings).setIn(
                 ['library', 'path'],
                 path[0]
+            );
+            store.store = data;
+            return data;
+
+        case SettingsActionEnum.SET_SHUFFLE_MODE:
+            data = seamlessImmutable(state.settings).setIn(
+                ['player', 'shuffle'],
+                !state.settings.player.shuffle
             );
             store.store = data;
             return data;

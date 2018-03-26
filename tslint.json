@@ -4,7 +4,8 @@
     "jsRules": {},
     "rules": {
         "indent": [true, "spaces", 4],
-        "no-increment-decrement": [0]
+        "no-increment-decrement": [0],
+        "prefer-const": false
     },
     "rulesDirectory": []
 }

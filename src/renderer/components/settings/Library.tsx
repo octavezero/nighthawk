@@ -20,7 +20,7 @@ export default class LibrarySettings extends React.Component<
     }
 
     handlePathChange = () => {
-        this.props.store.pathActions({
+        this.props.store.settingsActions({
             type: SettingsActionEnum.SET_LIBRARY_PATH,
         });
     };

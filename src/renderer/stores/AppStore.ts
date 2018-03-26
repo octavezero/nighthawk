@@ -13,11 +13,12 @@ export default class AppStore extends Container<AppStoreModel> {
         player: {
             cursor: -2,
             queue: List(),
+            originalQueue: List(),
             playing: false,
         },
     };
 
-    pathActions = (action: SettingsActions.SettingsActionType) => {
+    settingsActions = (action: SettingsActions.SettingsActionType) => {
         this.setState({
             settings: SettingsActions.saveSettings(action, this.state),
         });
