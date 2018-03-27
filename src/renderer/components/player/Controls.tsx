@@ -73,6 +73,11 @@ export default class Controls extends React.Component<
             type: PlayerActionEnum.SHUFFLE_TOGGLE,
         });
     };
+    handleRepeat = () => {
+        this.props.store.settingsActions({
+            type: SettingsActionEnum.SET_REPEAT_MODE,
+        });
+    };
 
     componentDidMount() {
         Player.getInstance().addEventListener(
@@ -138,8 +143,19 @@ export default class Controls extends React.Component<
                         </span>
                     </div>
                     <ButtonGroup>
-                        <Button type="default" icon={true}>
-                            <Icon size="21" icon="repeat" />
+                        <Button
+                            type="default"
+                            icon={true}
+                            onClick={this.handleRepeat}>
+                            <Icon
+                                size="21"
+                                icon={
+                                    this.props.store.state.settings.player
+                                        .repeat
+                                        ? 'repeat-once'
+                                        : 'repeat'
+                                }
+                            />
                         </Button>
                         <Button
                             type="default"

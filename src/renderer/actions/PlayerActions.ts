@@ -49,6 +49,10 @@ export function playerControls(action: PlayerActionType, store: AppStoreModel) {
             return { playing: !store.player.playing };
 
         case PlayerActionEnum.NEXT_SONG:
+            if (store.settings.player.repeat) {
+                Player.replay();
+                return {};
+            }
             cursor = store.player.cursor + 1;
             cursor = cursor === store.player.queue.count() ? 0 : cursor;
             Player.setAudioSrc(store.player.queue.get(cursor).source);
@@ -56,6 +60,10 @@ export function playerControls(action: PlayerActionType, store: AppStoreModel) {
             return { cursor };
 
         case PlayerActionEnum.PREV_SONG:
+            if (store.settings.player.repeat) {
+                Player.replay();
+                return {};
+            }
             cursor = store.player.cursor - 1;
             cursor = cursor === -1 ? store.player.queue.count() - 1 : cursor;
             Player.setAudioSrc(store.player.queue.get(cursor).source);

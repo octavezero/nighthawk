@@ -7,6 +7,7 @@ const { dialog } = remote;
 export enum SettingsActionEnum {
     SET_LIBRARY_PATH,
     SET_SHUFFLE_MODE,
+    SET_REPEAT_MODE,
 }
 
 export interface SettingsActionType {
@@ -25,7 +26,7 @@ export function getSettings(): SettingsStoreModel {
             },
             player: {
                 shuffle: false,
-                repeat: true,
+                repeat: false,
             },
         },
     });
@@ -53,6 +54,14 @@ export function saveSettings(action: SettingsActionType, state: AppStoreModel) {
             data = seamlessImmutable(state.settings).setIn(
                 ['player', 'shuffle'],
                 !state.settings.player.shuffle
+            );
+            store.store = data;
+            return data;
+
+        case SettingsActionEnum.SET_REPEAT_MODE:
+            data = seamlessImmutable(state.settings).setIn(
+                ['player', 'repeat'],
+                !state.settings.player.repeat
             );
             store.store = data;
             return data;
