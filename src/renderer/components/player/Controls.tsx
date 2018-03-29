@@ -1,6 +1,7 @@
 import * as React from 'react';
+import Queue from './Queue';
 import { ButtonGroup } from '../elements/buttongroup';
-import { Button } from '../elements/button';
+import { Button } from '../elements/Button';
 import { Icon } from '../elements/Icon';
 import Slider from '../elements/Slider';
 import AppStore from '../../stores/AppStore';
@@ -172,6 +173,7 @@ export default class Controls extends React.Component<
                             />
                         </Button>
                     </ButtonGroup>
+                    <Queue store={this.props.store} />
                     <div className="volume">
                         <Button type="default" icon={true}>
                             <Icon size="21" icon="volume-high" />

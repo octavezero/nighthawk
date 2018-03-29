@@ -10,6 +10,7 @@ export enum PlayerActionEnum {
     RESTART_SONG,
     SHUFFLE_TOGGLE,
     REPEAT_TOGGLE,
+    SEEK_SONG,
 }
 
 export interface PlayerActionType {
@@ -87,6 +88,13 @@ export function playerControls(action: PlayerActionType, store: AppStoreModel) {
                     i => i.id === trackId
                 ),
             };
+
+        case PlayerActionEnum.SEEK_SONG:
+            Player.setAudioSrc(
+                store.player.queue.get(action.data.index).source
+            );
+            Player.play();
+            return { cursor: action.data.index };
         default:
             break;
     }
