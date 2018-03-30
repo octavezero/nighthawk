@@ -6,6 +6,8 @@ import * as url from 'url';
 import createTray from './tray';
 // tslint:disable-next-line:import-name
 import createMainWindow from './window';
+// tslint:disable-next-line:import-name
+import registerShortcuts from './shortcuts';
 
 let mainWindow: Electron.BrowserWindow;
 
@@ -15,6 +17,8 @@ function createWindow() {
 
     // attach tray to window
     createTray(mainWindow);
+    // Register Global Shortcuts
+    registerShortcuts(mainWindow);
 }
 
 // This method will be called when Electron has finished
