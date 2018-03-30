@@ -9,6 +9,7 @@ import Player from '../../libraries/Player';
 import { parseToMinutes } from '../../utilities/TimeUtils';
 import { PlayerActionEnum } from '../../actions/PlayerActions';
 import { SettingsActionEnum } from '../../actions/SettingsActions';
+import { ipcRenderer } from 'electron';
 
 export interface ControlsProps {
     store: AppStore;
@@ -66,6 +67,12 @@ export default class Controls extends React.Component<
         }
     };
 
+    handlePlayPause = () => {
+        this.props.store.playerActions({
+            type: PlayerActionEnum.TOGGLE_PLAY_PAUSE,
+        });
+    };
+
     handleShuffle = () => {
         this.props.store.settingsActions({
             type: SettingsActionEnum.SET_SHUFFLE_MODE,
@@ -86,6 +93,19 @@ export default class Controls extends React.Component<
             this.onPlayerTimeUpdate
         );
         Player.getInstance().addEventListener('ended', this.onPlayerEnded);
+
+        ipcRenderer.addListener(
+            'PLAYER_CONTROLS_TOGGLE_PLAY',
+            this.handlePlayPause
+        );
+        ipcRenderer.addListener(
+            'PLAYER_CONTROLS_PREV_TRACK',
+            this.handlePrevTrack
+        );
+        ipcRenderer.addListener(
+            'PLAYER_CONTROLS_NEXT_TRACK',
+            this.handleNextTrack
+        );
     }
 
     componentWillUnmount() {
@@ -94,6 +114,18 @@ export default class Controls extends React.Component<
             this.onPlayerTimeUpdate
         );
         Player.getInstance().removeEventListener('ended', this.onPlayerEnded);
+        ipcRenderer.removeListener(
+            'PLAYER_CONTROLS_TOGGLE_PLAY',
+            this.handlePlayPause
+        );
+        ipcRenderer.removeListener(
+            'PLAYER_CONTROLS_PREV_TRACK',
+            this.handlePrevTrack
+        );
+        ipcRenderer.removeListener(
+            'PLAYER_CONTROLS_NEXT_TRACK',
+            this.handleNextTrack
+        );
     }
 
     render() {
@@ -110,11 +142,7 @@ export default class Controls extends React.Component<
                         <Button
                             type="default"
                             icon={true}
-                            onClick={e =>
-                                this.props.store.playerActions({
-                                    type: PlayerActionEnum.TOGGLE_PLAY_PAUSE,
-                                })
-                            }>
+                            onClick={this.handlePlayPause}>
                             <Icon
                                 size="21"
                                 icon={
