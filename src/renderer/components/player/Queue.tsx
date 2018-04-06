@@ -2,7 +2,7 @@ import * as React from 'react';
 // tslint:disable-next-line:import-name
 import Popover from 'react-tiny-popover';
 import AppStore from '../../stores/AppStore';
-import { ButtonGroup } from '../elements/Buttongroup';
+import { ButtonGroup } from '../elements/ButtonGroup';
 import { Button } from '../elements/Button';
 import { Icon } from '../elements/Icon';
 import { TrackModel } from '../../database/TracksDatabase';

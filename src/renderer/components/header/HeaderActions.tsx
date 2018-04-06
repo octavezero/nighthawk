@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '../elements/button';
+import { Button } from '../elements/Button';
 import { Icon } from '../elements/Icon';
 import { Modal } from '../elements/Modal';
 import SettingsContainer from '../../containers/SettingsContainer';

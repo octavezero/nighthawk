@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Queue from './Queue';
-import { ButtonGroup } from '../elements/buttongroup';
+import { ButtonGroup } from '../elements/ButtonGroup';
 import { Button } from '../elements/Button';
 import { Icon } from '../elements/Icon';
 import Slider from '../elements/Slider';

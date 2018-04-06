@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as os from 'os';
-import { ButtonGroup } from '../elements/buttongroup';
-import { Button } from '../elements/button';
+import { ButtonGroup } from '../elements/ButtonGroup';
+import { Button } from '../elements/Button';
 import { ipcRenderer } from 'electron';
 
 export interface WindowControlsProps {}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Textbox } from '../elements/Textbox';
-import { ButtonGroup } from '../elements/buttongroup';
-import { Button } from '../elements/button';
+import { ButtonGroup } from '../elements/ButtonGroup';
+import { Button } from '../elements/Button';
 import AppStore from '../../stores/AppStore';
 import { SettingsActionEnum } from '../../actions/SettingsActions';
 
