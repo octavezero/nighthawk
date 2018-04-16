@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import Songs from '../components/library/Songs';
-import { Subscribe } from 'unstated';
 import AppStore from '../stores/AppStore';
+import { AppStoreConsumer } from '../stores/AppContext';
 
 export interface LibraryContainerProps {}
 
@@ -17,9 +17,9 @@ export default class LibraryContainer extends React.Component<
     render() {
         return (
             <>
-                <Subscribe to={[AppStore]}>
+                <AppStoreConsumer>
                     {store => <Songs store={store as AppStore} />}
-                </Subscribe>
+                </AppStoreConsumer>
             </>
         );
     }

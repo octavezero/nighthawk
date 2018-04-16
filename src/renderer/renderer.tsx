@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Provider } from 'unstated';
+import { AppStoreProvider } from './stores/AppContext';
 
 import ShellContainer from './containers/ShellContainer';
 
 ReactDOM.render(
-    <Provider>
+    <AppStoreProvider>
         <ShellContainer />
-    </Provider>,
+    </AppStoreProvider>,
     document.getElementById('app')
 );
