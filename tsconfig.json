@@ -7,7 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "sourceMap": true,
-        "target": "es6"
+        "target": "es2017"
     },
     "formatCodeOptions": {
         "indentSize": 4,
