@@ -31,11 +31,11 @@ export default class Songs extends React.Component<SongsProps, any> {
     };
 
     componentDidMount() {
-        this.props.store.initLibrary();
+        this.props.store.library.initLibrary();
     }
 
     onRowDoubleClick = (info: RowMouseEventHandlerParams) => {
-        this.props.store.createPlayerQueue(info.index);
+        this.props.store.player.createPlayerQueue(info.index);
     };
 
     render() {

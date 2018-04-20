@@ -4,11 +4,12 @@ import * as SettingsActions from '../actions/SettingsActions';
 import * as LibraryActions from '../actions/LibraryActions';
 import * as PlayerActions from '../actions/PlayerActions';
 
-export default interface AppStore {
+export interface ActionsModel {
+    settings: typeof SettingsActions;
+    library: typeof LibraryActions;
+    player: typeof PlayerActions;
+}
+
+export default interface AppStore extends ActionsModel {
     state: AppStoreModel;
-    settingsActions: (action: SettingsActions.SettingsActionType) => void;
-    initLibrary: () => void;
-    refreshLibrary: () => void;
-    createPlayerQueue: (index: number) => void;
-    playerActions: (action: PlayerActions.PlayerActionType) => void;
 };

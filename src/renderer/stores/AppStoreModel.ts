@@ -4,7 +4,7 @@ import { TrackModel } from '../database/TracksDatabase';
 export interface AppStoreModel {
     settings: SettingsStoreModel;
     library: List<TrackModel>;
-    player: Partial<PlayerStoreModel>;
+    player: PlayerStoreModel;
 }
 
 export interface PlayerStoreModel {
@@ -15,12 +15,12 @@ export interface PlayerStoreModel {
 }
 
 export interface SettingsStoreModel {
-    library?: {
+    library: {
         path: string;
         sortBy: string;
         sortDirection: 'ASC' | 'DESC';
     };
-    player?: {
+    player: {
         shuffle: boolean;
         repeat: boolean;
     };

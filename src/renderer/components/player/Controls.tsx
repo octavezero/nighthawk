@@ -7,8 +7,6 @@ import Slider from '../elements/Slider';
 import AppStore from '../../stores/AppStore';
 import Player from '../../libraries/Player';
 import { parseToMinutes } from '../../utilities/TimeUtils';
-import { PlayerActionEnum } from '../../actions/PlayerActions';
-import { SettingsActionEnum } from '../../actions/SettingsActions';
 import { ipcRenderer } from 'electron';
 
 export interface ControlsProps {
@@ -38,9 +36,7 @@ export default class Controls extends React.Component<
     };
 
     onPlayerEnded = () => {
-        this.props.store.playerActions({
-            type: PlayerActionEnum.NEXT_SONG,
-        });
+        this.props.store.player.nextSong();
     };
 
     handleDurationChange = (value: number) => {
@@ -52,39 +48,29 @@ export default class Controls extends React.Component<
     };
 
     handleNextTrack = () => {
-        this.props.store.playerActions({
-            type: PlayerActionEnum.NEXT_SONG,
-        });
+        this.props.store.player.nextSong();
     };
 
     handlePrevTrack = () => {
         if (this.state.duration > 15) {
             Player.replay();
         } else {
-            this.props.store.playerActions({
-                type: PlayerActionEnum.PREV_SONG,
-            });
+            this.props.store.player.prevSong();
         }
     };
 
     handlePlayPause = () => {
-        this.props.store.playerActions({
-            type: PlayerActionEnum.TOGGLE_PLAY_PAUSE,
-        });
+        this.props.store.player.togglePlayPause();
     };
 
     handleShuffle = () => {
-        this.props.store.settingsActions({
-            type: SettingsActionEnum.SET_SHUFFLE_MODE,
-        });
-        this.props.store.playerActions({
-            type: PlayerActionEnum.SHUFFLE_TOGGLE,
+        this.props.store.player.shuffleToggle().then(() => {
+            this.props.store.settings.setShuffleMode();
         });
     };
+
     handleRepeat = () => {
-        this.props.store.settingsActions({
-            type: SettingsActionEnum.SET_REPEAT_MODE,
-        });
+        this.props.store.settings.setRepeatMode();
     };
 
     componentDidMount() {

@@ -3,7 +3,6 @@ import { Textbox } from '../elements/Textbox';
 import { ButtonGroup } from '../elements/ButtonGroup';
 import { Button } from '../elements/Button';
 import AppStore from '../../stores/AppStore';
-import { SettingsActionEnum } from '../../actions/SettingsActions';
 
 export interface LibrarySettingsProps {
     store: AppStore;
@@ -20,13 +19,11 @@ export default class LibrarySettings extends React.Component<
     }
 
     handlePathChange = () => {
-        this.props.store.settingsActions({
-            type: SettingsActionEnum.SET_LIBRARY_PATH,
-        });
+        this.props.store.settings.setLibraryPath();
     };
 
     handleRefreshLibrary = () => {
-        this.props.store.refreshLibrary();
+        this.props.store.library.refreshLibrary();
     };
 
     render() {

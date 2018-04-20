@@ -2,22 +2,26 @@ import * as fs from 'fs-extra';
 import * as mm from 'music-metadata';
 import * as path from 'path';
 import { List } from 'immutable';
+// tslint:disable-next-line:import-name
+import produce from 'immer';
 
 import { AppStoreModel } from '../stores/AppStoreModel';
 import { TrackModel, TracksDatabase } from '../database/TracksDatabase';
 
-export async function getLibrary() {
+export async function initLibrary(state?: AppStoreModel) {
     const db: TracksDatabase = new TracksDatabase('library');
     const data = List(await db.library.toArray());
     db.close();
-    return data;
+    return produce<AppStoreModel>(state, draft => {
+        draft.library = data;
+    });
 }
 
-export async function refreshLibrary(state: AppStoreModel) {
+export async function refreshLibrary(state?: AppStoreModel) {
     const db: TracksDatabase = new TracksDatabase('library');
 
     if (state.settings.library.path === '') {
-        return state.library;
+        return state;
     }
 
     let files: string[] = await fs.readdir(state.settings.library.path);
@@ -64,5 +68,7 @@ export async function refreshLibrary(state: AppStoreModel) {
 
     db.close();
 
-    return List(tracks);
+    return produce<AppStoreModel>(state, draft => {
+        draft.library = List(tracks);
+    });
 }

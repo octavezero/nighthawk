@@ -7,7 +7,6 @@ import { Button } from '../elements/Button';
 import { Icon } from '../elements/Icon';
 import { TrackModel } from '../../database/TracksDatabase';
 import { AutoSizer, List, ListRowProps } from 'react-virtualized';
-import { PlayerActionEnum } from '../../actions/PlayerActions';
 
 export interface QueueProps {
     store: AppStore;
@@ -30,10 +29,7 @@ export default class Queue extends React.Component<QueueProps, QueueState> {
         e: React.MouseEvent<HTMLDivElement>,
         index: number
     ) => {
-        this.props.store.playerActions({
-            type: PlayerActionEnum.SEEK_SONG,
-            data: { index },
-        });
+        this.props.store.player.seekSong(index);
     };
 
     rowRenderer = ({

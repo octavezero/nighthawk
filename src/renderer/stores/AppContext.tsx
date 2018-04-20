@@ -5,13 +5,15 @@ import { AppStoreModel } from './AppStoreModel';
 import * as SettingsActions from '../actions/SettingsActions';
 import * as LibraryActions from '../actions/LibraryActions';
 import * as PlayerActions from '../actions/PlayerActions';
-import AppStore from './AppStore';
+import AppStore, { ActionsModel } from './AppStore';
 
 const storeContext = React.createContext<AppStore>();
 // tslint:disable-next-line:variable-name
 export const AppStoreConsumer = storeContext.Consumer;
 
 export class AppStoreProvider extends React.Component<any, AppStoreModel> {
+    actions: ActionsModel;
+
     constructor(props: any) {
         super(props);
 
@@ -25,40 +27,47 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
                 playing: false,
             },
         };
+
+        this.actions = { settings: null, library: null, player: null };
+        this.wrapActions();
     }
 
-    settingsActions = (action: SettingsActions.SettingsActionType) => {
-        this.setState({
-            settings: SettingsActions.saveSettings(action, this.state),
-        });
+    wrapActions = () => {
+        // Wrap Settings Actions
+        const settingsActions: any = { ...SettingsActions };
+        for (const key in settingsActions) {
+            if (settingsActions.hasOwnProperty(key)) {
+                settingsActions[key] = this.wrap(settingsActions[key]);
+            }
+        }
+
+        this.actions.settings = settingsActions;
+
+        // Wrap Library Actions
+        const libraryActions: any = { ...LibraryActions };
+        for (const key in libraryActions) {
+            if (libraryActions.hasOwnProperty(key)) {
+                libraryActions[key] = this.wrap(libraryActions[key]);
+            }
+        }
+
+        this.actions.library = libraryActions;
+
+        // Wrap Player Actions
+        const playerActions: any = { ...PlayerActions };
+        for (const key in playerActions) {
+            if (playerActions.hasOwnProperty(key)) {
+                playerActions[key] = this.wrap(playerActions[key]);
+            }
+        }
+
+        this.actions.player = playerActions;
     };
 
-    initLibrary = async () => {
-        this.setState({
-            library: await LibraryActions.getLibrary(),
-        });
-    };
-
-    refreshLibrary = async () => {
-        this.setState({
-            library: await LibraryActions.refreshLibrary(this.state),
-        });
-    };
-
-    createPlayerQueue = async (index: number) => {
-        this.setState({
-            player: PlayerActions.createPlayerQueue(index, this.state),
-        });
-    };
-
-    playerActions = (action: PlayerActions.PlayerActionType) => {
-        this.setState({
-            player: Object.assign(
-                {},
-                this.state.player,
-                PlayerActions.playerControls(action, this.state)
-            ),
-        });
+    wrap = <T extends (...args: any[]) => any>(fn: T): T => {
+        return (async (...args: any[]) => {
+            this.setState(await fn(...args, this.state));
+        }) as T;
     };
 
     render() {
@@ -66,11 +75,9 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
             <storeContext.Provider
                 value={{
                     state: this.state,
-                    settingsActions: this.settingsActions,
-                    initLibrary: this.initLibrary,
-                    createPlayerQueue: this.createPlayerQueue,
-                    playerActions: this.playerActions,
-                    refreshLibrary: this.refreshLibrary,
+                    settings: this.actions.settings,
+                    player: this.actions.player,
+                    library: this.actions.library,
                 }}>
                 {this.props.children}
             </storeContext.Provider>
