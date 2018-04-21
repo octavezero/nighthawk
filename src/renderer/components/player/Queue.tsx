@@ -39,7 +39,7 @@ export default class Queue extends React.Component<QueueProps, QueueState> {
         isVisible,
         style,
     }: ListRowProps) => {
-        let track: TrackModel = this.props.store.state.player.queue.get(index);
+        let track: TrackModel = this.props.store.state.player.queue[index];
         let current: boolean = index === this.props.store.state.player.cursor;
         return (
             <div key={key} style={style} className="queue-row">
@@ -82,7 +82,10 @@ export default class Queue extends React.Component<QueueProps, QueueState> {
                                     <List
                                         height={height}
                                         rowRenderer={this.rowRenderer}
-                                        rowCount={this.props.store.state.player.queue.count()}
+                                        rowCount={
+                                            this.props.store.state.player.queue
+                                                .length
+                                        }
                                         width={width}
                                         rowHeight={50}
                                         overscanRowCount={5}

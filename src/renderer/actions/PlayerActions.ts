@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { AppStoreModel, PlayerStoreModel } from '../stores/AppStoreModel';
 import Player from '../libraries/Player';
 import { shuffleList } from '../utilities/QueueUtils';
@@ -21,8 +20,8 @@ export async function nextSong(state?: AppStoreModel): Promise<AppStoreModel> {
             Player.replay();
         } else {
             cursor = draft.player.cursor + 1;
-            cursor = cursor === draft.player.queue.count() ? 0 : cursor;
-            Player.setAudioSrc(draft.player.queue.get(cursor).source);
+            cursor = cursor === draft.player.queue.length ? 0 : cursor;
+            Player.setAudioSrc(draft.player.queue[cursor].source);
             Player.play();
             draft.player.cursor = cursor;
         }
@@ -36,8 +35,8 @@ export async function prevSong(state?: AppStoreModel): Promise<AppStoreModel> {
             Player.replay();
         } else {
             cursor = draft.player.cursor - 1;
-            cursor = cursor === -1 ? draft.player.queue.count() - 1 : cursor;
-            Player.setAudioSrc(draft.player.queue.get(cursor).source);
+            cursor = cursor === -1 ? draft.player.queue.length - 1 : cursor;
+            Player.setAudioSrc(draft.player.queue[cursor].source);
             Player.play();
             draft.player.cursor = cursor;
         }
@@ -50,10 +49,10 @@ export async function shuffleToggle(
     return produce<AppStoreModel>(state, draft => {
         let cursor;
         // Shuffle Code here. Use Fisher-Yates Shuffle Algorithm.
-        const trackId = draft.player.queue.get(draft.player.cursor).id;
+        const trackId = draft.player.queue[draft.player.cursor].id;
 
         if (draft.settings.player.shuffle) {
-            const shuffled = shuffleList(draft.player.queue);
+            const shuffled = shuffleList([...draft.player.queue]);
             draft.player.queue = shuffled;
             draft.player.cursor = shuffled.findIndex(i => i.id === trackId);
         } else {
@@ -70,7 +69,7 @@ export async function seekSong(
     state?: AppStoreModel
 ): Promise<AppStoreModel> {
     return produce<AppStoreModel>(state, draft => {
-        Player.setAudioSrc(draft.player.queue.get(index).source);
+        Player.setAudioSrc(draft.player.queue[index].source);
         Player.play();
         draft.player.cursor = index;
     });
@@ -81,11 +80,11 @@ export async function createPlayerQueue(
     state?: AppStoreModel
 ): Promise<AppStoreModel> {
     return produce<AppStoreModel>(state, draft => {
-        const trackId = draft.library.get(index).id;
+        const trackId = draft.library[index].id;
         if (draft.settings.player.shuffle) {
-            let shuffled = shuffleList(draft.library);
+            let shuffled = shuffleList([...draft.library]);
             let newindex = shuffled.findIndex(i => i.id === trackId);
-            Player.setAudioSrc(shuffled.get(newindex).source);
+            Player.setAudioSrc(shuffled[newindex].source);
             Player.play();
 
             // Data Assignments
@@ -94,7 +93,7 @@ export async function createPlayerQueue(
             draft.player.cursor = newindex;
             draft.player.playing = true;
         } else {
-            Player.setAudioSrc(draft.library.get(index).source);
+            Player.setAudioSrc(draft.library[index].source);
             Player.play();
             // Data Assignments
             draft.player.queue = draft.library;

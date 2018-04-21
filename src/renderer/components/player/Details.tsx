@@ -14,7 +14,7 @@ export default class Details extends React.Component<DetailsProps, any> {
 
     render() {
         const { cursor, queue } = this.props.store.state.player;
-        const track = queue.get(cursor);
+        const track = queue[cursor];
         return (
             <>
                 <img className="image" src={defaultAlbumArt} />

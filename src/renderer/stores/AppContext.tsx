@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { List } from 'immutable';
 import { AppStoreModel } from './AppStoreModel';
 
 import * as SettingsActions from '../actions/SettingsActions';
@@ -19,11 +18,11 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
 
         this.state = {
             settings: SettingsActions.getSettings(),
-            library: List(),
+            library: [],
             player: {
                 cursor: -2,
-                queue: List(),
-                originalQueue: List(),
+                queue: [],
+                originalQueue: [],
                 playing: false,
             },
         };

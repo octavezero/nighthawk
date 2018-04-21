@@ -1,15 +1,14 @@
-import { List } from 'immutable';
 import { TrackModel } from '../database/TracksDatabase';
 
 export interface AppStoreModel {
     settings: SettingsStoreModel;
-    library: List<TrackModel>;
+    library: TrackModel[];
     player: PlayerStoreModel;
 }
 
 export interface PlayerStoreModel {
-    queue: List<TrackModel>;
-    originalQueue: List<TrackModel>;
+    queue: TrackModel[];
+    originalQueue: TrackModel[];
     cursor: number;
     playing: boolean;
 }

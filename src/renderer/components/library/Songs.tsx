@@ -19,7 +19,7 @@ export default class Songs extends React.Component<SongsProps, any> {
     }
 
     rowGetter = ({ index }: { index: number }) => {
-        return this.props.store.state.library.get(index);
+        return this.props.store.state.library[index];
     };
 
     noRowsRenderer = () => {
@@ -50,7 +50,7 @@ export default class Songs extends React.Component<SongsProps, any> {
                             noRowsRenderer={this.noRowsRenderer}
                             height={height}
                             rowHeight={28}
-                            rowCount={store.state.library.count()}
+                            rowCount={store.state.library.length}
                             rowClassName={this.rowClassName}
                             onRowDoubleClick={this.onRowDoubleClick}
                             width={width}>

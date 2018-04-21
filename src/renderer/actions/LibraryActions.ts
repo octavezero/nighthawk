@@ -1,7 +1,6 @@
 import * as fs from 'fs-extra';
 import * as mm from 'music-metadata';
 import * as path from 'path';
-import { List } from 'immutable';
 // tslint:disable-next-line:import-name
 import produce from 'immer';
 
@@ -10,7 +9,7 @@ import { TrackModel, TracksDatabase } from '../database/TracksDatabase';
 
 export async function initLibrary(state?: AppStoreModel) {
     const db: TracksDatabase = new TracksDatabase('library');
-    const data = List(await db.library.toArray());
+    const data = await db.library.toArray();
     db.close();
     return produce<AppStoreModel>(state, draft => {
         draft.library = data;
@@ -69,6 +68,6 @@ export async function refreshLibrary(state?: AppStoreModel) {
     db.close();
 
     return produce<AppStoreModel>(state, draft => {
-        draft.library = List(tracks);
+        draft.library = tracks;
     });
 }
