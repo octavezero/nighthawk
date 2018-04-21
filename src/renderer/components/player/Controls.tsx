@@ -64,8 +64,8 @@ export default class Controls extends React.Component<
     };
 
     handleShuffle = () => {
-        this.props.store.player.shuffleToggle().then(() => {
-            this.props.store.settings.setShuffleMode();
+        this.props.store.settings.setShuffleMode().then(() => {
+            this.props.store.player.shuffleToggle();
         });
     };
 
