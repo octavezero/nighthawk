@@ -2,10 +2,15 @@
 import Dexie from 'dexie';
 import { IFormat, ICommonTagsResult } from 'music-metadata';
 
+// Specifically created so that typescript behaves sorting;
+interface ExtendedCommonTagsResult extends ICommonTagsResult {
+    [key: string]: any;
+}
+
 export interface TrackModel {
     id: number;
     source: string;
-    common: ICommonTagsResult;
+    common: ExtendedCommonTagsResult;
     format: IFormat;
 }
 

@@ -38,6 +38,18 @@ export default class Songs extends React.Component<SongsProps, any> {
         this.props.store.player.createPlayerQueue(info.index);
     };
 
+    handleTableSort = ({
+        sortBy,
+        sortDirection,
+    }: {
+        sortBy: string;
+        sortDirection: 'ASC' | 'DESC';
+    }) => {
+        this.props.store.library.sortLibrary(sortBy, sortDirection).then(() => {
+            this.props.store.settings.setLibrarySort(sortBy, sortDirection);
+        });
+    };
+
     render() {
         const { store } = this.props;
         return (
@@ -53,6 +65,14 @@ export default class Songs extends React.Component<SongsProps, any> {
                             rowCount={store.state.library.length}
                             rowClassName={this.rowClassName}
                             onRowDoubleClick={this.onRowDoubleClick}
+                            sort={this.handleTableSort}
+                            sortBy={
+                                this.props.store.state.settings.library.sortBy
+                            }
+                            sortDirection={
+                                this.props.store.state.settings.library
+                                    .sortDirection
+                            }
                             width={width}>
                             <Column
                                 label="Name"

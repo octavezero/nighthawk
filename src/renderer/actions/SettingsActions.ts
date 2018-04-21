@@ -63,3 +63,18 @@ export async function setRepeatMode(
         store.store = draft.settings;
     });
 }
+
+export async function setLibrarySort(
+    sortBy: string,
+    sortDirection: 'ASC' | 'DESC',
+    state?: AppStoreModel
+): Promise<AppStoreModel> {
+    return produce<AppStoreModel>(state, draft => {
+        const store = new electronStore<SettingsStoreModel>({
+            name: 'settings',
+        });
+        draft.settings.library.sortBy = sortBy;
+        draft.settings.library.sortDirection = sortDirection;
+        store.store = draft.settings;
+    });
+}

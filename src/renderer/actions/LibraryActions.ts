@@ -3,14 +3,20 @@ import * as mm from 'music-metadata';
 import * as path from 'path';
 // tslint:disable-next-line:import-name
 import produce from 'immer';
+import { sortTracks } from '../utilities/LibraryUtils';
 
 import { AppStoreModel } from '../stores/AppStoreModel';
 import { TrackModel, TracksDatabase } from '../database/TracksDatabase';
 
 export async function initLibrary(state?: AppStoreModel) {
     const db: TracksDatabase = new TracksDatabase('library');
-    const data = await db.library.toArray();
+    let data = await db.library.toArray();
     db.close();
+    data = sortTracks(
+        state.settings.library.sortBy,
+        state.settings.library.sortDirection,
+        data
+    );
     return produce<AppStoreModel>(state, draft => {
         draft.library = data;
     });
@@ -69,5 +75,15 @@ export async function refreshLibrary(state?: AppStoreModel) {
 
     return produce<AppStoreModel>(state, draft => {
         draft.library = tracks;
+    });
+}
+
+export async function sortLibrary(
+    sortBy: string,
+    sortDirection: 'ASC' | 'DESC',
+    state?: AppStoreModel
+) {
+    return produce(state, draft => {
+        draft.library = sortTracks(sortBy, sortDirection, draft.library);
     });
 }
