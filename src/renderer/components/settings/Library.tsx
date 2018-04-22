@@ -26,6 +26,16 @@ export default class LibrarySettings extends React.Component<
         this.props.store.library.refreshLibrary();
     };
 
+    shouldComponentUpdate(
+        nextProps: LibrarySettingsProps,
+        nextState: LibrarySettingsState
+    ) {
+        return (
+            this.props.store.state.settings.library !==
+            nextProps.store.state.settings.library
+        );
+    }
+
     render() {
         const { store } = this.props;
         return (

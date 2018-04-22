@@ -10,7 +10,7 @@ export interface HeaderActionsState {
     isSettingsOpen: boolean;
 }
 
-export default class Shell extends React.Component<
+export default class Shell extends React.PureComponent<
     HeaderActionsProps,
     HeaderActionsState
 > {

@@ -10,7 +10,7 @@ interface TabBarState {
     selectedIndex: number;
 }
 
-export class TabBar extends React.Component<TabBarProps, TabBarState> {
+export class TabBar extends React.PureComponent<TabBarProps, TabBarState> {
     constructor(props: TabBarProps) {
         super(props);
 
@@ -67,7 +67,7 @@ export interface TabItemProps {
     selected: boolean;
 }
 
-export class TabItem extends React.Component<TabItemProps, any> {
+export class TabItem extends React.PureComponent<TabItemProps, any> {
     handleTabClicked = () => {
         this.props.onTabClicked(this.props.index);
     };

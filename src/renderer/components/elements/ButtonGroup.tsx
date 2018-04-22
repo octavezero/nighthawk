@@ -3,7 +3,7 @@ import * as classNames from 'classnames';
 
 export interface ButtonGroupProps extends React.HTMLProps<HTMLDivElement> {}
 
-export class ButtonGroup extends React.Component<ButtonGroupProps, any> {
+export class ButtonGroup extends React.PureComponent<ButtonGroupProps, any> {
     render() {
         const { className, ...others } = this.props;
 

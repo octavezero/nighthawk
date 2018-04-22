@@ -6,7 +6,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
     icon?: boolean;
 }
 
-export class Button extends React.Component<ButtonProps, any> {
+export class Button extends React.PureComponent<ButtonProps, any> {
     render() {
         const { type, className, icon, ...others } = this.props;
 

@@ -8,7 +8,7 @@ export interface WindowControlsProps {}
 
 export interface WindowControlsState {}
 
-export default class Shell extends React.Component<
+export default class Shell extends React.PureComponent<
     WindowControlsProps,
     WindowControlsState
 > {

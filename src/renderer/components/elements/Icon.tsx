@@ -7,7 +7,7 @@ export interface IconProps {
     icon: string;
 }
 
-export class Icon extends React.Component<IconProps, any> {
+export class Icon extends React.PureComponent<IconProps, any> {
     public static defaultProps: Partial<IconProps> = {
         size: '16',
         className: '',
