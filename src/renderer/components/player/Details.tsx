@@ -2,14 +2,46 @@ import * as React from 'react';
 
 import * as defaultAlbumArt from '../../../../static/vectors/defaultAlbumArt.svg';
 import AppStore from '../../stores/AppStore';
+import { IAudioMetadata, parseFile, IPicture } from 'music-metadata/lib';
 
 export interface DetailsProps {
     store: AppStore;
 }
 
-export default class Details extends React.Component<DetailsProps, any> {
+interface DetailsState {
+    albumart: string;
+}
+
+export default class Details extends React.Component<
+    DetailsProps,
+    DetailsState
+> {
     constructor(props: DetailsProps) {
         super(props);
+
+        this.state = {
+            albumart: defaultAlbumArt,
+        };
+    }
+
+    fetchAlbumArt = async (path: string) => {
+        let model: IAudioMetadata = await parseFile(path);
+        let img: IPicture[] | undefined = model.common.picture;
+        if (img !== undefined) {
+            let imgURL = window.URL.createObjectURL(
+                new Blob([img[0].data], { type: 'image/' + img[0].format })
+            );
+            this.setState({ albumart: imgURL });
+        } else {
+            this.setState({ albumart: defaultAlbumArt });
+        }
+    };
+
+    componentDidUpdate(prevProps: DetailsProps, prevState: DetailsState) {
+        const { cursor, queue } = this.props.store.state.player;
+        if (cursor !== prevProps.store.state.player.cursor) {
+            this.fetchAlbumArt(queue[cursor].source);
+        }
     }
 
     render() {
@@ -17,7 +49,7 @@ export default class Details extends React.Component<DetailsProps, any> {
         const track = queue[cursor];
         return (
             <>
-                <img className="image" src={defaultAlbumArt} />
+                <img className="image" src={this.state.albumart} />
                 <div className="details">
                     <h2>{track ? track.common.title : 'Untitled'}</h2>
                     <h5>on</h5>
