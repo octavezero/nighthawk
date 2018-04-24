@@ -53,7 +53,12 @@ export default class Queue extends React.Component<QueueProps, QueueState> {
                         {track.common.artist} - {track.common.album}
                     </p>
                 </div>
-                <Button type={current ? 'primary' : 'link'} icon={true}>
+                <Button
+                    type={current ? 'primary' : 'link'}
+                    icon={true}
+                    onClick={e =>
+                        this.props.store.player.removeFromQueue(index)
+                    }>
                     <Icon size="21" icon="playlist-remove" />
                 </Button>
             </div>

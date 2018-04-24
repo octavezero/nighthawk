@@ -104,7 +104,7 @@ export async function createPlayerQueue(
     });
 }
 
-export function newQueue(index: number, state?: AppStoreModel) {
+export async function newQueue(index: number, state?: AppStoreModel) {
     return produce(state, draft => {
         draft.player.queue = [];
         draft.player.originalQueue = [];
@@ -119,10 +119,19 @@ export function newQueue(index: number, state?: AppStoreModel) {
     });
 }
 
-export function existingQueue(index: number, state?: AppStoreModel) {
+export async function existingQueue(index: number, state?: AppStoreModel) {
     return produce(state, draft => {
         draft.player.originalQueue.push(draft.library[index]);
         draft.player.queue.push(draft.library[index]);
+
+        if (draft.settings.player.shuffle) {
+            const trackId = draft.player.queue[draft.player.cursor].id;
+            let shuffled = shuffleList([...draft.player.queue]);
+            let newindex = shuffled.findIndex(i => i.id === trackId);
+
+            draft.player.queue = shuffled;
+            draft.player.cursor = newindex;
+        }
 
         if (draft.player.queue.length === 1) {
             draft.player.cursor = 0;
@@ -131,5 +140,21 @@ export function existingQueue(index: number, state?: AppStoreModel) {
             Player.setAudioSrc(draft.player.queue[0].source);
             Player.play();
         }
+    });
+}
+
+export async function removeFromQueue(index: number, state?: AppStoreModel) {
+    return produce(state, draft => {
+        let ind = draft.player.originalQueue.findIndex(
+            element => element.id === draft.player.queue[index].id
+        );
+        if (index < draft.player.cursor) {
+            draft.player.cursor -= 1;
+        } else if (index === draft.player.cursor) {
+            Player.setAudioSrc(draft.player.queue[index + 1].source);
+            Player.play();
+        }
+        draft.player.originalQueue.splice(ind, 1);
+        draft.player.queue.splice(index, 1);
     });
 }
