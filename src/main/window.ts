@@ -10,6 +10,8 @@ import * as os from 'os';
 import * as url from 'url';
 import * as path from 'path';
 
+import electronIsDev from 'electron-is-dev';
+
 export default function createMainWindow() {
     // Construct new BrowserWindow
     let mainWindow: Electron.BrowserWindow;
@@ -32,8 +34,10 @@ export default function createMainWindow() {
         })
     );
 
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    if (electronIsDev) {
+        // Open the DevTools.
+        mainWindow.webContents.openDevTools();
+    }
 
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {
