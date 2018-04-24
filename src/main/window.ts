@@ -11,8 +11,11 @@ import * as url from 'url';
 import * as path from 'path';
 
 import electronIsDev from 'electron-is-dev';
+// tslint:disable-next-line:import-name
+import manageWindowState from './winState';
 
 export default function createMainWindow() {
+    let mainWindowState = manageWindowState({ width: 992, height: 558 });
     // Construct new BrowserWindow
     let mainWindow: Electron.BrowserWindow;
     // Create the browser window.
@@ -21,8 +24,8 @@ export default function createMainWindow() {
         titleBarStyle: 'hiddenInset',
         minHeight: 558,
         minWidth: 992,
-        height: 558,
-        width: 992,
+        height: mainWindowState.height,
+        width: mainWindowState.width,
     });
 
     // and load the index.html of the app.
@@ -47,5 +50,6 @@ export default function createMainWindow() {
         mainWindow = null;
     });
 
+    mainWindowState.trackResize(mainWindow);
     return mainWindow;
 }
