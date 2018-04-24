@@ -103,3 +103,33 @@ export async function createPlayerQueue(
         }
     });
 }
+
+export function newQueue(index: number, state?: AppStoreModel) {
+    return produce(state, draft => {
+        draft.player.queue = [];
+        draft.player.originalQueue = [];
+
+        draft.player.originalQueue.push(draft.library[index]);
+        draft.player.queue.push(draft.library[index]);
+        draft.player.cursor = 0;
+        draft.player.playing = true;
+
+        Player.setAudioSrc(draft.player.queue[0].source);
+        Player.play();
+    });
+}
+
+export function existingQueue(index: number, state?: AppStoreModel) {
+    return produce(state, draft => {
+        draft.player.originalQueue.push(draft.library[index]);
+        draft.player.queue.push(draft.library[index]);
+
+        if (draft.player.queue.length === 1) {
+            draft.player.cursor = 0;
+            draft.player.playing = true;
+
+            Player.setAudioSrc(draft.player.queue[0].source);
+            Player.play();
+        }
+    });
+}

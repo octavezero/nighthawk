@@ -8,14 +8,27 @@ import {
 import AppStore from '../../stores/AppStore';
 import { TrackModel } from '../../database/TracksDatabase';
 import * as TimeUtils from '../../utilities/TimeUtils';
+import { ContextMenu, ContextMenuItem } from '../elements/ContextMenu';
 
 export interface SongsProps {
     store: AppStore;
 }
 
-export default class Songs extends React.Component<SongsProps, any> {
+interface SongsState {
+    contextParams: { x: number; y: number; index: number };
+}
+
+export default class Songs extends React.Component<SongsProps, SongsState> {
     constructor(props: SongsProps) {
         super(props);
+
+        this.state = {
+            contextParams: {
+                x: 0,
+                y: 0,
+                index: -1,
+            },
+        };
     }
 
     rowGetter = ({ index }: { index: number }) => {
@@ -50,10 +63,52 @@ export default class Songs extends React.Component<SongsProps, any> {
         });
     };
 
+    handleRowRightClick = (params: {
+        event: React.MouseEvent<any>;
+        index: number;
+    }) => {
+        this.setState({
+            contextParams: {
+                x: params.event.clientX,
+                y: params.event.clientY,
+                index: params.index,
+            },
+        });
+    };
+
+    handleContextMenuItemClick = (data: string) => {
+        switch (data) {
+            case 'existing':
+                this.props.store.player.existingQueue(
+                    this.state.contextParams.index
+                );
+                break;
+            case 'new':
+                this.props.store.player.newQueue(
+                    this.state.contextParams.index
+                );
+                break;
+        }
+    };
+
     render() {
         const { store } = this.props;
         return (
             <div className="songs">
+                <ContextMenu
+                    x={this.state.contextParams.x}
+                    y={this.state.contextParams.y}>
+                    <ContextMenuItem
+                        data="existing"
+                        onClick={this.handleContextMenuItemClick}>
+                        Add Track To Existing Queue
+                    </ContextMenuItem>
+                    <ContextMenuItem
+                        data="new"
+                        onClick={this.handleContextMenuItemClick}>
+                        Add Track To New Queue
+                    </ContextMenuItem>
+                </ContextMenu>
                 <AutoSizer>
                     {({ height, width }) => (
                         <Table
@@ -65,6 +120,7 @@ export default class Songs extends React.Component<SongsProps, any> {
                             rowCount={store.state.library.length}
                             rowClassName={this.rowClassName}
                             onRowDoubleClick={this.onRowDoubleClick}
+                            onRowRightClick={this.handleRowRightClick}
                             sort={this.handleTableSort}
                             sortBy={
                                 this.props.store.state.settings.library.sortBy
