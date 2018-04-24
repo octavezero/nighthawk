@@ -40,6 +40,10 @@ export default class Details extends React.Component<
     componentDidUpdate(prevProps: DetailsProps, prevState: DetailsState) {
         const { cursor, queue } = this.props.store.state.player;
         if (cursor !== prevProps.store.state.player.cursor) {
+            if (cursor === -2) {
+                this.setState({ albumart: defaultAlbumArt });
+                return;
+            }
             this.fetchAlbumArt(queue[cursor].source);
         }
     }

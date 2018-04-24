@@ -124,7 +124,7 @@ export async function existingQueue(index: number, state?: AppStoreModel) {
         draft.player.originalQueue.push(draft.library[index]);
         draft.player.queue.push(draft.library[index]);
 
-        if (draft.settings.player.shuffle) {
+        if (draft.settings.player.shuffle && draft.player.queue.length > 1) {
             const trackId = draft.player.queue[draft.player.cursor].id;
             let shuffled = shuffleList([...draft.player.queue]);
             let newindex = shuffled.findIndex(i => i.id === trackId);
@@ -156,5 +156,15 @@ export async function removeFromQueue(index: number, state?: AppStoreModel) {
         }
         draft.player.originalQueue.splice(ind, 1);
         draft.player.queue.splice(index, 1);
+    });
+}
+
+export async function clearQueue(state?: AppStoreModel) {
+    return produce(state, draft => {
+        draft.player.queue = [];
+        draft.player.originalQueue = [];
+        draft.player.playing = false;
+        draft.player.cursor = -2;
+        Player.reset();
     });
 }

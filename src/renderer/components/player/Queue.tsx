@@ -76,7 +76,11 @@ export default class Queue extends React.Component<QueueProps, QueueState> {
                     <div className="popover-queue">
                         <div className="queue-header">
                             <h6>Currently Playing</h6>
-                            <Button type="default">
+                            <Button
+                                type="default"
+                                onClick={e =>
+                                    this.props.store.player.clearQueue()
+                                }>
                                 <Icon size="24" icon="notification-clear-all" />{' '}
                                 Clear Queue
                             </Button>

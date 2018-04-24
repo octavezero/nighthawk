@@ -25,6 +25,10 @@ class Player {
         this.play();
     }
 
+    reset() {
+        this.player = new Audio();
+    }
+
     isMuted() {
         return this.player.muted;
     }
