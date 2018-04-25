@@ -15,7 +15,9 @@
   "scripts": {
     "start": "electron ./dist/main.bundle.js",
     "development": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
-    "production": "rimraf dist && webpack --config ./webpack.prod.js --progress --colors"
+    "production": "rimraf dist && webpack --config ./webpack.prod.js --progress --colors",
+    "pack": "yarn production && electron-builder --dir",
+    "dist": "yarn production && electron-builder -mwl -c.mac.identity=null"
   },
   "keywords": [
     "music",
@@ -25,6 +27,52 @@
     "desktop",
     "background"
   ],
+  "build": {
+    "appId": "com.quantumkv.nighthawk",
+    "productName": "Nighthawk",
+    "compression": "normal",
+    "artifactName": "${name}-${os}-v${version}-${arch}.${ext}",
+    "directories": {
+        "output": "pkgs"
+    },
+    "files": [
+      "dist/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.music",
+      "target": [
+        "zip"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true,
+      "artifactName": "${name}Setup-${os}-v${version}-${arch}.${ext}"
+    },
+    "linux": {
+      "category": "AudioVideo",
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "executableName": "nighthawk"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
     "@types/electron-is-dev": "^0.3.0",
@@ -37,6 +85,7 @@
     "@types/react-virtualized": "^9.18.2",
     "css-loader": "^0.28.11",
     "electron": "2.0.0-beta.7",
+    "electron-builder": "^20.10.0",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.8.3",

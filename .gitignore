@@ -62,3 +62,4 @@ typings/
 
 # folder for compiled files
 dist/
+pkgs/
