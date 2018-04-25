@@ -38,26 +38,6 @@ export default class Shell extends React.PureComponent<
                 <ButtonGroup>
                     <Button
                         type="link"
-                        icon={true}
-                        className="minimize"
-                        onClick={this.handleMinimizeClick}>
-                        <svg x="0px" y="0px" viewBox="0 0 10 1">
-                            <rect fill="#000000" width="10" height="1" />
-                        </svg>
-                    </Button>
-                    <Button
-                        type="link"
-                        icon={true}
-                        className="resize"
-                        onClick={this.handleMaximizeClick}>
-                        <svg x="0px" y="0px" viewBox="0 0 10 10">
-                            {/* prettier-ignore */}
-                            <path fill="#000000" d="M 0 0 L 0 10 L 10 10 L 10 0 L 0 0 z M 1 1 L 9 1 L 9 9 L 1 9 L 1 1 z "/>
-                        </svg>
-                    </Button>
-                    <Button
-                        type="link"
-                        icon={true}
                         className="close"
                         onClick={this.handleCloseClick}>
                         <svg x="0px" y="0px" viewBox="0 0 10 10">

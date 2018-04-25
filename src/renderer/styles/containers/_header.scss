@@ -12,16 +12,37 @@
 
     .window-controls {
         display: inline-flex;
-        min-width: 150px;
+        min-width: 100px;
         justify-content: flex-end;
 
         &.macos {
             order: -1;
         }
 
-        .minimize,
-        .resize,
         .close {
+            border-radius: 0px;
+            -webkit-app-region: no-drag;
+            -webkit-transition: background-color 0.2s;
+            transition: background-color 0.2s;
+            &:focus,
+            &:hover {
+                border-color: #e81123;
+                background: #e81123;
+                & svg > polygon {
+                    fill: #ffffff;
+                }
+            }
+            &:active {
+                border-color: #bf0f1d;
+                background: #bf0f1d;
+                & svg > polygon {
+                    fill: #ffffff;
+                }
+            }
+        }
+
+        .minimize,
+        .resize {
             border-radius: 0px;
             -webkit-app-region: no-drag;
             -webkit-transition: background-color 0.2s;
@@ -48,8 +69,8 @@
         .minimize svg,
         .resize svg,
         .close svg {
-            width: 10px;
-            height: 10px;
+            width: 11px;
+            height: 11px;
             shape-rendering: crispEdges;
         }
 
