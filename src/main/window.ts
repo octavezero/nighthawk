@@ -22,6 +22,7 @@ export default function createMainWindow() {
     mainWindow = new BrowserWindow({
         frame: os.platform() === 'darwin' ? true : false,
         titleBarStyle: 'hiddenInset',
+        show: false,
         minHeight: 558,
         minWidth: 992,
         height: mainWindowState.height,
