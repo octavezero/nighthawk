@@ -45,10 +45,6 @@ export default function createMainWindow() {
         mainWindow.webContents.openDevTools();
     }
 
-    mainWindow.on('blur', () => {
-        mainWindow.hide();
-    });
-
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {
         // Dereference the window object, usually you would store windows
@@ -57,6 +53,7 @@ export default function createMainWindow() {
         mainWindow = null;
     });
 
+    mainWindow.setAlwaysOnTop(true);
     mainWindowState.trackResize(mainWindow);
     return mainWindow;
 }

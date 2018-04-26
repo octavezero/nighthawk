@@ -2,7 +2,7 @@ import electronStore from 'electron-store';
 // tslint:disable-next-line:import-name
 import produce from 'immer';
 import { SettingsStoreModel, AppStoreModel } from '../stores/AppStoreModel';
-import { remote } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 const { dialog } = remote;
 
 export function getSettings(): SettingsStoreModel {
@@ -26,6 +26,9 @@ export function getSettings(): SettingsStoreModel {
 export async function setLibraryPath(
     state?: AppStoreModel
 ): Promise<AppStoreModel> {
+    // Force the window to remain on top to work correctly when
+    // the dialog is open
+    ipcRenderer.send('SET_DIALOG_SHOW', true);
     return produce<AppStoreModel>(state, draft => {
         const store = new electronStore<SettingsStoreModel>({
             name: 'settings',
@@ -34,6 +37,10 @@ export async function setLibraryPath(
             title: 'Select Music Library Folder',
             properties: ['openDirectory'],
         });
+
+        // Allow the window to be hidden after dialog close
+        ipcRenderer.send('SET_DIALOG_SHOW', false);
+
         if (path === undefined) return draft;
         draft.settings.library.path = path[0];
         store.store = draft.settings;

@@ -12,6 +12,7 @@ import positioner from './positioner';
 
 let mainWindow: Electron.BrowserWindow;
 let tray: Electron.Tray;
+let isDialogOpen: boolean = false;
 
 function createWindow() {
     // Create the browser window.
@@ -27,6 +28,12 @@ function createWindow() {
     mainWindow.on('show', () => {
         // reposition window here
         positioner(mainWindow, tray.getBounds());
+    });
+
+    mainWindow.on('blur', () => {
+        if (isDialogOpen !== true) {
+            mainWindow.hide();
+        }
     });
 }
 
@@ -76,4 +83,11 @@ ipcMain.on('WINDOW_MAXIMIZE', () => {
             ? mainWindow.unmaximize()
             : mainWindow.maximize();
     }
+});
+
+ipcMain.on('SET_DIALOG_SHOW', (event: any, arg: boolean) => {
+    // Sends the window level below the dialog and prevents it from loosing focus.
+    // Use this only when showing a dialog.
+    mainWindow.setAlwaysOnTop(!arg);
+    isDialogOpen = arg;
 });
