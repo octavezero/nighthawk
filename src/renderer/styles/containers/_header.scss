@@ -6,6 +6,22 @@
         padding: 0px var(--spacing-horizontal);
     }
 
+    .search {
+        display: flex;
+        padding: 0px var(--spacing-horizontal);
+        align-items: center;
+
+        .textbox {
+            height: calc(var(--element-height) - 4px);
+            margin: 0px;
+            background: #ffffff;
+        }
+
+        .textbox-addon {
+            height: calc(var(--element-height) - 4px);
+        }
+    }
+
     .drag {
         flex: 1;
     }

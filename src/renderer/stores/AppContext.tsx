@@ -4,6 +4,7 @@ import { AppStoreModel } from './AppStoreModel';
 import * as SettingsActions from '../actions/SettingsActions';
 import * as LibraryActions from '../actions/LibraryActions';
 import * as PlayerActions from '../actions/PlayerActions';
+import * as SearchActions from '../actions/SearchActions';
 import AppStore, { ActionsModel } from './AppStore';
 
 const storeContext = React.createContext<AppStore>();
@@ -18,6 +19,7 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
 
         this.state = {
             settings: SettingsActions.getSettings(),
+            originalLibrary: [],
             library: [],
             player: {
                 cursor: -2,
@@ -27,7 +29,12 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
             },
         };
 
-        this.actions = { settings: null, library: null, player: null };
+        this.actions = {
+            settings: null,
+            library: null,
+            player: null,
+            search: null,
+        };
         this.wrapActions();
     }
 
@@ -61,6 +68,15 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
         }
 
         this.actions.player = playerActions;
+
+        const searchActions: any = { ...SearchActions };
+        for (const key in searchActions) {
+            if (searchActions.hasOwnProperty(key)) {
+                searchActions[key] = this.wrap(searchActions[key]);
+            }
+        }
+
+        this.actions.search = searchActions;
     };
 
     wrap = <T extends (...args: any[]) => any>(fn: T): T => {
@@ -77,6 +93,7 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
                     settings: this.actions.settings,
                     player: this.actions.player,
                     library: this.actions.library,
+                    search: this.actions.search,
                 }}>
                 {this.props.children}
             </storeContext.Provider>

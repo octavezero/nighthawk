@@ -19,6 +19,7 @@ export async function initLibrary(state?: AppStoreModel) {
     );
     return produce<AppStoreModel>(state, draft => {
         draft.library = data;
+        draft.originalLibrary = data;
     });
 }
 
@@ -75,6 +76,7 @@ export async function refreshLibrary(state?: AppStoreModel) {
 
     return produce<AppStoreModel>(state, draft => {
         draft.library = tracks;
+        draft.originalLibrary = tracks;
     });
 }
 

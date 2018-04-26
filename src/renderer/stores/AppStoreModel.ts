@@ -2,6 +2,7 @@ import { TrackModel } from '../database/TracksDatabase';
 
 export interface AppStoreModel {
     settings: SettingsStoreModel;
+    originalLibrary: TrackModel[];
     library: TrackModel[];
     player: PlayerStoreModel;
 }

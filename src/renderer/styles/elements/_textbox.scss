@@ -36,3 +36,29 @@ Base Textbox Class. Every Other input derives from it.
         height: auto;
     }
 }
+
+.textbox-addon {
+    background: var(--background-color);
+    border: var(--border-width) var(--border-style) var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--body-text-color);
+    height: var(--element-height);
+    width: var(--element-height);
+    min-width: var(--element-height);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    box-sizing: border-box;
+    outline: none;
+    padding: 0px var(--spacing-horizontal);
+
+    &.left {
+        border-right: none;
+    }
+
+    &.right {
+        border-left: none;
+    }
+}
