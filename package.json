@@ -33,7 +33,7 @@
     "compression": "normal",
     "artifactName": "${name}-${os}-v${version}-${arch}.${ext}",
     "directories": {
-        "output": "pkgs"
+      "output": "pkgs"
     },
     "files": [
       "dist/**/*"
@@ -102,6 +102,7 @@
     "webpack-cli": "^2.0.14"
   },
   "dependencies": {
+    "@mdi/font": "^2.3.54",
     "classnames": "^2.2.5",
     "dexie": "^3.0.0-alpha.2",
     "electron-is-dev": "^0.3.0",
@@ -109,7 +110,6 @@
     "fs-extra": "^5.0.0",
     "immer": "^1.2.1",
     "lodash": "^4.17.5",
-    "mdi": "^2.2.43",
     "music-metadata": "0.9.15",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
