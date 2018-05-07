@@ -7,7 +7,25 @@ import * as PlayerActions from '../actions/PlayerActions';
 import * as SearchActions from '../actions/SearchActions';
 import AppStore, { ActionsModel } from './AppStore';
 
-const storeContext = React.createContext<AppStore>();
+const defaultValue: AppStore = {
+    state: {
+        settings: SettingsActions.getSettings(),
+        originalLibrary: [],
+        library: [],
+        player: {
+            cursor: -2,
+            queue: [],
+            originalQueue: [],
+            playing: false,
+        },
+    },
+    settings: null,
+    library: null,
+    player: null,
+    search: null,
+};
+
+const storeContext = React.createContext<AppStore>(defaultValue);
 // tslint:disable-next-line:variable-name
 export const AppStoreConsumer = storeContext.Consumer;
 
@@ -17,17 +35,7 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
     constructor(props: any) {
         super(props);
 
-        this.state = {
-            settings: SettingsActions.getSettings(),
-            originalLibrary: [],
-            library: [],
-            player: {
-                cursor: -2,
-                queue: [],
-                originalQueue: [],
-                playing: false,
-            },
-        };
+        this.state = defaultValue.state;
 
         this.actions = {
             settings: null,
