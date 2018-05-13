@@ -6,6 +6,13 @@ import HeaderContainer from './HeaderContainer';
 import PlayerContainer from './PlayerContainer';
 import LibraryContainer from './LibraryContainer';
 
+// tslint:disable-next-line:import-name
+import ReactHintFactory from 'react-hint';
+import 'react-hint/css/index.css';
+
+// tslint:disable-next-line:variable-name
+let ReactHint = ReactHintFactory(React);
+
 export interface ShellContainerProps {}
 
 export interface ShellContainerState {}
@@ -25,6 +32,7 @@ export default class ShellContainer extends React.Component<
     render() {
         return (
             <>
+                <ReactHint autoPosition events delay={100} />
                 <HeaderContainer />
                 <PlayerContainer />
                 <LibraryContainer />

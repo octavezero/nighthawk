@@ -120,12 +120,16 @@ export default class Controls extends React.Component<
                 <div className="controls">
                     <ButtonGroup>
                         <Button
+                            data-rh="Previous Track"
+                            data-rh-at="bottom"
                             type="default"
                             icon={true}
                             onClick={this.handlePrevTrack}>
                             <Icon size="21" icon="skip-previous" />
                         </Button>
                         <Button
+                            data-rh="Play/Pause"
+                            data-rh-at="bottom"
                             type="default"
                             icon={true}
                             onClick={this.handlePlayPause}>
@@ -139,6 +143,8 @@ export default class Controls extends React.Component<
                             />
                         </Button>
                         <Button
+                            data-rh="Next Track"
+                            data-rh-at="bottom"
                             type="default"
                             icon={true}
                             onClick={this.handleNextTrack}>
@@ -159,6 +165,12 @@ export default class Controls extends React.Component<
                     </div>
                     <ButtonGroup>
                         <Button
+                            data-rh={
+                                this.props.store.state.settings.player.repeat
+                                    ? 'Repeat Once'
+                                    : 'Repeat'
+                            }
+                            data-rh-at="bottom"
                             type="default"
                             icon={true}
                             onClick={this.handleRepeat}>
@@ -173,6 +185,8 @@ export default class Controls extends React.Component<
                             />
                         </Button>
                         <Button
+                            data-rh="Shuffle"
+                            data-rh-at="bottom"
                             type="default"
                             icon={true}
                             onClick={this.handleShuffle}>
@@ -189,7 +203,11 @@ export default class Controls extends React.Component<
                     </ButtonGroup>
                     <Queue store={this.props.store} />
                     <div className="volume">
-                        <Button type="default" icon={true}>
+                        <Button
+                            data-rh="Mute/Unmute"
+                            data-rh-at="bottom"
+                            type="default"
+                            icon={true}>
                             <Icon size="21" icon="volume-high" />
                         </Button>
                         <Slider

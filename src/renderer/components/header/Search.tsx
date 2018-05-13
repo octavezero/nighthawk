@@ -33,7 +33,7 @@ export default class Search extends React.Component<SearchProps, SearchState> {
                     value={this.state.value}
                     onChange={this.handleChange}
                 />
-                <TextboxAddon direction="right">
+                <TextboxAddon data-rh="Type to Search" direction="right">
                     <Icon size="18" icon="magnify" />
                 </TextboxAddon>
             </>

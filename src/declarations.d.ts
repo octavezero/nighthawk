@@ -17,3 +17,5 @@ declare module '*.icns' {
     const value: any;
     export = value;
 }
+
+declare module 'react-hint';

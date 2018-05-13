@@ -5608,6 +5608,10 @@ react-dom@^16.3.2:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-hint@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-hint/-/react-hint-3.1.0.tgz#d90269a875ab805c1510e7490bdbbbed189e6ce8"
+
 react-lifecycles-compat@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.2.tgz#7279047275bd727a912e25f734c0559527e84eff"

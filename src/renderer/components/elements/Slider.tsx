@@ -75,6 +75,7 @@ class Slider extends React.Component<SliderProps, SliderState> {
                     className="slider-fill"
                     style={{ width: this.state.displayValue + '%' }}>
                     <Button
+                        data-rh={this.state.value}
                         type="default"
                         className="slider-thumb"
                         onClick={this.handleThumbClick}
