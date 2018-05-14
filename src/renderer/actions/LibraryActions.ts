@@ -48,6 +48,7 @@ export async function refreshLibrary(state?: AppStoreModel) {
             const fullpath = path.join(state.settings.library.path, value);
             const data: mm.IAudioMetadata = await mm.parseFile(fullpath, {
                 skipCovers: true,
+                mergeTagHeaders: true,
             });
             data.format.duration =
                 data.format.duration !== undefined
