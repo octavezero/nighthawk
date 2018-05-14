@@ -50,7 +50,7 @@ export default class Controls extends React.Component<
 
     handleMuteChange = () => {
         Player.isMuted() ? Player.unmute() : Player.mute();
-        this.props.store.settings.setMute(!Player.isMuted());
+        this.props.store.settings.setMute(Player.isMuted());
     };
 
     handleNextTrack = () => {
