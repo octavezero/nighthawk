@@ -6,6 +6,7 @@ import * as LibraryActions from '../actions/LibraryActions';
 import * as PlayerActions from '../actions/PlayerActions';
 import * as SearchActions from '../actions/SearchActions';
 import AppStore, { ActionsModel } from './AppStore';
+import Player from '../libraries/Player';
 
 const defaultValue: AppStore = {
     state: {
@@ -36,6 +37,8 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
         super(props);
 
         this.state = defaultValue.state;
+        Player.player.muted = defaultValue.state.settings.player.mute;
+        Player.setVolume(defaultValue.state.settings.player.volume);
 
         this.actions = {
             settings: null,

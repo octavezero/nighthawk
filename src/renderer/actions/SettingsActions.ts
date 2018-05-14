@@ -17,6 +17,8 @@ export function getSettings(): SettingsStoreModel {
             player: {
                 shuffle: false,
                 repeat: false,
+                volume: 1.0,
+                mute: false,
             },
         },
     });
@@ -82,6 +84,32 @@ export async function setLibrarySort(
         });
         draft.settings.library.sortBy = sortBy;
         draft.settings.library.sortDirection = sortDirection;
+        store.store = draft.settings;
+    });
+}
+
+export async function setVolume(
+    volume: number,
+    state?: AppStoreModel
+): Promise<AppStoreModel> {
+    return produce<AppStoreModel>(state, draft => {
+        const store = new electronStore<SettingsStoreModel>({
+            name: 'settings',
+        });
+        draft.settings.player.volume = volume;
+        store.store = draft.settings;
+    });
+}
+
+export async function setMute(
+    value: boolean,
+    state?: AppStoreModel
+): Promise<AppStoreModel> {
+    return produce<AppStoreModel>(state, draft => {
+        const store = new electronStore<SettingsStoreModel>({
+            name: 'settings',
+        });
+        draft.settings.player.mute = value;
         store.store = draft.settings;
     });
 }

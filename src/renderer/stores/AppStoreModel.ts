@@ -23,5 +23,7 @@ export interface SettingsStoreModel {
     player: {
         shuffle: boolean;
         repeat: boolean;
+        volume: number;
+        mute: boolean;
     };
 }

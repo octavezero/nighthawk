@@ -45,6 +45,12 @@ export default class Controls extends React.Component<
 
     handleVolumeChange = (value: number) => {
         Player.setVolume(value / 10);
+        this.props.store.settings.setVolume(value / 10);
+    };
+
+    handleMuteChange = () => {
+        Player.isMuted() ? Player.unmute() : Player.mute();
+        this.props.store.settings.setMute(!Player.isMuted());
     };
 
     handleNextTrack = () => {
@@ -207,8 +213,16 @@ export default class Controls extends React.Component<
                             data-rh="Mute/Unmute"
                             data-rh-at="bottom"
                             type="default"
-                            icon={true}>
-                            <Icon size="21" icon="volume-high" />
+                            icon={true}
+                            onClick={this.handleMuteChange}>
+                            <Icon
+                                size="21"
+                                icon={
+                                    Player.isMuted()
+                                        ? 'volume-off'
+                                        : 'volume-high'
+                                }
+                            />
                         </Button>
                         <Slider
                             min={0}
