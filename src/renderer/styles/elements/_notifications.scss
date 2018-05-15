@@ -1,0 +1,42 @@
+.notifications {
+    z-index: 899;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+
+    pointer-events: none;
+    padding: var(--spacing-vertical) 0px;
+}
+
+.notifications-box {
+    z-index: 899;
+    box-shadow: 0 0px 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    min-width: 90vw;
+    max-width: 90vw;
+
+    background-color: var(--accent-base-color);
+    color: var(--text-accent-color);
+
+    margin: var(--spacing-vertical) 0px;
+    padding: var(--spacing-vertical) var(--spacing-horizontal);
+}
+
+.animate-enter {
+    @extend .animated;
+    @extend .slideInUp;
+    animation-duration: 300ms;
+}
+.animate-exit {
+    @extend .animated;
+    @extend .zoomOut;
+    animation-duration: 500ms;
+}
