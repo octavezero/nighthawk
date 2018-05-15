@@ -53,6 +53,7 @@
     &:focus {
         background-color: var(--accent-base-color);
         color: var(--text-accent-color);
+        outline: none;
     }
 }
 

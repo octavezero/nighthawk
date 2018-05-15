@@ -77,7 +77,7 @@ export default class Queue extends React.Component<QueueProps, QueueState> {
                         <div className="queue-header">
                             <h6>Currently Playing</h6>
                             <Button
-                                type="default"
+                                type="link"
                                 onClick={e =>
                                     this.props.store.player.clearQueue()
                                 }>

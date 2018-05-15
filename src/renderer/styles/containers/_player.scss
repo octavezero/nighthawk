@@ -89,6 +89,7 @@
             display: flex;
 
             justify-content: center;
+            outline: none;
 
             .btn {
                 border-radius: 0px;
@@ -128,4 +129,12 @@
             }
         }
     }
+}
+
+.ReactVirtualized__List {
+    outline: none;
+}
+
+.ReactVirtualized__Grid__innerScrollContainer {
+    outline: none;
 }
