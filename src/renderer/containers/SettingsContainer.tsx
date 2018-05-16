@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { TabBar } from '../components/elements/TabBar';
 import Library from '../components/settings/Library';
+import System from '../components/settings/System';
 import AppStore from '../stores/AppStore';
 import { AppStoreConsumer } from '../stores/AppContext';
 
@@ -42,7 +43,11 @@ export default class SettingsContainer extends React.Component<
             }
 
             case TabItemsOrder.System: {
-                return <div />;
+                return (
+                    <AppStoreConsumer>
+                        {store => <System store={store as AppStore} />}
+                    </AppStoreConsumer>
+                );
             }
         }
     }

@@ -20,6 +20,9 @@ export function getSettings(): SettingsStoreModel {
                 volume: 1.0,
                 mute: false,
             },
+            system: {
+                unobtrusive: true,
+            },
         },
     });
     return store.store;
@@ -110,6 +113,19 @@ export async function setMute(
             name: 'settings',
         });
         draft.settings.player.mute = value;
+        store.store = draft.settings;
+    });
+}
+
+export async function setUnobtrusiveMode(
+    value: boolean,
+    state?: AppStoreModel
+): Promise<AppStoreModel> {
+    return produce<AppStoreModel>(state, draft => {
+        const store = new electronStore<SettingsStoreModel>({
+            name: 'settings',
+        });
+        draft.settings.system.unobtrusive = value;
         store.store = draft.settings;
     });
 }

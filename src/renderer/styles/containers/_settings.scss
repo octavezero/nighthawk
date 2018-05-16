@@ -1,3 +1,19 @@
 .library-settings {
     padding: var(--spacing-vertical) var(--spacing-horizontal);
 }
+
+.system-settings {
+    padding: var(--spacing-vertical) var(--spacing-horizontal);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-banner {
+    display: flex;
+    justify-content: center;
+
+    margin: var(--spacing-vertical) var(--spacing-horizontal);
+    background: var(--accent-base-color);
+    color: var(--text-accent-color);
+}

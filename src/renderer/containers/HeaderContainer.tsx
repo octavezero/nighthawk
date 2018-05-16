@@ -3,6 +3,7 @@ import WindowControls from '../components/header/WindowControls';
 import HeaderActions from '../components/header/HeaderActions';
 import Search from '../components/header/Search';
 import { AppStoreConsumer } from '../stores/AppContext';
+import DragRegion from '../components/header/DragRegion';
 
 export interface HeaderContainerProps {}
 
@@ -22,18 +23,22 @@ export default class HeaderContainer extends React.Component<
 
     render() {
         return (
-            <div className="header">
-                <div className="drag" />
-                <div className="search">
-                    <AppStoreConsumer>
-                        {store => <Search store={store} />}
-                    </AppStoreConsumer>
-                </div>
-                <div className="content">
-                    <HeaderActions />
-                </div>
-                <WindowControls />
-            </div>
+            <AppStoreConsumer>
+                {store => (
+                    <div className="header">
+                        <DragRegion
+                            drag={!store.state.settings.system.unobtrusive}
+                        />
+                        <div className="search">
+                            <Search store={store} />
+                        </div>
+                        <div className="content">
+                            <HeaderActions />
+                        </div>
+                        <WindowControls unobtrusive={!store.state.settings.system.unobtrusive} />
+                    </div>
+                )}
+            </AppStoreConsumer>
         );
     }
 }

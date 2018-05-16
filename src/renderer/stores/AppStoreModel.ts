@@ -26,4 +26,7 @@ export interface SettingsStoreModel {
         volume: number;
         mute: boolean;
     };
+    system: {
+        unobtrusive: boolean;
+    };
 }

@@ -9,10 +9,15 @@ import createMainWindow from './window';
 // tslint:disable-next-line:import-name
 import registerShortcuts from './shortcuts';
 import positioner from './positioner';
+import electronStore from 'electron-store';
 
 let mainWindow: Electron.BrowserWindow;
 let tray: Electron.Tray;
 let isDialogOpen: boolean = false;
+
+let store = new electronStore({
+    name: 'settings',
+});
 
 function createWindow() {
     // Create the browser window.
@@ -24,17 +29,22 @@ function createWindow() {
     // Register Global Shortcuts
     registerShortcuts(mainWindow);
 
-    // reposition when showing window
-    mainWindow.on('show', () => {
-        // reposition window here
-        positioner(mainWindow, tray.getBounds());
-    });
+    if (
+        !store.has('system.unobtrusive') ||
+        store.get('system.unobtrusive') === true
+    ) {
+        // reposition when showing window
+        mainWindow.on('show', () => {
+            // reposition window here
+            positioner(mainWindow, tray.getBounds());
+        });
 
-    mainWindow.on('blur', () => {
-        if (isDialogOpen !== true) {
-            mainWindow.hide();
-        }
-    });
+        mainWindow.on('blur', () => {
+            if (isDialogOpen !== true) {
+                mainWindow.hide();
+            }
+        });
+    }
 }
 
 // This method will be called when Electron has finished

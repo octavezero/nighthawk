@@ -11,6 +11,7 @@ import * as url from 'url';
 import * as path from 'path';
 
 import electronIsDev from 'electron-is-dev';
+import electronStore from 'electron-store';
 // tslint:disable-next-line:import-name
 import manageWindowState from './winState';
 
@@ -18,13 +19,24 @@ export default function createMainWindow() {
     let mainWindowState = manageWindowState({ width: 992, height: 558 });
     // Construct new BrowserWindow
     let mainWindow: Electron.BrowserWindow;
+
+    let store = new electronStore({
+        name: 'settings',
+    });
+
+    let unobtusive: boolean =
+        !store.has('system.unobtrusive') ||
+        store.get('system.unobtrusive') === true
+            ? true
+            : false;
+
     // Create the browser window.
     mainWindow = new BrowserWindow({
         frame: os.platform() === 'darwin' ? true : false,
         titleBarStyle: 'hiddenInset',
-        maximizable: false,
-        minimizable: false,
-        show: false,
+        maximizable: !unobtusive,
+        minimizable: !unobtusive,
+        show: !unobtusive,
         minHeight: 558,
         minWidth: 992,
         height: mainWindowState.height,
@@ -53,7 +65,9 @@ export default function createMainWindow() {
         mainWindow = null;
     });
 
-    mainWindow.setAlwaysOnTop(true);
+    if (unobtusive) {
+        mainWindow.setAlwaysOnTop(true);
+    }
     mainWindowState.trackResize(mainWindow);
     return mainWindow;
 }

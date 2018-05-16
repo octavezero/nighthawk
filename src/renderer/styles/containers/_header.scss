@@ -24,6 +24,10 @@
 
     .drag {
         flex: 1;
+
+        &.window {
+            -webkit-app-region: drag;
+        }
     }
 
     .window-controls {
