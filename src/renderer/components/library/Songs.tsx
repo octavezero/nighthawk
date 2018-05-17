@@ -9,6 +9,7 @@ import AppStore from '../../stores/AppStore';
 import { TrackModel } from '../../database/TracksDatabase';
 import * as TimeUtils from '../../utilities/TimeUtils';
 import { ContextMenu, ContextMenuItem } from '../elements/ContextMenu';
+import EmptyState from './EmptyState';
 
 export interface SongsProps {
     store: AppStore;
@@ -36,7 +37,7 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
     };
 
     noRowsRenderer = () => {
-        return <div>Empty State</div>;
+        return <EmptyState />;
     };
 
     rowClassName = ({ index }: { index: number }) => {

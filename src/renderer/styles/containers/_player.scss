@@ -23,11 +23,22 @@
         grid-area: details;
         display: flex;
         align-items: baseline;
+        margin-right: calc(var(--spacing-horizontal) * 2);
+        min-width: 0;
 
-        * {
+        h2,
+        h4,
+        h5 {
             font-weight: 400;
             margin-top: 0;
             margin-bottom: 0;
+        }
+
+        h2,
+        h4 {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
 

@@ -4,3 +4,28 @@
     margin-right: 3px;
     margin-bottom: 2px;
 }
+
+.empty-state {
+    margin: var(--spacing-vertical) var(--spacing-horizontal);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+
+    .empty-state-icon {
+        margin-bottom: var(--spacing-vertical);
+
+        min-width: 242px;
+        min-height: 192px;
+    }
+
+    .empty-state-title {
+        margin: var(--spacing-vertical) auto;
+    }
+
+    .empty-state-subtitle {
+        margin: var(--spacing-vertical) auto calc(var(--spacing-horizontal) * 4);
+    }
+}
