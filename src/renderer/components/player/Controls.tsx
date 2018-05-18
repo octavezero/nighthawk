@@ -15,6 +15,7 @@ export interface ControlsProps {
 
 interface ControlsState {
     duration: number;
+    isQueueEmpty: boolean;
 }
 
 export default class Controls extends React.Component<
@@ -26,6 +27,7 @@ export default class Controls extends React.Component<
 
         this.state = {
             duration: 0,
+            isQueueEmpty: true,
         };
     }
 
@@ -40,6 +42,8 @@ export default class Controls extends React.Component<
     };
 
     handleDurationChange = (value: number) => {
+        if (this.state.isQueueEmpty) return;
+
         Player.setCurrentTime(value);
     };
 
@@ -54,10 +58,14 @@ export default class Controls extends React.Component<
     };
 
     handleNextTrack = () => {
+        if (this.state.isQueueEmpty) return;
+
         this.props.store.player.nextSong();
     };
 
     handlePrevTrack = () => {
+        if (this.state.isQueueEmpty) return;
+
         if (this.state.duration > 15) {
             Player.replay();
         } else {
@@ -66,12 +74,16 @@ export default class Controls extends React.Component<
     };
 
     handlePlayPause = () => {
+        if (this.state.isQueueEmpty) return;
+
         this.props.store.player.togglePlayPause();
     };
 
     handleShuffle = () => {
         this.props.store.settings.setShuffleMode().then(() => {
-            this.props.store.player.shuffleToggle();
+            if (!this.state.isQueueEmpty) {
+                this.props.store.player.shuffleToggle();
+            }
         });
     };
 
@@ -118,6 +130,16 @@ export default class Controls extends React.Component<
             'PLAYER_CONTROLS_NEXT_TRACK',
             this.handleNextTrack
         );
+    }
+
+    static getDerivedStateFromProps(
+        nextProps: ControlsProps
+    ): Partial<ControlsState> {
+        if (nextProps.store.state.player.queue.length === 0) {
+            return { isQueueEmpty: true };
+        }
+
+        return { isQueueEmpty: false };
     }
 
     render() {
