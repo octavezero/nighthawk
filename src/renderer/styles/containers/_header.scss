@@ -1,5 +1,7 @@
 .header {
     display: flex;
+    background: var(--accent-base-color);
+    color: var(--text-accent-color);
 
     .content {
         display: flex;
@@ -15,10 +17,15 @@
             height: calc(var(--element-height) - 4px);
             margin: 0px;
             background: #ffffff;
+            border-color: var(--accent-dark-color);
+            color: var(--text-body-color);
         }
 
         .textbox-addon {
             height: calc(var(--element-height) - 4px);
+            border-color: var(--accent-base-color);
+            background: var(--accent-base-color);
+            color: var(--text-accent-color);
         }
     }
 
@@ -73,7 +80,7 @@
                 & svg > rect,
                 & svg > path,
                 & svg > polygon {
-                    fill: var(--accent-base-color);
+                    fill: var(--text-accent-color);
                 }
             }
 
@@ -81,7 +88,7 @@
                 & svg > rect,
                 & svg > path,
                 & svg > polygon {
-                    fill: var(--accent-dark-color);
+                    fill: var(--text-accent-color);
                 }
             }
         }
@@ -97,7 +104,7 @@
         .minimize svg > rect,
         .resize svg > path,
         .close svg > polygon {
-            fill: var(--text-body-color);
+            fill: var(--text-accent-color);
         }
     }
 }

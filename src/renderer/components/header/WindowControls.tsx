@@ -62,7 +62,7 @@ export default class Shell extends React.Component<
                 <ButtonGroup>
                     {this.state.unobtrusive && (
                         <Button
-                            type="link"
+                            type="primary"
                             className="minimize"
                             onClick={this.handleMinimizeClick}>
                             <svg x="0px" y="0px" viewBox="0 0 10 1">
@@ -72,7 +72,7 @@ export default class Shell extends React.Component<
                     )}
                     {this.state.unobtrusive && (
                         <Button
-                            type="link"
+                            type="primary"
                             className="resize"
                             onClick={this.handleMaximizeClick}>
                             <svg x="0px" y="0px" viewBox="0 0 10 10">
@@ -88,7 +88,7 @@ export default class Shell extends React.Component<
                         </Button>
                     )}
                     <Button
-                        type="link"
+                        type="primary"
                         className="close"
                         onClick={this.handleCloseClick}>
                         <svg x="0px" y="0px" viewBox="0 0 10 10">

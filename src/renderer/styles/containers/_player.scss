@@ -2,6 +2,8 @@
     border-bottom: var(--border-width) var(--border-style) var(--border-color);
     padding: 4px;
     padding-right: calc(var(--spacing-horizontal) * 2);
+    background: var(--accent-base-color);
+    color: var(--text-accent-color);
 
     display: grid;
     grid-template-rows: 42px 32px;

@@ -39,7 +39,10 @@ export default class Shell extends React.PureComponent<
                     onRequestClose={this.handleCloseModal}
                     body={<SettingsContainer />}
                 />
-                <Button type="link" icon={true} onClick={this.handleOpenModal}>
+                <Button
+                    type="primary"
+                    icon={true}
+                    onClick={this.handleOpenModal}>
                     <Icon size="16" icon="settings" />&nbsp; Settings
                 </Button>
             </>

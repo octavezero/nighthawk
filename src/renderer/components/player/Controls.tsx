@@ -128,7 +128,7 @@ export default class Controls extends React.Component<
                         <Button
                             data-rh="Previous Track"
                             data-rh-at="bottom"
-                            type="default"
+                            type="primary"
                             icon={true}
                             onClick={this.handlePrevTrack}>
                             <Icon size="21" icon="skip-previous" />
@@ -136,7 +136,7 @@ export default class Controls extends React.Component<
                         <Button
                             data-rh="Play/Pause"
                             data-rh-at="bottom"
-                            type="default"
+                            type="primary"
                             icon={true}
                             onClick={this.handlePlayPause}>
                             <Icon
@@ -151,7 +151,7 @@ export default class Controls extends React.Component<
                         <Button
                             data-rh="Next Track"
                             data-rh-at="bottom"
-                            type="default"
+                            type="primary"
                             icon={true}
                             onClick={this.handleNextTrack}>
                             <Icon size="21" icon="skip-next" />
@@ -177,7 +177,7 @@ export default class Controls extends React.Component<
                                     : 'Repeat'
                             }
                             data-rh-at="bottom"
-                            type="default"
+                            type="primary"
                             icon={true}
                             onClick={this.handleRepeat}>
                             <Icon
@@ -193,7 +193,7 @@ export default class Controls extends React.Component<
                         <Button
                             data-rh="Shuffle"
                             data-rh-at="bottom"
-                            type="default"
+                            type="primary"
                             icon={true}
                             onClick={this.handleShuffle}>
                             <Icon
@@ -212,7 +212,7 @@ export default class Controls extends React.Component<
                         <Button
                             data-rh="Mute/Unmute"
                             data-rh-at="bottom"
-                            type="default"
+                            type="primary"
                             icon={true}
                             onClick={this.handleMuteChange}>
                             <Icon

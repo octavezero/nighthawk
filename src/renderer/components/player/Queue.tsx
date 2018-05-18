@@ -114,7 +114,7 @@ export default class Queue extends React.Component<QueueProps, QueueState> {
                 }>
                 <ButtonGroup>
                     <Button
-                        type="default"
+                        type="primary"
                         icon={true}
                         onClick={() =>
                             this.setState({
