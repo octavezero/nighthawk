@@ -65,7 +65,7 @@ export class ContextMenu extends React.Component<
         if (
             nextProps.x === prevState.x &&
             nextProps.y === prevState.y &&
-            prevState.isActive
+            !prevState.isActive
         ) {
             return null;
         }
@@ -88,7 +88,7 @@ export class ContextMenu extends React.Component<
         if (
             nextState.x === this.state.x &&
             nextState.y === this.state.y &&
-            this.state.isActive
+            !this.state.isActive
         ) {
             return false;
         }
