@@ -57,15 +57,15 @@ class Slider extends React.Component<SliderProps, SliderState> {
         e.stopPropagation();
     };
 
-    componentWillReceiveProps(nextProps: SliderProps) {
-        this.setState({
+    static getDerivedStateFromProps(nextProps: SliderProps) {
+        return {
             value: nextProps.value!,
-            displayValue: this.roundValue(
+            displayValue: Math.round(
                 (nextProps.value! - nextProps.min!) /
                     (nextProps.max! - nextProps.min!) *
                     100
             ),
-        });
+        };
     }
 
     render() {
@@ -73,7 +73,11 @@ class Slider extends React.Component<SliderProps, SliderState> {
             <div className="slider" onClick={this.handleTrackClick}>
                 <div
                     className="slider-fill"
-                    style={{ width: this.state.displayValue + '%' }}>
+                    style={{
+                        width: isNaN(this.state.displayValue)
+                            ? '0px'
+                            : `${this.state.displayValue}%`,
+                    }}>
                     <Button
                         data-rh={this.state.value}
                         type="default"

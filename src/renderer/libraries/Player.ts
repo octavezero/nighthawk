@@ -26,7 +26,7 @@ class Player {
     }
 
     reset() {
-        this.player = new Audio();
+        this.setAudioSrc('');
     }
 
     isMuted() {
