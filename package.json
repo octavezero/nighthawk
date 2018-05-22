@@ -16,6 +16,7 @@
     "start": "electron ./dist/main.bundle.js",
     "development": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
     "production": "rimraf dist && webpack --config ./webpack.prod.js --progress --colors",
+    "lint": "tslint --project .",
     "pack": "yarn production && electron-builder --dir",
     "dist": "yarn production && electron-builder -mwl -c.mac.identity=null"
   },

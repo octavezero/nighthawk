@@ -40,7 +40,7 @@ function createWindow() {
         });
 
         mainWindow.on('blur', () => {
-            if (isDialogOpen !== true) {
+            if (!isDialogOpen) {
                 mainWindow.hide();
             }
         });

@@ -43,11 +43,7 @@ export default class DragRegion extends React.Component<
     render() {
         return (
             <>
-                <div
-                    className={
-                        this.state.drag === true ? 'drag window' : 'drag'
-                    }
-                />
+                <div className={this.state.drag ? 'drag window' : 'drag'} />
             </>
         );
     }

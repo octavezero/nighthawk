@@ -65,7 +65,7 @@ export class ContextMenu extends React.Component<
         if (
             nextProps.x === prevState.x &&
             nextProps.y === prevState.y &&
-            prevState.isActive === false
+            prevState.isActive
         ) {
             return null;
         }
@@ -80,7 +80,7 @@ export class ContextMenu extends React.Component<
         if (
             this.props.x === nextProps.x &&
             this.props.y === nextProps.y &&
-            nextState.isActive === true
+            nextState.isActive
         ) {
             return false;
         }
@@ -88,7 +88,7 @@ export class ContextMenu extends React.Component<
         if (
             nextState.x === this.state.x &&
             nextState.y === this.state.y &&
-            this.state.isActive === false
+            this.state.isActive
         ) {
             return false;
         }
@@ -97,7 +97,7 @@ export class ContextMenu extends React.Component<
     }
 
     componentDidUpdate() {
-        if (this.state.isActive === true) {
+        if (this.state.isActive) {
             let w = window.innerWidth;
             let h = window.innerHeight;
 
