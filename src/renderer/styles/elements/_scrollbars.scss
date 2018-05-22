@@ -1,32 +1,19 @@
-@mixin thumb-border {
-    border: 3px solid rgba(0, 0, 0, 0);
-    border-left-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
-    background-clip: padding-box;
-}
-
+/* Turn on custom 8px wide scrollbar */
 ::-webkit-scrollbar {
-    width: 15px;
-    background-color: var(--border-color);
+    width: 10px;
+    background-color: rgba(0, 0, 0, 0);
 }
 
-::-webkit-scrollbar-track {
-    border: var(--border-width) var(--border-style) transparent;
-    background-color: var(--background-color);
+::-webkit-scrollbar:hover {
+    background-color: rgba(0, 0, 0, 0.09);
 }
 
-::-webkit-scrollbar-thumb {
-    background-color: var(--accent-base-color);
-    @include thumb-border();
-
-    &:hover {
-        background: var(--accent-dark-color);
-        @include thumb-border();
-    }
-
-    &:active {
-        background: var(--accent-light-color);
-        @include thumb-border();
-    }
+::-webkit-scrollbar-thumb:vertical {
+    background: rgba(0, 0, 0, 0.5);
+    background-clip: padding-box;
+    border: 2px solid rgba(0, 0, 0, 0);
+    min-height: var(--element-height); /*Prevent it from getting too small */
+}
+::-webkit-scrollbar-thumb:vertical:active {
+    background: rgba(0, 0, 0, 0.61); /* Some darker color when you click it */
 }
