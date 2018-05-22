@@ -1,0 +1,58 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.1
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/nighthawk-ci
+
+    steps:
+      - checkout
+
+      - run:
+          name: Display node and npm informations
+          command: |
+            echo "node version $(node -v) running"
+            echo "yarn version $(yarn --version) running"
+
+      # Download and cache dependencies
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-{{ .Branch }}
+            - yarn-packages-master
+            - yarn-packages-
+
+      # Install Depedencies
+      - run:
+          name: Install dependencies
+          command: yarn install
+
+      # Build webpack-production
+      - run:
+          name: Generate Production Build
+          command: yarn run production
+
+      # Lint Source Code
+      - run:
+          name: Lint Typescript
+          command: yarn run lint
+
+      # Save Cache for future use
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules/
+
+
