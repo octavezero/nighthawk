@@ -6,6 +6,10 @@
 	<br>
 </h1>
 
+[![license](https://img.shields.io/github/license/quantumkv/nighthawk.svg?style=flat-square)](https://github.com/quantumkv/nighthawk)
+[![CircleCI](https://img.shields.io/circleci/project/github/quantumkv/nighthawk.svg?style=flat-square)](https://github.com/quantumkv/nighthawk)
+[![Github All Releases](https://img.shields.io/github/downloads/quantumkv/nighthawk/total.svg?style=flat-square)](https://github.com/quantumkv/nighthawk)
+
 <h4 align="center">A stealthy, simple, unobtrusive music player that stays out of your way in your Menubar/Taskbar </h4>
 
 <p align="center">
@@ -31,10 +35,11 @@
 
 *   Download the appropriate setup and install.
 *   The app only lives in the tray. You have to manipulate it from there. - For Windows, the icon will in the tray next to the clock on the taskbar. Click to show the player. Right click will open up the tray menu with extra options. - For Ubuntu and MacOS, the icon will be in the top-right corner of the screen.
+*   You can change the app to behave as regular windowed app in the settings if you want.
 
 #### For First Time Users:
 
-*   Click the settings button on the top of the window and select the folder with your mp3 files.
+*   Click the settings button on the top-right of the window and select the folder with your music files.
 *   Click of refresh button and wait for the tracks to be loaded.
 
 ## Download
