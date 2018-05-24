@@ -79,15 +79,15 @@
     "@types/electron-is-dev": "^0.3.0",
     "@types/electron-store": "^1.3.0",
     "@types/fs-extra": "^5.0.2",
-    "@types/lodash": "^4.14.108",
+    "@types/lodash": "^4.14.109",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
     "@types/react-modal": "^3.1.2",
     "@types/react-transition-group": "^2.0.9",
     "@types/react-virtualized": "^9.18.3",
     "css-loader": "^0.28.11",
-    "electron": "2.0.1",
-    "electron-builder": "^20.13.4",
+    "electron": "2.0.2",
+    "electron-builder": "^20.14.7",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.9.0",
@@ -101,10 +101,10 @@
     "tslint-config-prettier": "^1.12.0",
     "typescript": "^2.8.3",
     "webpack": "^4.8.3",
-    "webpack-cli": "^2.1.3"
+    "webpack-cli": "^2.1.4"
   },
   "dependencies": {
-    "@mdi/font": "^2.3.54",
+    "@mdi/font": "^2.4.85",
     "classnames": "^2.2.5",
     "dexie": "^3.0.0-alpha.2",
     "electron-is-dev": "^0.3.0",
@@ -112,13 +112,13 @@
     "fs-extra": "^6.0.1",
     "immer": "^1.2.1",
     "lodash": "^4.17.10",
-    "music-metadata": "1.0.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
+    "music-metadata": "1.1.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "react-hint": "^3.1.0",
     "react-modal": "^3.4.4",
     "react-tiny-popover": "^3.4.0",
     "react-transition-group": "^2.3.1",
-    "react-virtualized": "^9.19.0"
+    "react-virtualized": "^9.19.1"
   }
 }
