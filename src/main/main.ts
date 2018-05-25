@@ -96,6 +96,10 @@ ipcMain.on('WINDOW_MAXIMIZE', () => {
 });
 
 ipcMain.on('SET_DIALOG_SHOW', (event: any, arg: boolean) => {
+    // If the app in not in unobtrusive mode, returns because this fix is not required.
+    if (store.get('system.unobtrusive') === false) {
+        return;
+    }
     // Sends the window level below the dialog and prevents it from loosing focus.
     // Use this only when showing a dialog.
     mainWindow.setAlwaysOnTop(!arg);
