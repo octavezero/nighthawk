@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 let mainConfig = {
@@ -72,7 +73,7 @@ let rendererConfig = {
             {
                 test: /\.(scss|css)$/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader?sourceMap',
                     'sass-loader?sourceMap',
                 ],
@@ -94,6 +95,9 @@ let rendererConfig = {
         ],
     },
     plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'style.css',
+        }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, './src/renderer/index.html'),
         }),

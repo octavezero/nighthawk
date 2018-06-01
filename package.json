@@ -90,18 +90,18 @@
     "electron-builder": "^20.14.7",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
     "prettier": "1.11.1",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.0.1",
-    "style-loader": "^0.21.0",
     "ts-loader": "^4.3.0",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.8.0",
     "tslint-config-prettier": "^1.12.0",
     "typescript": "^2.8.3",
-    "webpack": "^4.8.3",
-    "webpack-cli": "^2.1.4"
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.5"
   },
   "dependencies": {
     "@mdi/font": "^2.4.85",
