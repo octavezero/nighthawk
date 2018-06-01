@@ -8,21 +8,6 @@ import { sortTracks } from '../utilities/LibraryUtils';
 import { AppStoreModel } from '../stores/AppStoreModel';
 import { TrackModel, TracksDatabase } from '../database/TracksDatabase';
 
-export async function initLibrary(state?: AppStoreModel) {
-    const db: TracksDatabase = new TracksDatabase('library');
-    let data = await db.library.toArray();
-    db.close();
-    data = sortTracks(
-        state.settings.library.sortBy,
-        state.settings.library.sortDirection,
-        data
-    );
-    return produce<AppStoreModel>(state, draft => {
-        draft.library = data;
-        draft.originalLibrary = data;
-    });
-}
-
 export async function refreshLibrary(state?: AppStoreModel) {
     const db: TracksDatabase = new TracksDatabase('library');
 

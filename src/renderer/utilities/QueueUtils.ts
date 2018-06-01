@@ -1,4 +1,5 @@
 import { TrackModel } from '../database/TracksDatabase';
+import { StateDatabase } from '../database/StateDatabase';
 
 /**
  * Fisher-Yates-shuffle for Arrays
@@ -20,4 +21,20 @@ export function shuffleList(list: TrackModel[]): TrackModel[] {
     }
 
     return list;
+}
+
+export function updatePlayerState(queue: number[], cursor: number) {
+    let db: StateDatabase = new StateDatabase('state');
+    db.queue.put({ queue, cursor, id: 1 }).then(() => db.close());
+}
+
+export function updatePlayerStateCursor(cursor: number) {
+    let db: StateDatabase = new StateDatabase('state');
+    db.queue.update(1, { cursor }).then(() => db.close());
+}
+
+export function updatePlayerStateQueue(queue: number[]) {
+    let db: StateDatabase = new StateDatabase('state');
+    db.queue.update(1, { queue });
+    db.close();
 }

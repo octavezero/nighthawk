@@ -1,6 +1,10 @@
 import { AppStoreModel, PlayerStoreModel } from '../stores/AppStoreModel';
 import Player from '../libraries/Player';
-import { shuffleList } from '../utilities/QueueUtils';
+import {
+    shuffleList,
+    updatePlayerStateCursor,
+    updatePlayerState,
+} from '../utilities/QueueUtils';
 // tslint:disable-next-line:import-name
 import produce from 'immer';
 
@@ -24,6 +28,7 @@ export async function nextSong(state?: AppStoreModel): Promise<AppStoreModel> {
             Player.setAudioSrc(draft.player.queue[cursor].source);
             Player.play();
             draft.player.cursor = cursor;
+            updatePlayerStateCursor(cursor);
         }
     });
 }
@@ -39,6 +44,7 @@ export async function prevSong(state?: AppStoreModel): Promise<AppStoreModel> {
             Player.setAudioSrc(draft.player.queue[cursor].source);
             Player.play();
             draft.player.cursor = cursor;
+            updatePlayerStateCursor(cursor);
         }
     });
 }
@@ -47,7 +53,6 @@ export async function shuffleToggle(
     state?: AppStoreModel
 ): Promise<AppStoreModel> {
     return produce<AppStoreModel>(state, draft => {
-        let cursor;
         // Shuffle Code here. Use Fisher-Yates Shuffle Algorithm.
         const trackId = draft.player.queue[draft.player.cursor].id;
 
@@ -61,6 +66,7 @@ export async function shuffleToggle(
                 i => i.id === trackId
             );
         }
+        updatePlayerStateCursor(draft.player.cursor);
     });
 }
 
@@ -72,6 +78,7 @@ export async function seekSong(
         Player.setAudioSrc(draft.player.queue[index].source);
         Player.play();
         draft.player.cursor = index;
+        updatePlayerStateCursor(index);
     });
 }
 
@@ -101,6 +108,9 @@ export async function createPlayerQueue(
             draft.player.cursor = index;
             draft.player.playing = true;
         }
+
+        let queue: number[] = draft.player.queue.map(value => value.id);
+        updatePlayerState(queue, draft.player.cursor);
     });
 }
 
@@ -116,6 +126,7 @@ export async function newQueue(index: number, state?: AppStoreModel) {
 
         Player.setAudioSrc(draft.player.queue[0].source);
         Player.play();
+        updatePlayerState([draft.player.queue[0].id], 0);
     });
 }
 
@@ -140,6 +151,9 @@ export async function existingQueue(index: number, state?: AppStoreModel) {
             Player.setAudioSrc(draft.player.queue[0].source);
             Player.play();
         }
+
+        let queue: number[] = draft.player.queue.map(value => value.id);
+        updatePlayerState(queue, draft.player.cursor);
     });
 }
 
@@ -156,6 +170,9 @@ export async function removeFromQueue(index: number, state?: AppStoreModel) {
         }
         draft.player.originalQueue.splice(ind, 1);
         draft.player.queue.splice(index, 1);
+
+        let queue: number[] = draft.player.queue.map(value => value.id);
+        updatePlayerState(queue, draft.player.cursor);
     });
 }
 
@@ -166,5 +183,6 @@ export async function clearQueue(state?: AppStoreModel) {
         draft.player.playing = false;
         draft.player.cursor = -2;
         Player.reset();
+        updatePlayerState([], -2);
     });
 }

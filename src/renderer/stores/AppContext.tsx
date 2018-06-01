@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { AppStoreModel } from './AppStoreModel';
 
+import * as InitActions from '../actions/InitActions';
 import * as SettingsActions from '../actions/SettingsActions';
 import * as LibraryActions from '../actions/LibraryActions';
 import * as PlayerActions from '../actions/PlayerActions';
@@ -20,6 +21,7 @@ const defaultValue: AppStore = {
             playing: false,
         },
     },
+    init: null,
     settings: null,
     library: null,
     player: null,
@@ -41,6 +43,7 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
         Player.setVolume(defaultValue.state.settings.player.volume);
 
         this.actions = {
+            init: null,
             settings: null,
             library: null,
             player: null,
@@ -50,6 +53,15 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
     }
 
     wrapActions = () => {
+        // Wrap init actions
+        const initActions: any = { ...InitActions };
+        for (const key in initActions) {
+            if (initActions.hasOwnProperty(key)) {
+                initActions[key] = this.wrap(initActions[key]);
+            }
+        }
+        this.actions.init = initActions;
+
         // Wrap Settings Actions
         const settingsActions: any = { ...SettingsActions };
         for (const key in settingsActions) {
@@ -101,6 +113,7 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
             <storeContext.Provider
                 value={{
                     state: this.state,
+                    init: this.actions.init,
                     settings: this.actions.settings,
                     player: this.actions.player,
                     library: this.actions.library,

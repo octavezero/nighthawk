@@ -45,7 +45,7 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
     };
 
     componentDidMount() {
-        this.props.store.library.initLibrary();
+        this.props.store.init.init();
     }
 
     onRowDoubleClick = (info: RowMouseEventHandlerParams) => {
