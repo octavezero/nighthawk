@@ -15,6 +15,7 @@ Base Textbox Class. Every Other input derives from it.
     display: flex;
 
     margin: var(--spacing-vertical) 0px;
+    transition: border-color 0.2s;
 
     width: 100%;
     box-sizing: border-box;

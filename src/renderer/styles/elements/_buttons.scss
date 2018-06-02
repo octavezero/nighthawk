@@ -16,6 +16,7 @@ Base Button Style. This is the default button style. All other buttons extend th
     min-height: var(--element-height);
     min-width: 50px;
     border-radius: var(--border-radius);
+    transition: background 0.2s;
 
     &[disabled],
     &:disabled {
@@ -71,6 +72,7 @@ Base Button Style. This is the default button style. All other buttons extend th
     &.btn-link {
         background: transparent;
         border-color: transparent;
+        transition: color 0.2s;
         cursor: pointer;
 
         &:focus,

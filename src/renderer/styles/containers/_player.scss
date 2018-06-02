@@ -114,6 +114,7 @@
                 display: flex;
                 justify-content: center;
                 flex-direction: column;
+                transition: background 0.2s;
 
                 &.current {
                     background: var(--accent-base-color);

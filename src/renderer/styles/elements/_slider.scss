@@ -16,6 +16,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        transition: width 0.5s;
 
         .slider-thumb {
             background: var(--accent-base-color);

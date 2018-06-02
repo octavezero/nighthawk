@@ -26,6 +26,7 @@
         height: 20px;
         background: white;
         border: var(--border-width) var(--border-style) var(--border-color);
+        transition: background 0.2s;
     }
 
     // Box hover

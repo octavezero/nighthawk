@@ -49,8 +49,6 @@
         .close {
             border-radius: 0px;
             -webkit-app-region: no-drag;
-            -webkit-transition: background-color 0.2s;
-            transition: background-color 0.2s;
             &:focus,
             &:hover {
                 border-color: #e81123;
@@ -72,8 +70,6 @@
         .resize {
             border-radius: 0px;
             -webkit-app-region: no-drag;
-            -webkit-transition: background-color 0.2s;
-            transition: background-color 0.2s;
 
             &:focus,
             &:hover {

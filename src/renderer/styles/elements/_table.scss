@@ -44,6 +44,7 @@
 
     background: #ffffff;
     color: var(--text-body-color);
+    transition: background 0.2s;
 
     &:hover {
         background-color: var(--border-color);
