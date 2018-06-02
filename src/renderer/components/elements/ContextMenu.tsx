@@ -10,6 +10,7 @@ interface ContextMenuState {
     isActive: boolean;
     x: number;
     y: number;
+    prevProps: ContextMenuProps;
 }
 
 interface Position {
@@ -30,6 +31,7 @@ export class ContextMenu extends React.Component<
             isActive: false,
             x: 0,
             y: 0,
+            prevProps: props,
         };
     }
 
@@ -63,14 +65,19 @@ export class ContextMenu extends React.Component<
         prevState: ContextMenuState
     ): any {
         if (
-            nextProps.x === prevState.x &&
-            nextProps.y === prevState.y &&
+            nextProps.x === prevState.prevProps.x &&
+            nextProps.y === prevState.prevProps.y &&
             !prevState.isActive
         ) {
             return null;
         }
 
-        return { x: nextProps.x, y: nextProps.y, isActive: true };
+        return {
+            x: nextProps.x,
+            y: nextProps.y,
+            isActive: true,
+            prevProps: nextProps,
+        };
     }
 
     shouldComponentUpdate(
@@ -92,7 +99,6 @@ export class ContextMenu extends React.Component<
         ) {
             return false;
         }
-
         return true;
     }
 
