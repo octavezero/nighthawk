@@ -1,4 +1,4 @@
-import * as fs from 'fs-extra';
+import recursiveReaddir from 'recursive-readdir';
 import * as mm from 'music-metadata';
 import * as path from 'path';
 // tslint:disable-next-line:import-name
@@ -15,11 +15,10 @@ export async function refreshLibrary(state?: AppStoreModel) {
         return state;
     }
 
-    let files: string[] = await fs.readdir(state.settings.library.path);
+    let files: string[] = await recursiveReaddir(state.settings.library.path);
 
     // filter out the unrequired files
-    files = files.filter(value => {
-        const file: string = path.join(state.settings.library.path, value);
+    files = files.filter(file => {
         return (
             path.extname(file) === '.mp3' ||
             path.extname(file) === '.wma' ||
@@ -31,9 +30,8 @@ export async function refreshLibrary(state?: AppStoreModel) {
 
     // Grab the metadata and exract the required files
     const tracks: TrackModel[] = await Promise.all(
-        files.map(async (value, index) => {
-            const fullpath = path.join(state.settings.library.path, value);
-            const data: mm.IAudioMetadata = await mm.parseFile(fullpath, {
+        files.map(async (file, index) => {
+            const data: mm.IAudioMetadata = await mm.parseFile(file, {
                 skipCovers: true,
                 mergeTagHeaders: true,
             });
@@ -43,7 +41,7 @@ export async function refreshLibrary(state?: AppStoreModel) {
                     : undefined;
             return {
                 id: index,
-                source: fullpath,
+                source: file,
                 common: data.common,
                 format: data.format,
             };
