@@ -23,9 +23,15 @@ export function shuffleList(list: TrackModel[]): TrackModel[] {
     return list;
 }
 
-export function updatePlayerState(queue: number[], cursor: number) {
+export function updatePlayerState(
+    queue: number[],
+    originalQueue: number[],
+    cursor: number
+) {
     let db: StateDatabase = new StateDatabase('state');
-    db.queue.put({ queue, cursor, id: 1 }).then(() => db.close());
+    db.queue
+        .put({ queue, originalQueue, cursor, id: 1 })
+        .then(() => db.close());
 }
 
 export function updatePlayerStateCursor(cursor: number) {
@@ -33,8 +39,11 @@ export function updatePlayerStateCursor(cursor: number) {
     db.queue.update(1, { cursor }).then(() => db.close());
 }
 
-export function updatePlayerStateQueue(queue: number[]) {
+export function updatePlayerStateQueue(
+    queue: number[],
+    originalQueue: number[]
+) {
     let db: StateDatabase = new StateDatabase('state');
-    db.queue.update(1, { queue });
+    db.queue.update(1, { queue, originalQueue });
     db.close();
 }

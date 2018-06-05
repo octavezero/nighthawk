@@ -61,8 +61,12 @@ export async function refreshLibrary(state?: AppStoreModel) {
     db.close();
 
     return produce<AppStoreModel>(state, draft => {
-        draft.library = tracks;
         draft.originalLibrary = tracks;
+        draft.library = sortTracks(
+            draft.settings.library.sortBy,
+            draft.settings.library.sortDirection,
+            draft.originalLibrary
+        );
     });
 }
 

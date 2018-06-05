@@ -4,6 +4,7 @@ import Dexie from 'dexie';
 interface QueueModel {
     id: number;
     queue: number[];
+    originalQueue: number[];
     cursor: number;
 }
 
@@ -24,7 +25,7 @@ export class StateDatabase extends Dexie {
             Populates the database with default values
         */
         this.on('populate', () => {
-            this.queue.add({ id: 1, queue: [], cursor: -2 });
+            this.queue.add({ id: 1, queue: [], originalQueue: [], cursor: -2 });
         });
     }
 }

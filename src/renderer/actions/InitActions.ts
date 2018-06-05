@@ -16,25 +16,26 @@ export async function init(state?: AppStoreModel) {
     let queueState = await statedb.queue.get(1);
     statedb.close();
 
-    data = sortTracks(
-        state.settings.library.sortBy,
-        state.settings.library.sortDirection,
-        data
-    );
-
-    let queue = queueState.queue.map(value => {
-        return data.find(x => x.id === value);
-    });
-
-    if (queueState.cursor !== -2) {
-        Player.setAudioSrc(queue[queueState.cursor].source);
-    }
-
     return produce<AppStoreModel>(state, draft => {
-        draft.library = data;
         draft.originalLibrary = data;
-        draft.player.queue = queue;
-        draft.player.originalQueue = queue;
+        draft.library = sortTracks(
+            state.settings.library.sortBy,
+            state.settings.library.sortDirection,
+            draft.originalLibrary
+        );
+
+        draft.player.queue = queueState.queue.map(value => {
+            return draft.library.find(x => x.id === value);
+        });
+
+        draft.player.originalQueue = queueState.originalQueue.map(value => {
+            return draft.library.find(x => x.id === value);
+        });
+
+        if (queueState.cursor !== -2) {
+            Player.setAudioSrc(draft.player.queue[queueState.cursor].source);
+        }
+
         draft.player.cursor = queueState.cursor;
     });
 }

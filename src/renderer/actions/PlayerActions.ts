@@ -110,7 +110,10 @@ export async function createPlayerQueue(
         }
 
         let queue: number[] = draft.player.queue.map(value => value.id);
-        updatePlayerState(queue, draft.player.cursor);
+        let originalQueue: number[] = draft.player.originalQueue.map(
+            value => value.id
+        );
+        updatePlayerState(queue, originalQueue, draft.player.cursor);
     });
 }
 
@@ -126,7 +129,11 @@ export async function newQueue(index: number, state?: AppStoreModel) {
 
         Player.setAudioSrc(draft.player.queue[0].source);
         Player.play();
-        updatePlayerState([draft.player.queue[0].id], 0);
+        updatePlayerState(
+            [draft.player.queue[0].id],
+            [draft.player.queue[0].id],
+            0
+        );
     });
 }
 
@@ -153,7 +160,10 @@ export async function existingQueue(index: number, state?: AppStoreModel) {
         }
 
         let queue: number[] = draft.player.queue.map(value => value.id);
-        updatePlayerState(queue, draft.player.cursor);
+        let originalQueue: number[] = draft.player.originalQueue.map(
+            value => value.id
+        );
+        updatePlayerState(queue, originalQueue, draft.player.cursor);
     });
 }
 
@@ -172,7 +182,10 @@ export async function removeFromQueue(index: number, state?: AppStoreModel) {
         draft.player.queue.splice(index, 1);
 
         let queue: number[] = draft.player.queue.map(value => value.id);
-        updatePlayerState(queue, draft.player.cursor);
+        let originalQueue: number[] = draft.player.originalQueue.map(
+            value => value.id
+        );
+        updatePlayerState(queue, originalQueue, draft.player.cursor);
     });
 }
 
@@ -183,6 +196,6 @@ export async function clearQueue(state?: AppStoreModel) {
         draft.player.playing = false;
         draft.player.cursor = -2;
         Player.reset();
-        updatePlayerState([], -2);
+        updatePlayerState([], [], -2);
     });
 }
