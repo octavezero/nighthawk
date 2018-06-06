@@ -28,6 +28,7 @@
 *   Does not appear in the taskbar and window lists when hidden.
 *   Supports keyboard media keys to control the player.
 *   A powerful queue manager to manage your playing queue.
+*   Saves your state so you can continue from where you left off last time.
 *   Highly Efficient.
 *   More Features to come soon.
 
@@ -48,7 +49,7 @@ You can download latest installers from your OS [from the releases page](https:/
 
 Current only the following OS are supported:
 
-*   Windows 7 and greater (64 bit)
+*   Windows 7 and greater
 *   Ubuntu 12.04 and greater (64 bit)
 *   MacOS X 10.9 and greater
 
