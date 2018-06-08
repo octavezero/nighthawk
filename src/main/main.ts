@@ -10,10 +10,13 @@ import createMainWindow from './window';
 import registerShortcuts from './shortcuts';
 import positioner from './positioner';
 import electronStore from 'electron-store';
+import electronLog from 'electron-log';
 
 let mainWindow: Electron.BrowserWindow;
 let tray: Electron.Tray;
 let isDialogOpen: boolean = false;
+
+electronLog.transports.file.level = 'warn';
 
 let store = new electronStore({
     name: 'settings',

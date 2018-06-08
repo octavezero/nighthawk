@@ -3,7 +3,6 @@ import { Textbox } from '../elements/Textbox';
 import { ButtonGroup } from '../elements/ButtonGroup';
 import { Button } from '../elements/Button';
 import AppStore from '../../stores/AppStore';
-import Notifications from '../../libraries/Notifications';
 
 export interface LibrarySettingsProps {
     store: AppStore;
@@ -24,13 +23,7 @@ export default class LibrarySettings extends React.Component<
     };
 
     handleRefreshLibrary = () => {
-        Notifications.addNotification(
-            'library',
-            'Refreshing Library... Please Wait'
-        );
-        this.props.store.library
-            .refreshLibrary()
-            .then(() => Notifications.removeNotification('library'));
+        this.props.store.library.refreshLibrary();
     };
 
     shouldComponentUpdate(
