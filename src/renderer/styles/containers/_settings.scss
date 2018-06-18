@@ -9,6 +9,13 @@
     flex-direction: column;
 }
 
+.system-settings {
+    padding: var(--spacing-vertical) var(--spacing-horizontal);
+
+    display: flex;
+    flex-direction: column;
+}
+
 .settings-banner {
     display: flex;
     justify-content: center;

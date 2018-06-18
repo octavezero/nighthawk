@@ -5,11 +5,14 @@ import '../styles/app.scss';
 import HeaderContainer from './HeaderContainer';
 import PlayerContainer from './PlayerContainer';
 import LibraryContainer from './LibraryContainer';
+import { AppStoreConsumer } from '../stores/AppContext';
+import PlaylistContainer from './PlaylistContainer';
 
 // tslint:disable-next-line:import-name
 import ReactHintFactory from 'react-hint';
 import 'react-hint/css/index.css';
 import NotificationContainer from './NotificationContainer';
+import { LayoutContextConsumer } from '../stores/LayoutContext';
 
 // tslint:disable-next-line:variable-name
 let ReactHint = ReactHintFactory(React);
@@ -37,7 +40,15 @@ export default class ShellContainer extends React.Component<
                 <NotificationContainer />
                 <HeaderContainer />
                 <PlayerContainer />
-                <LibraryContainer />
+                <LayoutContextConsumer>
+                    {store =>
+                        store.activeMainTab === 0 ? (
+                            <LibraryContainer />
+                        ) : (
+                            <PlaylistContainer />
+                        )
+                    }
+                </LayoutContextConsumer>
             </>
         );
     }

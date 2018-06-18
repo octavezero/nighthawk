@@ -1,0 +1,33 @@
+.playlist {
+    flex: 1;
+
+    display: flex;
+
+    .details {
+        background: #ffffff;
+        width: 200px;
+        border-right: var(--border-width) var(--border-style)
+            var(--border-color);
+
+        display: flex;
+        flex-direction: column;
+
+        .list {
+            flex: 1;
+        }
+
+        .panel {
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            height: 26px;
+        }
+    }
+
+    .table {
+        background: #ffffff;
+        flex: 1;
+        border-right: var(--border-width) var(--border-style)
+            var(--border-color);
+    }
+}

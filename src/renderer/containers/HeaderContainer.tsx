@@ -4,6 +4,8 @@ import HeaderActions from '../components/header/HeaderActions';
 import Search from '../components/header/Search';
 import { AppStoreConsumer } from '../stores/AppContext';
 import DragRegion from '../components/header/DragRegion';
+import ModeTabs from '../components/header/ModeTabs';
+import { LayoutContextConsumer } from '../stores/LayoutContext';
 
 export interface HeaderContainerProps {}
 
@@ -26,6 +28,9 @@ export default class HeaderContainer extends React.Component<
             <AppStoreConsumer>
                 {store => (
                     <div className="header">
+                        <LayoutContextConsumer>
+                            {store => <ModeTabs {...store} />}
+                        </LayoutContextConsumer>
                         <DragRegion
                             drag={!store.state.settings.system.unobtrusive}
                         />
@@ -35,7 +40,11 @@ export default class HeaderContainer extends React.Component<
                         <div className="content">
                             <HeaderActions />
                         </div>
-                        <WindowControls unobtrusive={!store.state.settings.system.unobtrusive} />
+                        <WindowControls
+                            unobtrusive={
+                                !store.state.settings.system.unobtrusive
+                            }
+                        />
                     </div>
                 )}
             </AppStoreConsumer>

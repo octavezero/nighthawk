@@ -1,0 +1,16 @@
+.panel {
+    background: var(--background-color);
+    border: var(--border-width) var(--border-style) var(--border-color);
+    height: var(--element-height);
+    display: flex;
+
+    .details-left {
+        flex: 1;
+        padding: var(--spacing-vertical) 0px;
+    }
+
+    .details-right {
+        flex: 1;
+        padding: var(--spacing-vertical) var(--spacing-horizontal);
+    }
+}

@@ -3,6 +3,30 @@
     background: var(--accent-base-color);
     color: var(--text-accent-color);
 
+    .mode-tabs {
+        height: auto;
+        font-size: 1.1em;
+        font-weight: 500;
+        margin-left: var(--spacing-horizontal);
+
+        .tab-bar-item {
+            flex: 1 1 auto;
+            margin-left: var(--spacing-horizontal);
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--text-accent-color);
+            border: none;
+            opacity: 0.6;
+
+            &.selected {
+                opacity: 1;
+            }
+        }
+    }
+
     .content {
         display: flex;
         padding: 0px var(--spacing-horizontal);
