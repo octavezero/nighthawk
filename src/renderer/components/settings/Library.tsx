@@ -23,7 +23,9 @@ export default class LibrarySettings extends React.Component<
     };
 
     handleRefreshLibrary = () => {
-        this.props.store.library.refreshLibrary();
+        this.props.store.library
+            .refreshLibrary()
+            .then(() => this.props.store.playlist.createFolderPlaylists());
     };
 
     shouldComponentUpdate(
