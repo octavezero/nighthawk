@@ -6,6 +6,7 @@ import * as SettingsActions from '../actions/SettingsActions';
 import * as LibraryActions from '../actions/LibraryActions';
 import * as PlayerActions from '../actions/PlayerActions';
 import * as SearchActions from '../actions/SearchActions';
+import * as PlaylistActions from '../actions/PlaylistActions';
 import AppStore, { ActionsModel } from './AppStore';
 import Player from '../libraries/Player';
 
@@ -20,12 +21,19 @@ const defaultValue: AppStore = {
             originalQueue: [],
             playing: false,
         },
+        playlist: {
+            currentId: 0,
+            currentName: 'none',
+            currentTracks: [],
+            playlists: [],
+        },
     },
     init: null,
     settings: null,
     library: null,
     player: null,
     search: null,
+    playlist: null,
 };
 
 const storeContext = React.createContext<AppStore>(defaultValue);
@@ -48,6 +56,7 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
             library: null,
             player: null,
             search: null,
+            playlist: null,
         };
         this.wrapActions();
     }
@@ -100,6 +109,15 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
         }
 
         this.actions.search = searchActions;
+
+        const playlistActions: any = { ...PlaylistActions };
+        for (const key in playlistActions) {
+            if (playlistActions.hasOwnProperty(key)) {
+                playlistActions[key] = this.wrap(playlistActions[key]);
+            }
+        }
+
+        this.actions.playlist = playlistActions;
     };
 
     wrap = <T extends (...args: any[]) => any>(fn: T): T => {
@@ -118,6 +136,7 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
                     player: this.actions.player,
                     library: this.actions.library,
                     search: this.actions.search,
+                    playlist: this.actions.playlist,
                 }}>
                 {this.props.children}
             </storeContext.Provider>

@@ -167,6 +167,91 @@ export async function existingQueue(index: number, state?: AppStoreModel) {
     });
 }
 
+export async function createPlayerQueueFromPlaylist(
+    index: number,
+    state?: AppStoreModel
+): Promise<AppStoreModel> {
+    return produce<AppStoreModel>(state, draft => {
+        const trackId = draft.playlist.currentTracks[index].id;
+        if (draft.settings.player.shuffle) {
+            let shuffled = shuffleList([...draft.playlist.currentTracks]);
+            let newindex = shuffled.findIndex(i => i.id === trackId);
+            Player.setAudioSrc(shuffled[newindex].source);
+            Player.play();
+
+            // Data Assignments
+            draft.player.queue = shuffled;
+            draft.player.originalQueue = draft.playlist.currentTracks;
+            draft.player.cursor = newindex;
+            draft.player.playing = true;
+        } else {
+            Player.setAudioSrc(draft.playlist.currentTracks[index].source);
+            Player.play();
+            // Data Assignments
+            draft.player.queue = draft.playlist.currentTracks;
+            draft.player.originalQueue = draft.playlist.currentTracks;
+            draft.player.cursor = index;
+            draft.player.playing = true;
+        }
+
+        let queue: number[] = draft.player.queue.map(value => value.id);
+        let originalQueue: number[] = draft.player.originalQueue.map(
+            value => value.id
+        );
+        updatePlayerState(queue, originalQueue, draft.player.cursor);
+    });
+}
+
+export async function newQueueFromPlaylist(index: number, state?: AppStoreModel) {
+    return produce(state, draft => {
+        draft.player.queue = [];
+        draft.player.originalQueue = [];
+
+        draft.player.originalQueue.push(draft.playlist.currentTracks[index]);
+        draft.player.queue.push(draft.playlist.currentTracks[index]);
+        draft.player.cursor = 0;
+        draft.player.playing = true;
+
+        Player.setAudioSrc(draft.player.queue[0].source);
+        Player.play();
+        updatePlayerState(
+            [draft.player.queue[0].id],
+            [draft.player.queue[0].id],
+            0
+        );
+    });
+}
+
+export async function existingQueueFromPlaylist(index: number, state?: AppStoreModel) {
+    return produce(state, draft => {
+        draft.player.originalQueue.push(draft.playlist.currentTracks[index]);
+        draft.player.queue.push(draft.playlist.currentTracks[index]);
+
+        if (draft.settings.player.shuffle && draft.player.queue.length > 1) {
+            const trackId = draft.player.queue[draft.player.cursor].id;
+            let shuffled = shuffleList([...draft.player.queue]);
+            let newindex = shuffled.findIndex(i => i.id === trackId);
+
+            draft.player.queue = shuffled;
+            draft.player.cursor = newindex;
+        }
+
+        if (draft.player.queue.length === 1) {
+            draft.player.cursor = 0;
+            draft.player.playing = true;
+
+            Player.setAudioSrc(draft.player.queue[0].source);
+            Player.play();
+        }
+
+        let queue: number[] = draft.player.queue.map(value => value.id);
+        let originalQueue: number[] = draft.player.originalQueue.map(
+            value => value.id
+        );
+        updatePlayerState(queue, originalQueue, draft.player.cursor);
+    });
+}
+
 export async function removeFromQueue(index: number, state?: AppStoreModel) {
     return produce(state, draft => {
         let ind = draft.player.originalQueue.findIndex(

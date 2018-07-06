@@ -1,10 +1,12 @@
 import { TrackModel } from '../database/TracksDatabase';
+import { PlaylistModel } from '../database/PlaylistsDatabase';
 
 export interface AppStoreModel {
     settings: SettingsStoreModel;
     originalLibrary: TrackModel[];
     library: TrackModel[];
     player: PlayerStoreModel;
+    playlist: PlaylistStoreModel;
 }
 
 export interface PlayerStoreModel {
@@ -12,6 +14,13 @@ export interface PlayerStoreModel {
     originalQueue: TrackModel[];
     cursor: number;
     playing: boolean;
+}
+
+export interface PlaylistStoreModel {
+    currentId: number;
+    currentName: string;
+    currentTracks: TrackModel[];
+    playlists: PlaylistModel[];
 }
 
 export interface SettingsStoreModel {
@@ -28,5 +37,8 @@ export interface SettingsStoreModel {
     };
     system: {
         unobtrusive: boolean;
+    };
+    playlist: {
+        folder: boolean;
     };
 }

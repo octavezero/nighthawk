@@ -23,6 +23,9 @@ export function getSettings(): SettingsStoreModel {
             system: {
                 unobtrusive: true,
             },
+            playlist: {
+                folder: true,
+            },
         },
     });
     return store.store;
@@ -126,6 +129,19 @@ export async function setUnobtrusiveMode(
             name: 'settings',
         });
         draft.settings.system.unobtrusive = value;
+        store.store = draft.settings;
+    });
+}
+
+export async function setFolderPlaylistMode(
+    value: boolean,
+    state?: AppStoreModel
+): Promise<AppStoreModel> {
+    return produce<AppStoreModel>(state, draft => {
+        const store = new electronStore<SettingsStoreModel>({
+            name: 'settings',
+        });
+        draft.settings.playlist.folder = value;
         store.store = draft.settings;
     });
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import SidePanel from '../components/playlist/SidePanel';
 import Tracks from '../components/playlist/Tracks';
+import { AppStoreConsumer } from '../stores/AppContext';
 
 export interface PlaylistContainerProps {}
 
@@ -16,7 +17,9 @@ export default class PlaylistContainer extends React.Component<
         return (
             <div className="playlist">
                 <SidePanel />
-                <Tracks />
+                <AppStoreConsumer>
+                    {store => <Tracks store={store} />}
+                </AppStoreConsumer>
             </div>
         );
     }

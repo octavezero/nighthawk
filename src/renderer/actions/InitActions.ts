@@ -8,10 +8,12 @@ import { TrackModel, TracksDatabase } from '../database/TracksDatabase';
 import { StateDatabase } from '../database/StateDatabase';
 import Player from '../libraries/Player';
 import Notifications from '../libraries/Notifications';
+import { PlaylistsDatabase } from '../database/PlaylistsDatabase';
 
 export async function init(state?: AppStoreModel) {
     const db: TracksDatabase = new TracksDatabase('library');
     const statedb: StateDatabase = new StateDatabase('state');
+    const playlistdb: PlaylistsDatabase = new PlaylistsDatabase('playlists');
 
     try {
         let data = await db.library.toArray();
@@ -20,6 +22,9 @@ export async function init(state?: AppStoreModel) {
         let queueState = await statedb.queue.get(1);
         statedb.close();
 
+        let playlists = await playlistdb.folders.toArray();
+        playlistdb.close();
+
         return produce<AppStoreModel>(state, draft => {
             draft.originalLibrary = data;
             draft.library = sortTracks(
@@ -27,6 +32,13 @@ export async function init(state?: AppStoreModel) {
                 state.settings.library.sortDirection,
                 draft.originalLibrary
             );
+
+            draft.playlist.playlists = playlists;
+            draft.playlist.currentId = 0;
+            draft.playlist.currentName = playlists[0].name;
+            draft.playlist.currentTracks = playlists[0].tracks.map(value => {
+                return draft.library.find(x => x.id === value);
+            });
 
             draft.player.queue = queueState.queue.map(value => {
                 return draft.library.find(x => x.id === value);

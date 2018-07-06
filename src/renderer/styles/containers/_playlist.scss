@@ -14,6 +14,43 @@
 
         .list {
             flex: 1;
+
+            display: flex;
+            flex-direction: column;
+
+            .list-row {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                transition: background 0.2s;
+
+                min-height: 28px;
+
+                &.current {
+                    background: var(--accent-base-color);
+                    color: var(--text-accent-color);
+
+                    &:hover {
+                        background: var(--accent-light-color);
+                        color: var(--text-accent-color);
+                    }
+                }
+
+                h6 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                }
+
+                &:hover {
+                    border-top-width: var(--border-width);
+                    background-color: var(--background-color);
+                }
+
+                &:active {
+                    background-color: var(--accent-base-color);
+                    color: var(--text-accent-color);
+                }
+            }
         }
 
         .panel {
@@ -21,6 +58,14 @@
             border-left: none;
             border-right: none;
             height: 26px;
+
+            display: flex;
+            align-items: center;
+
+            h6 {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
         }
     }
 
