@@ -86,7 +86,7 @@
     "@types/react-virtualized": "^9.18.3",
     "@types/recursive-readdir": "^2.2.0",
     "css-loader": "^1.0.0",
-    "electron": "3.0.0-beta.1",
+    "electron": "3.0.0-beta.5",
     "electron-builder": "^20.19.2",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
