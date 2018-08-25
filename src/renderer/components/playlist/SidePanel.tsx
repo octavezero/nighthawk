@@ -51,7 +51,7 @@ export default class SidePanel extends React.Component<
                                         key={index}
                                         className={
                                             index ===
-                                            store.state.playlist.currentId
+                                            store.state.playlist.currentIndex
                                                 ? 'list-row current'
                                                 : 'list-row'
                                         }>

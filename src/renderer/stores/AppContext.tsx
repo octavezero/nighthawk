@@ -22,8 +22,8 @@ const defaultValue: AppStore = {
             playing: false,
         },
         playlist: {
-            currentId: 0,
-            currentName: 'none',
+            currentPlaylist: { name: 'none', tracks: [], type: 'folder' },
+            currentIndex: 0,
             currentTracks: [],
             playlists: [],
         },

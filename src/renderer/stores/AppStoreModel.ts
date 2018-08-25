@@ -17,8 +17,8 @@ export interface PlayerStoreModel {
 }
 
 export interface PlaylistStoreModel {
-    currentId: number;
-    currentName: string;
+    currentPlaylist: PlaylistModel;
+    currentIndex: number;
     currentTracks: TrackModel[];
     playlists: PlaylistModel[];
 }

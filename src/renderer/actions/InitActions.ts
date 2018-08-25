@@ -35,8 +35,7 @@ export async function init(state?: AppStoreModel) {
             );
 
             draft.playlist.playlists = folderPlaylists.concat(playlists);
-            draft.playlist.currentId = 0;
-            draft.playlist.currentName = folderPlaylists[0].name;
+            draft.playlist.currentPlaylist = folderPlaylists[0];
             draft.playlist.currentTracks = folderPlaylists[0].tracks.map(
                 value => {
                     return draft.library.find(x => x.id === value);

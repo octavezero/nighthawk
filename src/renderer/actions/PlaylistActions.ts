@@ -44,8 +44,7 @@ export async function createFolderPlaylists(state?: AppStoreModel) {
 
     return produce(state, draft => {
         draft.playlist.playlists = playlists;
-        draft.playlist.currentId = 0;
-        draft.playlist.currentName = playlists[0].name;
+        draft.playlist.currentPlaylist = playlists[0];
         draft.playlist.currentTracks = playlists[0].tracks.map(
             (value: number) => {
                 return draft.library.find(x => x.id === value);
@@ -59,8 +58,8 @@ export async function changeActivePlaylist(
     state?: AppStoreModel
 ) {
     return produce(state, draft => {
-        draft.playlist.currentId = index;
-        draft.playlist.currentName = draft.playlist.playlists[index].name;
+        draft.playlist.currentPlaylist = draft.playlist.playlists[index];
+        draft.playlist.currentIndex = index;
 
         // prettier-ignore
         draft.playlist.currentTracks = draft.playlist.playlists[index].tracks.map(value => {
@@ -76,7 +75,7 @@ export async function renamePlaylist(
 ) {
     let id: number = state.playlist.playlists[index].id;
     let db = new PlaylistsDatabase('playlists');
-    if (state.playlist.playlists[index].type === 'folder') {
+    if (state.playlist.currentPlaylist.type === 'folder') {
         await db.folders.update(id, { name });
     } else {
         await db.playlists.update(id, { name });
