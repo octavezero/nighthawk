@@ -63,3 +63,29 @@ Base Textbox Class. Every Other input derives from it.
         border-left: none;
     }
 }
+
+.editable-textbox {
+    //Font Family not inherited from parents. Hack.
+    font-family: inherit;
+    line-height: inherit;
+    background: var(--text-accent-color);
+    background-image: none;
+    border: var(--border-width) var(--border-style) var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-body-color);
+    display: flex;
+
+    margin: calc(var(--spacing-vertical) - 6px) var(--spacing-horizontal);
+    transition: border-color 0.2s;
+
+    width: 175px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    outline: none;
+    padding: calc(var(--spacing-vertical) - 6px) var(--spacing-horizontal);
+
+    &:focus {
+        border-color: var(--accent-base-color);
+        //@include control-shadow(var(--primary-light-color));
+    }
+}

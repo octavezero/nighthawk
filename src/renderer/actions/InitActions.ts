@@ -22,7 +22,8 @@ export async function init(state?: AppStoreModel) {
         let queueState = await statedb.queue.get(1);
         statedb.close();
 
-        let playlists = await playlistdb.folders.toArray();
+        let folderPlaylists = await playlistdb.folders.toArray();
+        let playlists = await playlistdb.playlists.toArray();
         playlistdb.close();
 
         return produce<AppStoreModel>(state, draft => {
@@ -33,12 +34,14 @@ export async function init(state?: AppStoreModel) {
                 draft.originalLibrary
             );
 
-            draft.playlist.playlists = playlists;
+            draft.playlist.playlists = folderPlaylists.concat(playlists);
             draft.playlist.currentId = 0;
-            draft.playlist.currentName = playlists[0].name;
-            draft.playlist.currentTracks = playlists[0].tracks.map(value => {
-                return draft.library.find(x => x.id === value);
-            });
+            draft.playlist.currentName = folderPlaylists[0].name;
+            draft.playlist.currentTracks = folderPlaylists[0].tracks.map(
+                value => {
+                    return draft.library.find(x => x.id === value);
+                }
+            );
 
             draft.player.queue = queueState.queue.map(value => {
                 return draft.library.find(x => x.id === value);

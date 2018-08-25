@@ -30,7 +30,11 @@ export async function createFolderPlaylists(state?: AppStoreModel) {
     await db.folders.clear();
     await db.transaction('rw', db.folders, async () => {
         for (let key of Object.keys(playlists)) {
-            await db.folders.add({ name: key, tracks: playlists[key] });
+            await db.folders.add({
+                name: key,
+                tracks: playlists[key],
+                type: 'folder',
+            });
         }
     });
 
@@ -61,6 +65,44 @@ export async function changeActivePlaylist(
         // prettier-ignore
         draft.playlist.currentTracks = draft.playlist.playlists[index].tracks.map(value => {
             return draft.library.find(x => x.id === value);
+        });
+    });
+}
+
+export async function renamePlaylist(
+    index: number,
+    name: string,
+    state?: AppStoreModel
+) {
+    let id: number = state.playlist.playlists[index].id;
+    let db = new PlaylistsDatabase('playlists');
+    if (state.playlist.playlists[index].type === 'folder') {
+        await db.folders.update(id, { name });
+    } else {
+        await db.playlists.update(id, { name });
+    }
+    db.close();
+
+    return produce(state, draft => {
+        draft.playlist.playlists[index].name = name;
+    });
+}
+
+export async function addNewPlaylist(state?: AppStoreModel) {
+    let db = new PlaylistsDatabase('playlists');
+    let id = await db.playlists.add({
+        name: 'New Playlist',
+        tracks: [],
+        type: 'normal',
+    });
+    db.close();
+
+    return produce(state, draft => {
+        draft.playlist.playlists.push({
+            id,
+            name: 'New Playlist',
+            tracks: [],
+            type: 'normal',
         });
     });
 }

@@ -1,5 +1,10 @@
 import * as React from 'react';
 import { AppStoreConsumer } from '../../stores/AppContext';
+import { ButtonGroup } from '../elements/ButtonGroup';
+import { Button } from '../elements/Button';
+import { Icon } from '../elements/Icon';
+import { EditableTextbox } from '../elements/EditableTextbox';
+import AppStore from '../../stores/AppStore';
 
 interface SidePanelProps {}
 
@@ -9,6 +14,10 @@ export default class SidePanel extends React.Component<
     SidePanelProps,
     SidePanelState
 > {
+    constructor(props: SidePanelProps) {
+        super(props);
+    }
+
     render() {
         return (
             <AppStoreConsumer>
@@ -16,6 +25,19 @@ export default class SidePanel extends React.Component<
                     <div className="details">
                         <div className="panel">
                             <h6>Playlists</h6>
+                            <ButtonGroup>
+                                <Button
+                                    type="link"
+                                    icon={true}
+                                    onClick={() =>
+                                        store.playlist.addNewPlaylist()
+                                    }>
+                                    <Icon icon="plus" />
+                                </Button>
+                                <Button type="link" icon={true}>
+                                    <Icon icon="minus" />
+                                </Button>
+                            </ButtonGroup>
                         </div>
                         <div className="list">
                             {store.state.playlist.playlists.map(
@@ -33,7 +55,16 @@ export default class SidePanel extends React.Component<
                                                 ? 'list-row current'
                                                 : 'list-row'
                                         }>
-                                        <p>{obj.name}</p>
+                                        <EditableTextbox
+                                            text={obj.name}
+                                            onChange={(value: string) =>
+                                                store.playlist.renamePlaylist(
+                                                    index,
+                                                    value
+                                                )
+                                            }
+                                            editable={obj.type === 'normal'}
+                                        />
                                     </div>
                                 )
                             )}

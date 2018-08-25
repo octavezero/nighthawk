@@ -4,12 +4,13 @@ import Dexie from 'dexie';
 export interface PlaylistModel {
     id?: number;
     name: string;
+    type: 'folder' | 'normal';
     tracks: number[];
 }
 
 export class PlaylistsDatabase extends Dexie {
-    folders: Dexie.Table<PlaylistModel, number>
-    playlists: Dexie.Table<PlaylistModel, number>
+    folders: Dexie.Table<PlaylistModel, number>;
+    playlists: Dexie.Table<PlaylistModel, number>;
 
     constructor(dbname: string) {
         super(dbname);
