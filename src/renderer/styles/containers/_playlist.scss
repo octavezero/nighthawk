@@ -78,3 +78,31 @@
             var(--border-color);
     }
 }
+
+.add-list {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    .list-row {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        transition: background 0.2s;
+
+        border-top: var(--border-width) var(--border-style) var(--border-color);
+
+        min-height: 40px;
+
+        &:hover {
+            color: var(--text-accent-color);
+            background-color: var(--accent-dark-color);
+        }
+
+        &:active {
+            background-color: var(--accent-light-color);
+            color: var(--text-accent-color);
+        }
+    }
+}

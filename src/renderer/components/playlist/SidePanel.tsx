@@ -34,7 +34,12 @@ export default class SidePanel extends React.Component<
                                     }>
                                     <Icon icon="plus" />
                                 </Button>
-                                <Button type="link" icon={true}>
+                                <Button
+                                    type="link"
+                                    icon={true}
+                                    onClick={() =>
+                                        store.playlist.deletePlaylist()
+                                    }>
                                     <Icon icon="minus" />
                                 </Button>
                             </ButtonGroup>

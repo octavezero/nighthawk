@@ -3,6 +3,7 @@ import produce from 'immer';
 import * as path from 'path';
 import { AppStoreModel } from '../stores/AppStoreModel';
 import { PlaylistsDatabase } from '../database/PlaylistsDatabase';
+import Notifications from '../libraries/Notifications';
 
 export async function createFolderPlaylists(state?: AppStoreModel) {
     let db = new PlaylistsDatabase('playlists');
@@ -103,5 +104,59 @@ export async function addNewPlaylist(state?: AppStoreModel) {
             tracks: [],
             type: 'normal',
         });
+    });
+}
+
+export async function deletePlaylist(state?: AppStoreModel) {
+    if (state.playlist.currentPlaylist.type === 'normal') {
+        let db = new PlaylistsDatabase('playlists');
+
+        await db.playlists.delete(state.playlist.currentPlaylist.id);
+
+        db.close();
+
+        Notifications.addNotification(
+            'deletePlaylist',
+            `Deleted Playlist: ${state.playlist.currentPlaylist.name}`,
+            true
+        );
+
+        // TODO: Reset the current playlist here.
+
+        return produce(state, draft => {
+            let newIndex: number = draft.playlist.currentIndex - 1;
+            draft.playlist.currentIndex = newIndex;
+            draft.playlist.currentPlaylist = draft.playlist.playlists[newIndex];
+            // prettier-ignore
+            draft.playlist.currentTracks = draft.playlist.playlists[newIndex].tracks.map(
+                value => {
+                    return draft.library.find(x => x.id === value);
+                }
+            );
+            draft.playlist.playlists.splice(state.playlist.currentIndex, 1);
+        });
+    }
+    return state;
+}
+
+export async function addTrackPlaylist(
+    index: number,
+    track: number,
+    state?: AppStoreModel
+) {
+    let db = new PlaylistsDatabase('playlists');
+    await db.playlists.update(state.playlist.playlists[index].id, {
+        tracks: [...state.playlist.playlists[index].tracks, track],
+    });
+    db.close();
+
+    Notifications.addNotification(
+        'addSong',
+        `Added Song to Playlist '${state.playlist.playlists[index].name}'`,
+        true
+    );
+
+    return produce(state, draft => {
+        draft.playlist.playlists[index].tracks.push(track);
     });
 }

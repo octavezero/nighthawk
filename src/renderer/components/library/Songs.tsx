@@ -10,6 +10,8 @@ import { TrackModel } from '../../database/TracksDatabase';
 import * as TimeUtils from '../../utilities/TimeUtils';
 import { ContextMenu, ContextMenuItem } from '../elements/ContextMenu';
 import EmptyState from './EmptyState';
+import { Modal } from '../elements/Modal';
+import AddTrack from '../playlist/AddTrack';
 
 export interface SongsProps {
     store: AppStore;
@@ -17,6 +19,7 @@ export interface SongsProps {
 
 interface SongsState {
     contextParams: { x: number; y: number; index: number };
+    playlistParams: { open: boolean; songid: number };
 }
 
 export default class Songs extends React.Component<SongsProps, SongsState> {
@@ -28,6 +31,10 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
                 x: 0,
                 y: 0,
                 index: -1,
+            },
+            playlistParams: {
+                open: false,
+                songid: 0,
             },
         };
     }
@@ -89,13 +96,34 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
                     this.state.contextParams.index
                 );
                 break;
+            case 'add':
+                this.handleOpenModal(
+                    // prettier-ignore
+                    this.props.store.state.library[this.state.contextParams.index].id
+                );
         }
+    };
+
+    handleOpenModal = (id: number) => {
+        this.setState({ playlistParams: { open: true, songid: id } });
+    };
+
+    handleCloseModal = () => {
+        this.setState({ playlistParams: { open: false, songid: 0 } });
     };
 
     render() {
         const { store } = this.props;
         return (
             <div className="songs">
+                <Modal
+                    isOpen={this.state.playlistParams.open}
+                    onRequestClose={this.handleCloseModal}
+                    heading="Add Song to Playlist"
+                    body={
+                        <AddTrack trackId={this.state.playlistParams.songid} />
+                    }
+                />
                 <ContextMenu
                     x={this.state.contextParams.x}
                     y={this.state.contextParams.y}>
@@ -108,6 +136,11 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
                         data="new"
                         onClick={this.handleContextMenuItemClick}>
                         Add Track To New Queue
+                    </ContextMenuItem>
+                    <ContextMenuItem
+                        data="add"
+                        onClick={this.handleContextMenuItemClick}>
+                        Add Track To Playlist(s)
                     </ContextMenuItem>
                 </ContextMenu>
                 <AutoSizer>
