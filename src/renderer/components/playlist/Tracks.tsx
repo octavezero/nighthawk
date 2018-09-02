@@ -82,8 +82,15 @@ export default class Tracks extends React.Component<TracksProps, TracksState> {
                     this.state.contextParams.index
                 );
                 break;
+            case 'remove':
+                this.props.store.playlist.removeTrackPlaylist(
+                    this.state.contextParams.index
+                );
+                break;
         }
     };
+
+    renderContextMenu() {}
 
     render() {
         const { store } = this.props;
@@ -102,6 +109,16 @@ export default class Tracks extends React.Component<TracksProps, TracksState> {
                         onClick={this.handleContextMenuItemClick}>
                         Add Track To New Queue
                     </ContextMenuItem>
+                    {/* Render this only if playlist type is normal */}
+                    {store.state.playlist.currentPlaylist.type === 'normal' ? (
+                        <ContextMenuItem
+                            data="remove"
+                            onClick={this.handleContextMenuItemClick}>
+                            Remove Track from Playlist
+                        </ContextMenuItem>
+                    ) : (
+                        <></>
+                    )}
                 </ContextMenu>
                 <AutoSizer>
                     {({ height, width }) => (

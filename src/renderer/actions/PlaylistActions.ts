@@ -160,3 +160,35 @@ export async function addTrackPlaylist(
         draft.playlist.playlists[index].tracks.push(track);
     });
 }
+
+export async function removeTrackPlaylist(
+    index: number,
+    state?: AppStoreModel
+) {
+    let trackid = state.playlist.currentTracks[index].id;
+    let playlistIndex = state.playlist.playlists.findIndex(
+        x => x.id === state.playlist.currentPlaylist.id
+    );
+    // prettier-ignore
+    let trackIndex = state.playlist.playlists[playlistIndex].tracks.findIndex(x => x === trackid);
+
+    let db = new PlaylistsDatabase('playlists');
+    let tracks = [...state.playlist.playlists[playlistIndex].tracks];
+    tracks.splice(trackIndex, 1);
+    await db.playlists.update(state.playlist.currentPlaylist.id, {
+        tracks,
+    });
+    db.close();
+
+    Notifications.addNotification(
+        'removeSong',
+        `Removed Song from the Playlist`,
+        true
+    );
+
+    return produce(state, draft => {
+        draft.playlist.playlists[playlistIndex].tracks.splice(trackIndex, 1);
+
+        draft.playlist.currentTracks.splice(index, 1);
+    });
+}
