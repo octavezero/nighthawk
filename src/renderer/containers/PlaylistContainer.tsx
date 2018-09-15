@@ -15,12 +15,14 @@ export default class PlaylistContainer extends React.Component<
 
     render() {
         return (
-            <div className="playlist">
-                <SidePanel />
-                <AppStoreConsumer>
-                    {store => <Tracks store={store} />}
-                </AppStoreConsumer>
-            </div>
+            <AppStoreConsumer>
+                {store => (
+                    <div className="playlist">
+                        <SidePanel store={store} />
+                        <Tracks store={store} />
+                    </div>
+                )}
+            </AppStoreConsumer>
         );
     }
 }

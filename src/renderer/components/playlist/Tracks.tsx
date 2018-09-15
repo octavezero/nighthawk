@@ -9,6 +9,7 @@ import { TrackModel } from '../../database/TracksDatabase';
 import { ContextMenu, ContextMenuItem } from '../elements/ContextMenu';
 import AppStore from '../../stores/AppStore';
 import * as TimeUtils from '../../utilities/TimeUtils';
+import EmptyPlaylist from './EmptyPlaylist';
 
 interface TracksProps {
     store: AppStore;
@@ -36,7 +37,7 @@ export default class Tracks extends React.Component<TracksProps, TracksState> {
     };
 
     noRowsRenderer = () => {
-        return <h6>Empty Playlist</h6>;
+        return <EmptyPlaylist />;
     };
 
     rowClassName = ({ index }: { index: number }) => {
