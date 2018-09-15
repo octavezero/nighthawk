@@ -48,6 +48,28 @@ export async function refreshLibrary(state?: AppStoreModel) {
                     data.format.duration !== undefined
                         ? Math.floor(data.format.duration)
                         : undefined;
+
+                if (
+                    data.common.title === '' ||
+                    data.common.title === undefined
+                ) {
+                    data.common.title = path.basename(file, path.extname(file));
+                }
+
+                if (
+                    data.common.artist === '' ||
+                    data.common.artist === undefined
+                ) {
+                    data.common.artist = 'Unknown Artist';
+                }
+
+                if (
+                    data.common.album === '' ||
+                    data.common.album === undefined
+                ) {
+                    data.common.album = 'Unknown Album';
+                }
+
                 return {
                     id: index,
                     source: file,
