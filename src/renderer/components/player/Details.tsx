@@ -25,9 +25,7 @@ export default class Details extends React.Component<
     }
 
     fetchAlbumArt = async (path: string) => {
-        let model: IAudioMetadata = await parseFile(path, {
-            mergeTagHeaders: true,
-        });
+        let model: IAudioMetadata = await parseFile(path);
         let img: IPicture[] | undefined = model.common.picture;
         if (img !== undefined) {
             let imgURL = window.URL.createObjectURL(

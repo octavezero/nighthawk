@@ -1,6 +1,7 @@
 export const parseToMinutes = (seconds: number): string => {
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
+    let secondsFloor = Math.floor(seconds);
+    const min = Math.floor(secondsFloor / 60);
+    const sec = secondsFloor % 60;
 
     return String.prototype.concat(
         (min < 10 ? '0' : '') + min,

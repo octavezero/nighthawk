@@ -1,5 +1,6 @@
 import { TrackModel } from '../database/TracksDatabase';
 import orderBy from 'lodash/orderBy';
+import { DraftArray } from 'immer';
 
 /**
  * Sorting Function for a List of Tracks
@@ -10,8 +11,8 @@ import orderBy from 'lodash/orderBy';
 export function sortTracks(
     sortBy: string,
     sortDirection: 'ASC' | 'DESC',
-    library: TrackModel[]
-): TrackModel[] {
+    library: DraftArray<TrackModel>
+): DraftArray<TrackModel> {
     if (!sortBy.localeCompare('title')) {
         let tracks = library.sort((a, b) =>
             a.common.title.localeCompare(b.common.title)

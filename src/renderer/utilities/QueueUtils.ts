@@ -1,14 +1,17 @@
 import { TrackModel } from '../database/TracksDatabase';
 import { StateDatabase } from '../database/StateDatabase';
+import { DraftArray, DraftObject } from 'immer';
 
 /**
  * Fisher-Yates-shuffle for Arrays
- * @param {TrackModel[]} List
- * @returns {TrackModel[]} Shuffled List
+ * @param {DraftArray<TrackModel>} List
+ * @returns {DraftArray<TrackModel>} Shuffled List
  */
-export function shuffleList(list: TrackModel[]): TrackModel[] {
+export function shuffleList(
+    list: DraftArray<TrackModel>
+): DraftArray<TrackModel> {
     let current: number = list.length;
-    let temp: TrackModel;
+    let temp: DraftObject<TrackModel>;
     let swap: number;
 
     while (current) {

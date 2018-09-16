@@ -49,9 +49,10 @@ export async function setLibraryPath(
         // Allow the window to be hidden after dialog close
         ipcRenderer.send('SET_DIALOG_SHOW', false);
 
-        if (path === undefined) return draft;
-        draft.settings.library.path = path[0];
-        store.store = draft.settings;
+        if (path !== undefined) {
+            draft.settings.library.path = path[0];
+            store.store = draft.settings;
+        }
     });
 }
 

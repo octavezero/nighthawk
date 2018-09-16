@@ -42,12 +42,7 @@ export async function refreshLibrary(state?: AppStoreModel) {
             files.map(async (file, index) => {
                 const data: mm.IAudioMetadata = await mm.parseFile(file, {
                     skipCovers: true,
-                    mergeTagHeaders: true,
                 });
-                data.format.duration =
-                    data.format.duration !== undefined
-                        ? Math.floor(data.format.duration)
-                        : undefined;
 
                 if (
                     data.common.title === '' ||
