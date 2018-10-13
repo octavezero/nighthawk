@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import * as defaultAlbumArt from '../../../../static/vectors/defaultAlbumArt.svg';
 import AppStore from '../../stores/AppStore';
-import { IAudioMetadata, parseFile, IPicture } from 'music-metadata/lib';
+import { parseFile } from 'music-metadata/lib';
+import { IAudioMetadata, IPicture } from 'music-metadata/lib/type';
 
 export interface DetailsProps {
     store: AppStore;
@@ -29,7 +30,7 @@ export default class Details extends React.Component<
         let img: IPicture[] | undefined = model.common.picture;
         if (img !== undefined) {
             let imgURL = window.URL.createObjectURL(
-                new Blob([img[0].data], { type: 'image/' + img[0].format })
+                new Blob([img[0].data], { type: `image/${img[0].format}` })
             );
             this.setState({ albumart: imgURL });
         } else {

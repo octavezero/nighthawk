@@ -1,6 +1,8 @@
 import recursiveReaddir from 'recursive-readdir';
-import * as mm from 'music-metadata';
+import { parseFile } from 'music-metadata';
 import * as path from 'path';
+import { IAudioMetadata } from 'music-metadata/lib/type';
+
 // tslint:disable-next-line:import-name
 import produce from 'immer';
 import electronLog from 'electron-log';
@@ -40,7 +42,7 @@ export async function refreshLibrary(state?: AppStoreModel) {
         // Grab the metadata and exract the required files
         const tracks: TrackModel[] = await Promise.all(
             files.map(async (file, index) => {
-                const data: mm.IAudioMetadata = await mm.parseFile(file, {
+                const data: IAudioMetadata = await parseFile(file, {
                     skipCovers: true,
                 });
 

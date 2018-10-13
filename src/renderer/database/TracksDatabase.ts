@@ -1,6 +1,6 @@
 // tslint:disable-next-line:import-name
 import Dexie from 'dexie';
-import { IFormat, ICommonTagsResult } from 'music-metadata';
+import { IFormat, ICommonTagsResult } from 'music-metadata/lib/type';
 
 // Specifically created so that typescript behaves sorting;
 interface ExtendedCommonTagsResult extends ICommonTagsResult {
