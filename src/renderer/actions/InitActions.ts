@@ -36,11 +36,15 @@ export async function init(state?: AppStoreModel) {
 
             draft.playlist.playlists = folderPlaylists.concat(playlists);
             draft.playlist.currentPlaylist = folderPlaylists[0];
-            draft.playlist.currentTracks = folderPlaylists[0].tracks.map(
-                value => {
-                    return draft.library.find(x => x.id === value);
-                }
-            );
+            if (folderPlaylists.length === 0) {
+                draft.playlist.currentTracks = [];
+            } else {
+                draft.playlist.currentTracks = folderPlaylists[0].tracks.map(
+                    value => {
+                        return draft.library.find(x => x.id === value);
+                    }
+                );
+            }
 
             draft.player.queue = queueState.queue.map(value => {
                 return draft.library.find(x => x.id === value);
