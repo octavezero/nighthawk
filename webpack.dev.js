@@ -89,7 +89,7 @@ let rendererConfig = {
                 test: /\.(eot|ttf|woff|woff2)$/,
                 loader: 'file-loader',
                 options: {
-                    name: '[path][name].[ext]',
+                    name: '[name].[ext]',
                 },
             },
         ],
