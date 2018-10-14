@@ -68,7 +68,7 @@ export class EditableTextbox extends React.PureComponent<
         return (
             <p
                 onDoubleClick={this.handleEditableDoubleClick}
-                className={'editable-label ' + this.props.className}>
+                className={`editable-label ${this.props.className}`}>
                 {this.state.value}
             </p>
         );

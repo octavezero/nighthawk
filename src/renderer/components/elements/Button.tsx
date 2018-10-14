@@ -13,7 +13,7 @@ export class Button extends React.PureComponent<ButtonProps, any> {
         const buildClassNames: string = classNames(
             'btn',
             className,
-            'btn-' + type,
+            `btn-${type}`,
             { 'btn-icon': icon }
         );
 

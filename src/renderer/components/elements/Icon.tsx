@@ -18,8 +18,8 @@ export class Icon extends React.PureComponent<IconProps, any> {
     render() {
         const buildClassNames: string = classNames(
             'mdi',
-            'mdi-' + this.props.size + 'px',
-            'mdi-' + this.props.icon,
+            `mdi-${this.props.size}px`,
+            `mdi-${this.props.icon}`,
             this.props.className
         );
 
