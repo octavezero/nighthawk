@@ -13,11 +13,14 @@ import ReactHintFactory from 'react-hint';
 import 'react-hint/css/index.css';
 import NotificationContainer from './NotificationContainer';
 import { LayoutContextConsumer } from '../stores/LayoutContext';
+import { ActionsModel } from '../stores/AppStore';
 
 // tslint:disable-next-line:variable-name
 let ReactHint = ReactHintFactory(React);
 
-export interface ShellContainerProps {}
+export interface ShellContainerProps {
+    init: ActionsModel['init'];
+}
 
 export interface ShellContainerState {}
 
@@ -30,7 +33,7 @@ export default class ShellContainer extends React.Component<
     }
 
     componentDidMount() {
-        // All the states that require database or IO are initialized here
+        this.props.init.init();
     }
 
     render() {

@@ -51,10 +51,6 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
         return index % 2 === 0 ? 'even-row' : 'odd-row';
     };
 
-    componentDidMount() {
-        this.props.store.init.init();
-    }
-
     onRowDoubleClick = (info: RowMouseEventHandlerParams) => {
         this.props.store.player.createPlayerQueue(info.index);
     };
