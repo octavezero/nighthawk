@@ -27,7 +27,7 @@ export async function init(state?: AppStoreModel) {
 
         let folderPlaylists: PlaylistModel[];
 
-        if (state.settings.playlist.folder === true) {
+        if (state.settings.playlist.folder) {
             folderPlaylists = await playlistdb.folders.toArray();
         } else {
             folderPlaylists = [];
