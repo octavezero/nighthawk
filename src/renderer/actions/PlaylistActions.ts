@@ -124,16 +124,30 @@ export async function deletePlaylist(state?: AppStoreModel) {
         // TODO: Reset the current playlist here.
 
         return produce(state, draft => {
-            let newIndex: number = draft.playlist.currentIndex - 1;
-            draft.playlist.currentIndex = newIndex;
-            draft.playlist.currentPlaylist = draft.playlist.playlists[newIndex];
-            // prettier-ignore
-            draft.playlist.currentTracks = draft.playlist.playlists[newIndex].tracks.map(
-                value => {
-                    return draft.library.find(x => x.id === value);
-                }
-            );
-            draft.playlist.playlists.splice(state.playlist.currentIndex, 1);
+            if (draft.playlist.playlists.length === 1) {
+                draft.playlist = {
+                    currentPlaylist: {
+                        name: 'none',
+                        tracks: [],
+                        type: 'folder',
+                    },
+                    currentIndex: 0,
+                    currentTracks: [],
+                    playlists: [],
+                };
+            } else {
+                let newIndex: number = draft.playlist.currentIndex - 1;
+                draft.playlist.currentIndex = newIndex;
+                draft.playlist.currentPlaylist =
+                    draft.playlist.playlists[newIndex];
+                // prettier-ignore
+                draft.playlist.currentTracks = draft.playlist.playlists[newIndex].tracks.map(
+                    value => {
+                        return draft.library.find(x => x.id === value);
+                    }
+                );
+                draft.playlist.playlists.splice(state.playlist.currentIndex, 1);
+            }
         });
     }
     return state;

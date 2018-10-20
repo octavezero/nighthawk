@@ -8,7 +8,10 @@ import { TrackModel, TracksDatabase } from '../database/TracksDatabase';
 import { StateDatabase } from '../database/StateDatabase';
 import Player from '../libraries/Player';
 import Notifications from '../libraries/Notifications';
-import { PlaylistsDatabase } from '../database/PlaylistsDatabase';
+import {
+    PlaylistsDatabase,
+    PlaylistModel,
+} from '../database/PlaylistsDatabase';
 
 export async function init(state?: AppStoreModel) {
     const db: TracksDatabase = new TracksDatabase('library');
@@ -22,7 +25,14 @@ export async function init(state?: AppStoreModel) {
         let queueState = await statedb.queue.get(1);
         statedb.close();
 
-        let folderPlaylists = await playlistdb.folders.toArray();
+        let folderPlaylists: PlaylistModel[];
+
+        if (state.settings.playlist.folder === true) {
+            folderPlaylists = await playlistdb.folders.toArray();
+        } else {
+            folderPlaylists = [];
+        }
+
         let playlists = await playlistdb.playlists.toArray();
         playlistdb.close();
 
@@ -35,11 +45,9 @@ export async function init(state?: AppStoreModel) {
             );
 
             draft.playlist.playlists = folderPlaylists.concat(playlists);
-            draft.playlist.currentPlaylist = folderPlaylists[0];
-            if (folderPlaylists.length === 0) {
-                draft.playlist.currentTracks = [];
-            } else {
-                draft.playlist.currentTracks = folderPlaylists[0].tracks.map(
+            if (draft.playlist.playlists.length > 0) {
+                draft.playlist.currentPlaylist = draft.playlist.playlists[0];
+                draft.playlist.currentTracks = draft.playlist.playlists[0].tracks.map(
                     value => {
                         return draft.library.find(x => x.id === value);
                     }
