@@ -9,6 +9,7 @@ import * as SearchActions from '../actions/SearchActions';
 import * as PlaylistActions from '../actions/PlaylistActions';
 import AppStore, { ActionsModel } from './AppStore';
 import Player from '../libraries/Player';
+import { webFrame } from 'electron';
 
 const defaultValue: AppStore = {
     state: {
@@ -49,6 +50,7 @@ export class AppStoreProvider extends React.Component<any, AppStoreModel> {
         this.state = defaultValue.state;
         Player.player.muted = defaultValue.state.settings.player.mute;
         Player.setVolume(defaultValue.state.settings.player.volume);
+        webFrame.setZoomFactor(defaultValue.state.settings.system.zoomFactor);
 
         this.actions = {
             init: null,

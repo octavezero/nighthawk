@@ -22,6 +22,7 @@ export function getSettings(): SettingsStoreModel {
             },
             system: {
                 unobtrusive: true,
+                zoomFactor: 1.0,
             },
             playlist: {
                 folder: true,
@@ -143,6 +144,19 @@ export async function setFolderPlaylistMode(
             name: 'settings',
         });
         draft.settings.playlist.folder = value;
+        store.store = draft.settings;
+    });
+}
+
+export async function setZoomFactor(
+    value: number,
+    state?: AppStoreModel
+): Promise<AppStoreModel> {
+    return produce<AppStoreModel>(state, draft => {
+        const store = new electronStore<SettingsStoreModel>({
+            name: 'settings',
+        });
+        draft.settings.system.zoomFactor = value;
         store.store = draft.settings;
     });
 }

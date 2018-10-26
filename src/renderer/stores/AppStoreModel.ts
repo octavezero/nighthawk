@@ -37,6 +37,7 @@ export interface SettingsStoreModel {
     };
     system: {
         unobtrusive: boolean;
+        zoomFactor: number;
     };
     playlist: {
         folder: boolean;

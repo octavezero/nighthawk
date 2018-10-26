@@ -24,3 +24,13 @@
     background: var(--accent-base-color);
     color: var(--text-accent-color);
 }
+
+.settings-zoom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .textbox {
+        flex: 1;
+    }
+}
