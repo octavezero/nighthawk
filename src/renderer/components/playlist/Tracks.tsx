@@ -145,7 +145,9 @@ export default class Tracks extends React.Component<TracksProps, TracksState> {
                             <Column
                                 label="Name"
                                 dataKey="title"
-                                width={(width - 20) * (31 / 100)}
+                                width={100}
+                                flexGrow={2}
+                                minWidth={100}
                                 cellDataGetter={({
                                     rowData,
                                 }: {
@@ -155,7 +157,9 @@ export default class Tracks extends React.Component<TracksProps, TracksState> {
                             <Column
                                 label="Artist"
                                 dataKey="artist"
-                                width={(width - 20) * (31 / 100)}
+                                width={100}
+                                flexGrow={2}
+                                minWidth={100}
                                 cellDataGetter={({
                                     rowData,
                                 }: {
@@ -165,7 +169,9 @@ export default class Tracks extends React.Component<TracksProps, TracksState> {
                             <Column
                                 label="Album"
                                 dataKey="album"
-                                width={(width - 20) * (31 / 100)}
+                                width={100}
+                                flexGrow={2}
+                                minWidth={100}
                                 cellDataGetter={({
                                     rowData,
                                 }: {
@@ -176,7 +182,8 @@ export default class Tracks extends React.Component<TracksProps, TracksState> {
                                 label="Duration"
                                 dataKey="duration"
                                 disableSort={true}
-                                width={(width - 20) * (7 / 100)}
+                                width={125}
+                                minWidth={125}
                                 cellDataGetter={({
                                     rowData,
                                 }: {
