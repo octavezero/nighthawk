@@ -1,6 +1,10 @@
 import recursiveReaddir from 'recursive-readdir';
 import { parseFile } from 'music-metadata';
 import * as path from 'path';
+import * as fs from 'fs';
+import { promisify } from 'util';
+const fstat = promisify(fs.stat);
+
 import { IAudioMetadata } from 'music-metadata/lib/type';
 
 // tslint:disable-next-line:import-name
@@ -46,6 +50,8 @@ export async function refreshLibrary(state?: AppStoreModel) {
                     skipCovers: true,
                 });
 
+                const filestats: fs.Stats = await fstat(file);
+
                 if (
                     data.common.title === '' ||
                     data.common.title === undefined
@@ -72,6 +78,7 @@ export async function refreshLibrary(state?: AppStoreModel) {
                     source: file,
                     common: data.common,
                     format: data.format,
+                    stats: filestats,
                 };
             })
         );
