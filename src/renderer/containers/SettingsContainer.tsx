@@ -5,11 +5,13 @@ import System from '../components/settings/System';
 import AppStore from '../stores/AppStore';
 import { AppStoreConsumer } from '../stores/AppContext';
 import Playlist from '../components/settings/Playlist';
+import Columns from '../components/settings/Columns';
 
 enum TabItemsOrder {
     Library,
     Playlist,
     System,
+    Columns,
 }
 
 export interface SettingsContainerProps {}
@@ -59,6 +61,14 @@ export default class SettingsContainer extends React.Component<
                     </AppStoreConsumer>
                 );
             }
+
+            case TabItemsOrder.Columns: {
+                return (
+                    <AppStoreConsumer>
+                        {store => <Columns store={store as AppStore} />}
+                    </AppStoreConsumer>
+                );
+            }
         }
     }
 
@@ -69,6 +79,7 @@ export default class SettingsContainer extends React.Component<
                     <span>Library</span>
                     <span>Playlists</span>
                     <span>System</span>
+                    <span>Columns</span>
                 </TabBar>
                 {this.renderActiveTabItem()}
             </>

@@ -29,6 +29,9 @@ export interface SettingsStoreModel {
         sortBy: string;
         sortDirection: 'ASC' | 'DESC';
     };
+    columns: {
+        columns: [string, boolean][];
+    };
     player: {
         shuffle: boolean;
         repeat: boolean;

@@ -1,6 +1,6 @@
 import electronStore from 'electron-store';
 // tslint:disable-next-line:import-name
-import produce from 'immer';
+import produce, { DraftArray } from 'immer';
 import { SettingsStoreModel, AppStoreModel } from '../stores/AppStoreModel';
 import { remote, ipcRenderer } from 'electron';
 const { dialog } = remote;
@@ -20,6 +20,19 @@ export function getSettings(): SettingsStoreModel {
                 volume: 1.0,
                 mute: false,
             },
+            columns: {
+                columns: [
+                    ['Title', true],
+                    ['Artist', true],
+                    ['Album', true],
+                    ['Album Artist', false],
+                    ['Duration', true],
+                    ['Genre', false],
+                    ['Bitrate', false],
+                    ['Added At', false],
+                    ['Modified At', false],
+                ],
+            },
             system: {
                 unobtrusive: true,
                 zoomFactor: 1.0,
@@ -29,6 +42,7 @@ export function getSettings(): SettingsStoreModel {
             },
         },
     });
+
     return store.store;
 }
 
@@ -52,7 +66,7 @@ export async function setLibraryPath(
 
         if (path !== undefined) {
             draft.settings.library.path = path[0];
-            store.store = draft.settings;
+            store.store = <SettingsStoreModel>draft.settings;
         }
     });
 }
@@ -65,7 +79,7 @@ export async function setShuffleMode(
             name: 'settings',
         });
         draft.settings.player.shuffle = !draft.settings.player.shuffle;
-        store.store = draft.settings;
+        store.store = <SettingsStoreModel>draft.settings;
     });
 }
 
@@ -77,7 +91,7 @@ export async function setRepeatMode(
             name: 'settings',
         });
         draft.settings.player.repeat = !draft.settings.player.repeat;
-        store.store = draft.settings;
+        store.store = <SettingsStoreModel>draft.settings;
     });
 }
 
@@ -92,7 +106,7 @@ export async function setLibrarySort(
         });
         draft.settings.library.sortBy = sortBy;
         draft.settings.library.sortDirection = sortDirection;
-        store.store = draft.settings;
+        store.store = <SettingsStoreModel>draft.settings;
     });
 }
 
@@ -105,7 +119,7 @@ export async function setVolume(
             name: 'settings',
         });
         draft.settings.player.volume = volume;
-        store.store = draft.settings;
+        store.store = <SettingsStoreModel>draft.settings;
     });
 }
 
@@ -118,7 +132,7 @@ export async function setMute(
             name: 'settings',
         });
         draft.settings.player.mute = value;
-        store.store = draft.settings;
+        store.store = <SettingsStoreModel>draft.settings;
     });
 }
 
@@ -131,7 +145,7 @@ export async function setUnobtrusiveMode(
             name: 'settings',
         });
         draft.settings.system.unobtrusive = value;
-        store.store = draft.settings;
+        store.store = <SettingsStoreModel>draft.settings;
     });
 }
 
@@ -144,7 +158,7 @@ export async function setFolderPlaylistMode(
             name: 'settings',
         });
         draft.settings.playlist.folder = value;
-        store.store = draft.settings;
+        store.store = <SettingsStoreModel>draft.settings;
     });
 }
 
@@ -157,6 +171,21 @@ export async function setZoomFactor(
             name: 'settings',
         });
         draft.settings.system.zoomFactor = value;
-        store.store = draft.settings;
+        store.store = <SettingsStoreModel>draft.settings;
+    });
+}
+
+export async function setColumns(
+    value: Map<String, Boolean>,
+    state?: AppStoreModel
+): Promise<AppStoreModel> {
+    return produce<AppStoreModel>(state, draft => {
+        const store = new electronStore<SettingsStoreModel>({
+            name: 'settings',
+        });
+        draft.settings.columns.columns = <DraftArray<[string, boolean]>>(
+            (<unknown>Array.from(value))
+        );
+        store.store = <SettingsStoreModel>draft.settings;
     });
 }
