@@ -37,4 +37,11 @@
 
 .columns-settings {
     padding: var(--spacing-vertical) var(--spacing-horizontal);
+
+    display: grid;
+    grid-auto-flow: row;
+
+    grid-template-columns: 50% 50%;
+
+    justify-items: stretch;
 }
