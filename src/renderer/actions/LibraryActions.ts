@@ -39,6 +39,8 @@ export async function refreshLibrary(state?: AppStoreModel) {
                 path.extname(file) === '.wma' ||
                 path.extname(file) === '.ogg' ||
                 path.extname(file) === '.wav' ||
+                path.extname(file) === '.m4a' ||
+                path.extname(file) === '.aac' ||
                 path.extname(file) === '.flac'
             );
         });
