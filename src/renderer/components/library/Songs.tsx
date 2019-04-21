@@ -13,6 +13,8 @@ import EmptyState from './EmptyState';
 import { Modal } from '../elements/Modal';
 import AddTrack from '../playlist/AddTrack';
 
+import * as Moment from 'moment';
+
 export interface SongsProps {
     store: AppStore;
 }
@@ -185,6 +187,46 @@ export default class Songs extends React.Component<SongsProps, SongsState> {
                                                                       .duration
                                                                 : 0
                                                         )
+                                                    }
+                                                />
+                                            );
+                                        }
+                                        if (column[0] === 'Added At') {
+                                            return (
+                                                <Column
+                                                    key={index}
+                                                    label={column[0]}
+                                                    dataKey={column[0].toLowerCase()}
+                                                    width={125}
+                                                    minWidth={125}
+                                                    cellDataGetter={({
+                                                        rowData,
+                                                    }: {
+                                                        rowData: TrackModel;
+                                                    }) =>
+                                                        Moment(
+                                                            rowData.stats.ctime
+                                                        ).format('DD-MM-YYYY')
+                                                    }
+                                                />
+                                            );
+                                        }
+                                        if (column[0] === 'Modified At') {
+                                            return (
+                                                <Column
+                                                    key={index}
+                                                    label={column[0]}
+                                                    dataKey={column[0].toLowerCase()}
+                                                    width={125}
+                                                    minWidth={125}
+                                                    cellDataGetter={({
+                                                        rowData,
+                                                    }: {
+                                                        rowData: TrackModel;
+                                                    }) =>
+                                                        Moment(
+                                                            rowData.stats.mtime
+                                                        ).format('DD-MM-YYYY')
                                                     }
                                                 />
                                             );

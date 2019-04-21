@@ -11,6 +11,8 @@ import AppStore from '../../stores/AppStore';
 import * as TimeUtils from '../../utilities/TimeUtils';
 import EmptyPlaylist from './EmptyPlaylist';
 
+import * as Moment from 'moment';
+
 interface TracksProps {
     store: AppStore;
 }
@@ -142,60 +144,97 @@ export default class Tracks extends React.Component<TracksProps, TracksState> {
                                     .sortDirection
                             }
                             width={width}>
-                            <Column
-                                label="Name"
-                                dataKey="title"
-                                width={100}
-                                flexGrow={2}
-                                minWidth={100}
-                                cellDataGetter={({
-                                    rowData,
-                                }: {
-                                    rowData: TrackModel;
-                                }) => rowData.common.title}
-                            />
-                            <Column
-                                label="Artist"
-                                dataKey="artist"
-                                width={100}
-                                flexGrow={2}
-                                minWidth={100}
-                                cellDataGetter={({
-                                    rowData,
-                                }: {
-                                    rowData: TrackModel;
-                                }) => rowData.common.artist}
-                            />
-                            <Column
-                                label="Album"
-                                dataKey="album"
-                                width={100}
-                                flexGrow={2}
-                                minWidth={100}
-                                cellDataGetter={({
-                                    rowData,
-                                }: {
-                                    rowData: TrackModel;
-                                }) => rowData.common.album}
-                            />
-                            <Column
-                                label="Duration"
-                                dataKey="duration"
-                                disableSort={true}
-                                width={125}
-                                minWidth={125}
-                                cellDataGetter={({
-                                    rowData,
-                                }: {
-                                    rowData: TrackModel;
-                                }) =>
-                                    TimeUtils.parseToMinutes(
-                                        rowData.format.duration !== undefined
-                                            ? rowData.format.duration
-                                            : 0
-                                    )
+                            {store.state.settings.columns.columns.map(
+                                (column, index) => {
+                                    if (column[1]) {
+                                        if (column[0] === 'Duration') {
+                                            return (
+                                                <Column
+                                                    key={index}
+                                                    label="Duration"
+                                                    dataKey="duration"
+                                                    disableSort={true}
+                                                    width={125}
+                                                    minWidth={125}
+                                                    cellDataGetter={({
+                                                        rowData,
+                                                    }: {
+                                                        rowData: TrackModel;
+                                                    }) =>
+                                                        TimeUtils.parseToMinutes(
+                                                            rowData.format
+                                                                .duration !==
+                                                            undefined
+                                                                ? rowData.format
+                                                                      .duration
+                                                                : 0
+                                                        )
+                                                    }
+                                                />
+                                            );
+                                        }
+                                        if (column[0] === 'Added At') {
+                                            return (
+                                                <Column
+                                                    key={index}
+                                                    label={column[0]}
+                                                    dataKey={column[0].toLowerCase()}
+                                                    width={125}
+                                                    minWidth={125}
+                                                    cellDataGetter={({
+                                                        rowData,
+                                                    }: {
+                                                        rowData: TrackModel;
+                                                    }) =>
+                                                        Moment(
+                                                            rowData.stats.ctime
+                                                        ).format('DD-MM-YYYY')
+                                                    }
+                                                />
+                                            );
+                                        }
+                                        if (column[0] === 'Modified At') {
+                                            return (
+                                                <Column
+                                                    key={index}
+                                                    label={column[0]}
+                                                    dataKey={column[0].toLowerCase()}
+                                                    width={125}
+                                                    minWidth={125}
+                                                    cellDataGetter={({
+                                                        rowData,
+                                                    }: {
+                                                        rowData: TrackModel;
+                                                    }) =>
+                                                        Moment(
+                                                            rowData.stats.mtime
+                                                        ).format('DD-MM-YYYY')
+                                                    }
+                                                />
+                                            );
+                                        }
+                                        return (
+                                            <Column
+                                                key={index}
+                                                label={column[0]}
+                                                dataKey={column[0].toLowerCase()}
+                                                width={100}
+                                                flexGrow={2}
+                                                minWidth={100}
+                                                cellDataGetter={({
+                                                    rowData,
+                                                }: {
+                                                    rowData: TrackModel;
+                                                }) =>
+                                                    rowData.common[
+                                                        column[0].toLowerCase()
+                                                    ]
+                                                }
+                                            />
+                                        );
+                                    }
                                 }
-                            />
+                            )}
                         </Table>
                     )}
                 </AutoSizer>
