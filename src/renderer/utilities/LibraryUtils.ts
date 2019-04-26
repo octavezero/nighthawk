@@ -23,8 +23,8 @@ export function sortTracks(
         return tracks;
         // tslint:disable-next-line:no-else-after-return
     } else if (
-        sortBy.localeCompare('Added At') ||
-        sortBy.localeCompare('Modified At')
+        !sortBy.localeCompare('Added At') ||
+        !sortBy.localeCompare('Modified At')
     ) {
         let tracks = (orderBy(
             library,
