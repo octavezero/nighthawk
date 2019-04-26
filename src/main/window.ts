@@ -41,6 +41,9 @@ export default function createMainWindow() {
         minWidth: 992,
         height: mainWindowState.height,
         width: mainWindowState.width,
+        webPreferences: {
+            nodeIntegration: true,
+        },
     });
 
     // and load the index.html of the app.
