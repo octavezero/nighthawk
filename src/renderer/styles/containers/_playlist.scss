@@ -6,6 +6,7 @@
     .details {
         background: #ffffff;
         width: 200px;
+        height: 100%;
         border-right: var(--border-width) var(--border-style)
             var(--border-color);
 
@@ -14,7 +15,7 @@
 
         .list {
             flex: 1;
-
+            overflow: auto;
             display: flex;
             flex-direction: column;
 
