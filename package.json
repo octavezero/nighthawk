@@ -111,7 +111,7 @@
     "electron-log": "^3.0.5",
     "electron-store": "^2.0.0",
     "immer": "^1.6.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "music-metadata": "3.5.4",
     "react": "^16.8.6",
