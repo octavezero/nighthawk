@@ -2676,10 +2676,10 @@ ignore-walk@^3.0.1:
   dependencies:
     minimatch "^3.0.4"
 
-immer@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-1.6.0.tgz#4e41801272d64bff12d4b58ada0276bb2f4ead81"
-  integrity sha512-DxsP1sFSI85TQpNwBAH4m485FFPPtLc0rJyrWuLxSk97W6/BSnvZ0mksaw6p35KwhNNKXZ7WT2gU6I6FiWG+Eg==
+immer@^9.0.6:
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.6.tgz#7a96bf2674d06c8143e327cbf73539388ddf1a73"
+  integrity sha512-G95ivKpy+EvVAnAab4fVa4YGYn24J1SpEktnJX7JJ45Bd7xqME/SCplFzYFmTbrkwZbQ4xJK1xMTUYBkN6pWsQ==
 
 import-lazy@^2.1.0:
   version "2.1.0"
