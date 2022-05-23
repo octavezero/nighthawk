@@ -106,7 +106,7 @@
   "dependencies": {
     "@mdi/font": "^3.6.95",
     "classnames": "^2.2.6",
-    "dexie": "^3.0.0-alpha.3",
+    "dexie": "^3.2.2",
     "electron-is-dev": "^1.1.0",
     "electron-log": "^3.0.5",
     "electron-store": "^2.0.0",
